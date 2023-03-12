@@ -1,0 +1,38 @@
+const color = [
+    'coral',
+    'darkgreen',
+    'chocolate',
+    'darkgreen',
+    'black',
+    'darkblue',
+    'darkcyan',
+    'darkgoldenrod',
+    'darkgrey',
+    'darkkhaki',
+    'darkmagenta',
+    'darkolivegreen',
+    'darkorange',
+    'darkred',
+    'darksalmon',
+    'darkseagreen',
+    'darkslateblue',
+    'darkslategray',
+    'darkviolet',
+    'blue',
+    'cyan',
+    'goldenrod',
+    'grey',
+    'khaki',
+    'magenta',
+    'olive',
+    'orange',
+    'red',
+    'salmon',
+    'seagreen',
+    'slateblue',
+    'slategray',
+    'violet'
+]
+export const generateColor = () => {
+    return color[Math.floor(Math.random()*color.length)];
+}
