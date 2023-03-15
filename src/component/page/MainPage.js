@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "firebaseui";
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ChatRoom from "../ChatRoom";
 import { useNavigate } from 'react-router-dom';
@@ -30,6 +30,18 @@ const Button = styled.button`
   min-width : 9.8vw;
 `
 
+const UnivIdInput = styled.input`
+ min-width: 10vw;
+`
+
+const DomainSelect = styled.select`
+ min-width: 5vw;
+`
+
+const EmailArea = styled.div`
+  display: flex;
+`
+
 // function makeSnow() {
 //   const snow = document.createElement("div");
 //   const size = Math.random() * 4.5 + 3.5;
@@ -47,6 +59,8 @@ export const MainPage = (props) => {
   const [userData, setUserData] = useState({
     email: '',
     password: '',
+    univId: '',
+    domain: '',
     school: '홍익대학교',
   })
   const navigate = useNavigate();
@@ -91,14 +105,14 @@ export const MainPage = (props) => {
           <ChatRoom initUserData={userData} />
           :
           <LoginArea>
-            <input type='text' className='input-email' name='email' placeholder='이메일' value={userData.email} onChange={handleValue} />
+            <EmailArea>
+              <UnivIdInput type='text' className='input-univId' name='univId' placeholder='이메일' value={userData.univId} onChange={handleValue} />
+              <DomainSelect className='select-domain' name='domain' placeholder='도메인 선택' value={userData.domain} onChange={handleValue} >
+                <option>@gmail.com</option>
+                <option>@g.hongik.ac.kr</option>
+              </DomainSelect>
+            </EmailArea>
             <input type='text' className='input-password' name='password' placeholder='비밀번호' value={userData.password} onChange={handleValue} />
-            {/* <SchoolSelect className='select-school' name='school' placeholder='학교' value={userData.school} onChange={handleValue} >
-              <option>홍익대학교</option>
-              <option>연세대학교</option>
-              <option>서강대학교</option>
-              <option>이화여자대학교</option>
-            </SchoolSelect> */}
             <LoginAndSignUpBox>
               <Button type='button' className='signin-button' onClick={signIn}> 로그인 </Button>
               <Button type='button' className='signup-button' onClick={signUp}> 회원가입 </Button>
