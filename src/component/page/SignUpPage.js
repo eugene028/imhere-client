@@ -134,7 +134,7 @@ export const SignUpPage = () => {
               <UnivIdInput type='text' className='input-univId' name='univId' placeholder='이메일' value={signUpInputData.univId} onChange={handleValue} />
               <DomainSelect className='select-domain' name='domain' placeholder='도메인 선택' value={signUpInputData.domain} onChange={handleValue} >
                 <option>@gmail.com</option>
-                <option>@g.hongik.ac.kr</option>
+                {/* <option>@g.hongik.ac.kr</option> */}
               </DomainSelect>
             </EmailArea>
 
