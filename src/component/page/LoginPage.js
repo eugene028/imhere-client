@@ -6,6 +6,7 @@ import styled from "styled-components";
 import ChatRoom from "../ChatRoom";
 import { useNavigate } from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
+import { requestSignIn } from "../../api";
 
 const LoginArea = styled.div`
   display: flex;
@@ -41,20 +42,7 @@ const DomainSelect = styled.select`
 const EmailArea = styled.div`
   display: flex;
 `
-
-// function makeSnow() {
-//   const snow = document.createElement("div");
-//   const size = Math.random() * 4.5 + 3.5;
-//   snow.className = "snow";
-//   snow.style.width = size + "px";
-//   snow.style.height = size + "px";
-//   snow.style.left = Math.random() * window.innerWidth + "px";
-//   snow.style.animationDuration = Math.random() * 3 + 2 + "s";
-//   document.body.appendChild(snow);
-//   setTimeout(() => snow.remove(), 5000);
-// }
-
-export const MainPage = (props) => {
+export const LoginPage = (props) => {
   const [isSignIn, setSignIn] = useState(false);
   const [userData, setUserData] = useState({
     email: '',
@@ -80,22 +68,30 @@ export const MainPage = (props) => {
   }
 
   const signIn = () => {
-    const { email, password } = userData;
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        setUserData({
-          email: user.email,
-          school: user.displayName,
-        })
-        setSignIn(true);
-        console.log(userData.school);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+    const { univId, password } = userData;
+    if (!univId || !password) {
+      console.log("null")
+      return null;
+    }
+    requestSignIn(univId, password)
+      .then(response => {
+        console.log(response);
       });
+    // signInWithEmailAndPassword(auth, email, password)
+    //   .then((userCredential) => {
+    //     const user = userCredential.user;
+    //     console.log(user);
+    //     setUserData({
+    //       email: user.email,
+    //       school: user.displayName,
+    //     })
+    //     setSignIn(true);
+    //     console.log(userData.school);
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //   });
   }
 
   return (

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import * as ROUTES from "./constants/routes";
 import './App.css';
-import { MainPage } from "./component/page/MainPage";
+import { LoginPage } from "./component/page/LoginPage";
 import { SignUpPage } from "./component/page/SignUpPage";
 
 
@@ -29,7 +29,7 @@ const App = () => {
     <>
       <Router>
         <Routes>
-          <Route path={ROUTES.HOME} element={<MainPage />} />
+          <Route path={ROUTES.HOME} element={<LoginPage />} />
           <Route path={ROUTES.SIGN_UP} element={<SignUpPage />} />
 
         </Routes>

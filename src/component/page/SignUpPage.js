@@ -108,10 +108,10 @@ export const SignUpPage = () => {
     verifyValidateNumber(email, validateCode)
       .then(response => {
         if (response === true) {
-          signUpNewMember(email, name, password)
+          // univID로 들어감에 유의
+          signUpNewMember(univId, name, password)
             .then(() => {
-              // TODO: 리다이렉션
-              alert('회원가입 추카포카여');
+              alert('회원가입 해주셔서 감사합니다. 로그인 해주세요');
               navigate(ROUTES.HOME);
             })
             .catch(() => {
