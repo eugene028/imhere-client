@@ -1,3 +1,8 @@
+import * as ROUTES from "../constants/routes";
+import {useNavigate} from "react-router-dom";
+
+const navigate = useNavigate();
+
 export const getAccessToken = () => {
     const token = localStorage.getItem('accessToken');
     if (!token.expirationTime || token.expirationTime > new Date()) {
@@ -31,5 +36,27 @@ const parseToken = (token) => {
     console.log("univId : " + univId);
     console.log("role : " + role);
     console.log("expirationTime : " + expirationTime);
-    return { univId, role, expirationTime };
+    return {univId, role, expirationTime};
 };
+
+export const validateUserAuth = () => {
+    const accessToken = getAccessToken();
+    if (!accessToken) {
+        alert('로그인 하세요');
+        navigate(ROUTES.LOGIN);
+    }
+}
+
+export const checkUserHasRole = (roles) => {
+    const accessToken = getAccessToken();
+
+    if (!accessToken) {
+        alert('로그인 하세요');
+        navigate(ROUTES.LOGIN);
+    }
+
+    if (roles !== null && !roles.includes(accessToken.role)) {
+        alert('권한이 없습니다.');
+        navigate(ROUTES.MAIN_PAGE);
+    }
+}
