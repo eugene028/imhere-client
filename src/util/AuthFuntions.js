@@ -1,19 +1,24 @@
-export const setAccessToken = (accessToken) => {
-    localStorage.setItem('accessToken', accessToken);
-}
-
 export const getAccessToken = () => {
-    return localStorage.getItem('accessToken');
+    const token = localStorage.getItem('accessToken');
+    if (!token.expirationTime || token.expirationTime > new Date()) {
+        return null;
+    }
+    return token;
 }
 
-export const parseJWT = (token) => {
+export const setAccessToken = (accessToken) => {
+    const parsedToken = parseToken(accessToken);
+    localStorage.setItem('accessToken', parsedToken);
+}
+
+const parseToken = (token) => {
     if (!token.startsWith('Token ')) {
-        throw new Error('저희 서버 토큰이 아닙니다.');
+        throw new Error('Token Error');
     }
 
     const tokenBody = token.slice('Token '.length).split('.');
     if (tokenBody.length !== 3) {
-        throw new Error('잘못된 토큰입니다.');
+        throw new Error('Token Error');
     }
 
     const [, payloadBase64] = tokenBody;
@@ -21,10 +26,10 @@ export const parseJWT = (token) => {
 
     const univId = parseResult.sub;
     const role = parseResult.role;
-    const expirationTime = new Date(parseResult.exp * 1000);
+    const expirationTime = new Date(parseResult.exp * 1000).getTime();
 
     console.log("univId : " + univId);
     console.log("role : " + role);
     console.log("expirationTime : " + expirationTime);
-    return {user: univId, role, expirationTime};
+    return { univId, role, expirationTime };
 };
