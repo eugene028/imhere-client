@@ -4,6 +4,7 @@ import * as ROUTES from "./constants/routes";
 import './App.css';
 import { LoginPage } from "./component/page/LoginPage";
 import { SignUpPage } from "./component/page/SignUpPage";
+import { MainPage } from "./component/page/MainPage";
 
 
 function makeSnow() {
@@ -29,8 +30,9 @@ const App = () => {
     <>
       <Router>
         <Routes>
-          <Route path={ROUTES.HOME} element={<LoginPage />} />
+          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
           <Route path={ROUTES.SIGN_UP} element={<SignUpPage />} />
+          <Route path={ROUTES.MAIN_PAGE} element={<MainPage />} />
 
         </Routes>
       </Router>

@@ -1,5 +1,5 @@
-export const HOME = "/";
-export const MAIN = "/main";
+export const LOGIN = "/";
+export const MAIN_PAGE = "/main";
 
 export const SIGN_UP = "/signup";
 // export const EMAIL_VALIDATE_PAGE = "/email-validate";

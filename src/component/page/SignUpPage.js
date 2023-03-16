@@ -112,7 +112,7 @@ export const SignUpPage = () => {
           signUpNewMember(univId, name, password)
             .then(() => {
               alert('회원가입 해주셔서 감사합니다. 로그인 해주세요');
-              navigate(ROUTES.HOME);
+              navigate(ROUTES.LOGIN);
             })
             .catch(() => {
               alert(`에러 발생! 관리자에게 문의하세요!`)

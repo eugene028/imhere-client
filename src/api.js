@@ -68,10 +68,12 @@ export const requestSignIn = async (univId, password) => {
 
   return await axios.post(`${protocol}://${host}/login`, payload, { headers: headers })
     .then(response => {
-      console.log('signIn : ' + response.statusText);
       console.log('token : ' + response.headers['authorization']);
-
-      return response;
+      if (response && response.headers['authorization']) {
+        console.log("login success");
+        return response.headers['authorization'];
+      }
+      return null;
     }).catch(error => {
       alert('올바른 id와 비밀번호를 입력해주세요')
     });
