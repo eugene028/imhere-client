@@ -72,6 +72,14 @@ export const getToken = () => {
     return localStorage.getItem('accessToken');
 }
 
+export const getHeadersWithToken = () => {
+    if(!checkTokenExpirationTime()) {
+        return null;
+    }
+    const accessToken = localStorage.getItem('accessToken');
+    return { Authorization: `${accessToken}` };
+}
+
 const parseToken = (token) => {
     if (!token.startsWith('Token ')) {
         throw new Error('Token Error');

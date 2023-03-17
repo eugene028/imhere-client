@@ -1,4 +1,5 @@
 import axios from "axios";
+import {getHeadersWithToken, getToken} from "./util/AuthFunctions";
 
 const protocol = `http`
 const host = `localhost:8080`
@@ -77,4 +78,63 @@ export const requestSignIn = async (univId, password) => {
     }).catch(error => {
       alert('올바른 id와 비밀번호를 입력해주세요')
     });
-} 
+}
+
+
+// lecturer
+// <Button type='button' className='own-lecture-button'> 내가 만든 강의 불러오기 </Button>
+// <Button type='button' className='enrollment-approve-button'> 수강 학생 승인하기 </Button>
+// <Button type='button' className='lecture-create-button'> 새 강의 만들기 </Button>
+
+export const getStudentsLectures = async () => {
+    const headers = getHeadersWithToken();
+
+    return await axios.get(`${protocol}://${host}/api/v1/students/lectures`, { headers })
+        .then(response => {
+            console.log(response.data)
+            if (response && response.data) {
+                return response.data
+            }
+            return null;
+        })
+        .catch(error => {
+            console.log(error);
+            return null;
+        })
+}
+
+export const getAllStudentsLectures = async () => {
+    const headers = getHeadersWithToken();
+
+    return await axios.get(`${protocol}://${host}/api/v1/students/all-lectures`, { headers })
+        .then(response => {
+            console.log(response.data)
+            if (response && response.data) {
+                return response.data
+            }
+
+            return null;
+        })
+        .catch(error => {
+            console.log(error);
+            return null;
+        })
+}
+
+export const getLecturersLectures = async () => {
+    const headers = getHeadersWithToken();
+
+    return await axios.get(`${protocol}://${host}/api/v1/lectures`, { headers })
+        .then(response => {
+            console.log(response.data)
+            if (response && response.data) {
+                return response.data
+            }
+
+            return null;
+        })
+        .catch(error => {
+            console.log(error);
+            return null;
+        })
+}
