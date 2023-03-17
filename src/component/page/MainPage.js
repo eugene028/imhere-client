@@ -26,8 +26,11 @@ export const MainPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!checkAndGetUserRole()) {
+        const role = checkAndGetUserRole();
+        if (!role) {
             navigate(ROUTES.LOGIN);
+        } else {
+            setRole(role);
         }
     }, []);
 

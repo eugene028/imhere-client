@@ -49,6 +49,21 @@ export const checkUserHasRole = (roles) => {
     return true;
 }
 
+export const checkAndGetUserRole = (roles) => {
+    if (!checkTokenExpirationTime()) {
+        return null;
+    }
+
+    const role = localStorage.getItem('role');
+
+    if (roles && !roles.includes(role)) {
+        alert('잘못된 접근입니다.');
+        return null;
+    }
+
+    return role;
+}
+
 export const getToken = () => {
     if(!checkTokenExpirationTime()) {
         return null;
