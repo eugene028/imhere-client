@@ -1,7 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React, {useContext, useEffect} from "react";
+import {useState} from "react";
 import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {AuthContext, checkUserHasRole, validateUserAuth} from "../../util/AuthFunctions";
+import * as ROUTES from "../../constants/routes";
 
 const LoginAndSignUpBox = styled.div`
   display: flex;
@@ -14,27 +16,32 @@ const LoginAndSignUpBox = styled.div`
 
 const Button = styled.button`
   font-size: 10px;
-  min-width : 9.8vw;
+  min-width: 9.8vw;
 `
 
 export const MainPage = () => {
-  const [isSignIn, setSignIn] = useState(false);
-  const [userData, setUserData] = useState({
-    email: '',
-    password: '',
-    univId: '',
-    domain: '',
-    school: '홍익대학교',
-  })
-  const navigate = useNavigate();
+    const [isSignIn, setSignIn] = useState(false);
+    const [userData, setUserData] = useState({
+        email: '',
+        password: '',
+        univId: '',
+        domain: '',
+        school: '홍익대학교',
+    })
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!checkUserHasRole()) {
+            navigate(ROUTES.LOGIN);
+        }
+    }, []);
 
-  return (
-    <>
-      <LoginAndSignUpBox>
-        <Button type='button' className='signin-button'> 내 강의 불러오기 </Button>
-        <Button type='button' className='signup-button'> 출석하기 </Button>
-      </LoginAndSignUpBox>
-    </>
-  )
+    return (
+        <>
+            <LoginAndSignUpBox>
+                <Button type='button' className='signin-button'> 내 강의 불러오기 </Button>
+                <Button type='button' className='signup-button'> 출석하기 </Button>
+            </LoginAndSignUpBox>
+        </>
+    )
 }

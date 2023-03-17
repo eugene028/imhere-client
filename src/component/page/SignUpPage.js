@@ -28,15 +28,16 @@ const Button = styled.button`
 `
 
 const UnivIdInput = styled.input`
- min-width: 15vw;
+ //min-width: 15vw;
 `
 
 const DomainSelect = styled.select`
- min-width: 5vw;
+ //min-width: 5vw;
 `
 
 const EmailArea = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 60% minmax(0px, auto);
 `
 
 export const SignUpPage = () => {
@@ -52,8 +53,6 @@ export const SignUpPage = () => {
 
   const handleValue = (event) => {
     const { value, name } = event.target;
-    // console.log(value);
-    // console.log(name);
     setSignUpInputData({ ...signUpInputData, [name]: value });
   }
 

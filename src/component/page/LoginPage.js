@@ -1,11 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import ChatRoom from "../ChatRoom";
 import { useNavigate } from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
 import { requestSignIn } from "../../api";
-import { setAccessToken } from "../../util/AuthFuntions";
+import {setAccessToken} from "../../util/AuthFunctions";
 
 const LoginArea = styled.div`
   display: flex;
@@ -31,15 +30,14 @@ const Button = styled.button`
 `
 
 const UnivIdInput = styled.input`
- min-width: 10vw;
 `
 
 const DomainSelect = styled.select`
- min-width: 5vw;
 `
 
 const EmailArea = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 60% minmax(0px, auto);
 `
 export const LoginPage = (props) => {
   const [userData, setUserData] = useState({
@@ -49,12 +47,8 @@ export const LoginPage = (props) => {
     domain: '',
     school: '홍익대학교',
   })
-  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   // const interval = setInterval(makeSnow, 40);
-  //   return () => clearInterval(interval);
-  // }, []);
+  const navigate = useNavigate();
 
   const handleValue = (event) => {
     const { value, name } = event.target;
