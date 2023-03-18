@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getStudentsLectures} from "../../../api";
+import {getLecturersLectures} from "../../../api";
 import LoadingSpinner from "../../spinner/LoadingSpinner";
 import LectureRow from "./LectureRow";
 
@@ -53,11 +53,11 @@ const LectureRowDiv = styled.div`
   border-radius: 10px;
 `
 
-export const StudentsLecturesPage = () => {
+export const LecturerLecturesPage = () => {
     const [lectures, setLectures] = useState(null);
 
     useEffect(() => {
-        getStudentsLectures()
+        getLecturersLectures()
             .then(lectureList => {
                 if (lectureList) {
                     setLectures(lectureList);
@@ -68,19 +68,20 @@ export const StudentsLecturesPage = () => {
     }, []);
 
     return (
-        lectures ?
-            <LecturesContainer>
-                <LectureTable>
-                    {Object.values(lectures).map((lecture, index) => {
+        <LecturesContainer>
+            <LectureTable>
+                {lectures ?
+                    Object.values(lectures).map((lecture, index) => {
                         return (
                             <LectureRowDiv>
                                 <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
                             </LectureRowDiv>
                         )
-                    })}
-                </LectureTable>
-            </LecturesContainer>
-            :
-            <LoadingSpinner/>
+                    })
+                    :
+                    <LoadingSpinner/>
+                }
+            </LectureTable>
+        </LecturesContainer>
     );
 }

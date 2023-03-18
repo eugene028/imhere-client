@@ -2,11 +2,12 @@ import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import {getStudentsLectures} from "../../../api";
 import LoadingSpinner from "../../spinner/LoadingSpinner";
-import LectureForStudent from "./LectureForStudent";
+import LectureRow from "./LectureRow";
 import {StudentsLecturesPage} from "./StudentsLecturesPage";
 import {checkAndGetUserRole} from "../../../util/AuthFunctions";
 import * as ROUTES from "../../../constants/routes";
 import {useNavigate} from "react-router-dom";
+import {LecturerLecturesPage} from "./LecturerLecturesPage";
 
 const LoginArea = styled.div`
   display: flex;
@@ -60,7 +61,7 @@ export const LecturesPage = () => {
                 ?
                 <StudentsLecturesPage />
                 :
-                <LoadingSpinner />
+                <LecturerLecturesPage />
             :
             <LoadingSpinner />
     );

@@ -6,6 +6,7 @@ import {LoginPage} from "./component/page/LoginPage";
 import {SignUpPage} from "./component/page/SignUpPage";
 import {MainPage} from "./component/page/MainPage";
 import {LecturesPage} from "./component/page/lecture";
+import {EnrollmentPage} from "./component/page/lecture/enrollment/EnrollmentPage";
 
 
 function makeSnow() {
@@ -31,10 +32,14 @@ const App = () => {
         <>
             <Router>
                 <Routes>
+                    {/*No Auth*/}
                     <Route path={ROUTES.LOGIN} element={<LoginPage />}/>
                     <Route path={ROUTES.SIGN_UP} element={<SignUpPage />}/>
+
+                    {/*Need Auth*/}
                     <Route path={ROUTES.MAIN_PAGE} element={<MainPage />}/>
                     <Route path={ROUTES.LECTURES} element={<LecturesPage />}/>
+                    <Route path={ROUTES.ENROLLMENT} element={<EnrollmentPage />}/>
                 </Routes>
             </Router>
         </>

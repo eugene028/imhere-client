@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 
-const LectureRow = styled.div`
+const Lecture = styled.div`
   display: grid;
   grid-template-columns: 5% 60% 20% 15%;
   padding: 5px 20px;
@@ -17,15 +17,15 @@ const LectureRow = styled.div`
     }
   }
 `
-const LectureForStudent = ({ index, lecture }) => {
+const LectureRow = ({ index, lecture }) => {
     return (
-        <LectureRow>
+        <Lecture>
             <div className="lecture-index">{index + 1}</div>
             <div className="lecture-name">{lecture.lectureName}</div>
             <div className="lecturer-name">{lecture.lecturerName}</div>
             <div className="lecture-state">{lecture.lectureState}</div>
-        </LectureRow>
+        </Lecture>
     );
 };
 
-export default LectureForStudent;
+export default LectureRow;

@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getStudentsLectures} from "../../../api";
-import LoadingSpinner from "../../spinner/LoadingSpinner";
-import LectureRow from "./LectureRow";
+import {getAllStudentsLectures, getStudentsLectures} from "../../../../api";
+import LoadingSpinner from "../../../spinner/LoadingSpinner";
+import LectureRow from "../LectureRow";
+import {checkUserHasRole} from "../../../../util/AuthFunctions";
+import * as ROUTES from "../../../../constants/routes";
+import {useNavigate} from "react-router-dom";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;
@@ -53,12 +56,18 @@ const LectureRowDiv = styled.div`
   border-radius: 10px;
 `
 
-export const StudentsLecturesPage = () => {
+export const EnrollmentPage = () => {
     const [lectures, setLectures] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        getStudentsLectures()
+        if (!checkUserHasRole()) {
+            navigate(ROUTES.LOGIN);
+        }
+
+        getAllStudentsLectures()
             .then(lectureList => {
+                console.log(lectureList);
                 if (lectureList) {
                     setLectures(lectureList);
                 } else {
@@ -68,19 +77,20 @@ export const StudentsLecturesPage = () => {
     }, []);
 
     return (
-        lectures ?
-            <LecturesContainer>
-                <LectureTable>
-                    {Object.values(lectures).map((lecture, index) => {
+        <LecturesContainer>
+            <LectureTable>
+                {lectures ?
+                    Object.values(lectures).map((lecture, index) => {
                         return (
                             <LectureRowDiv>
                                 <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
                             </LectureRowDiv>
                         )
-                    })}
-                </LectureTable>
-            </LecturesContainer>
-            :
-            <LoadingSpinner/>
+                    })
+                    :
+                    <LoadingSpinner/>
+                }
+            </LectureTable>
+        </LecturesContainer>
     );
 }
