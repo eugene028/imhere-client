@@ -77,20 +77,21 @@ export const EnrollmentPage = () => {
     }, []);
 
     return (
-        <LecturesContainer>
-            <LectureTable>
-                {lectures ?
-                    Object.values(lectures).map((lecture, index) => {
-                        return (
-                            <LectureRowDiv>
-                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
-                            </LectureRowDiv>
-                        )
-                    })
-                    :
-                    <LoadingSpinner/>
-                }
-            </LectureTable>
-        </LecturesContainer>
+        lectures ?
+            <LecturesContainer>
+                <LectureTable>
+                    {
+                        Object.values(lectures).map((lecture, index) => {
+                            return (
+                                <LectureRowDiv>
+                                    <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
+                                </LectureRowDiv>
+                            )
+                        })
+                    }
+                </LectureTable>
+            </LecturesContainer>
+            :
+            <LoadingSpinner/>
     );
 }
