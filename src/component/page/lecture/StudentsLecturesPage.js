@@ -3,6 +3,8 @@ import styled from "styled-components";
 import {getStudentsLectures} from "../../../api";
 import LoadingSpinner from "../../spinner/LoadingSpinner";
 import LectureRow from "./LectureRow";
+import * as ROUTES from "../../../constants/routes";
+import {useNavigate} from "react-router-dom";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;
@@ -59,6 +61,7 @@ const Title = styled.button`
 
 export const StudentsLecturesPage = () => {
     const [lectures, setLectures] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getStudentsLectures()
@@ -67,6 +70,7 @@ export const StudentsLecturesPage = () => {
                     setLectures(lectureList);
                 } else {
                     alert('에러 발생! 관리자에게 문의하세요');
+                    navigate(ROUTES.MAIN_PAGE);
                 }
             })
     }, []);

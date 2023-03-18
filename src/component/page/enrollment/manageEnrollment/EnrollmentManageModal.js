@@ -1,7 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
-import StudentRow from "../page/lecture/StudentRow";
+import StudentEnrollmentStateRow from "./StudentEnrollmentStateRow";
+import {useNavigate} from "react-router-dom";
+import {changeEnrollmentState, getLecturersEnrollment} from "../../../../api";
+import * as ROUTES from "../../../../constants/routes";
 
 const Overlay = styled(motion.div)`
   position: fixed;
@@ -24,7 +27,7 @@ const ModalContainer = styled(motion.div)`
   -moz-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.75);
   box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.75);
 
-  min-width: 40vw;
+  width: 80vw;
   min-height: 40vh;
   max-height: 70vh;
 
@@ -101,15 +104,62 @@ const CloseButton = styled.button`
 `;
 
 const StudentsArea = styled.div`
-  //position: absolute;
-  //bottom: 8%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  //justify-content: center;
+
+  div:hover {
+    background-color: lightgrey;
+  }
+
+  button:hover {
+    background-color: red;
+    cursor: pointer;
+  }
 `
 
-function LectureModalWithStudents({isOpen, close, lecture}) {
+function EnrollmentManageModal({isOpen, close, lecture}) {
+    const [enrollment, setEnrollment] = useState(null);
+    const [toggle, setToggle] = useState(0);
+    const navigate = useNavigate();
+    const requestMap = new Map();
+
+    useEffect(() => {
+        if (lecture) {
+            getLecturersEnrollment(lecture.lectureId)
+                .then(response => {
+                    if (response) {
+                        setEnrollment(response);
+                    } else {
+                        alert('에러 발생! 관리자에게 문의하세요');
+                        navigate(ROUTES.MAIN_PAGE);
+                    }
+                })
+        }
+
+    }, [lecture, toggle]);
+
+    const setStateChangeRequest = (studentId, enrollmentState) => {
+        requestMap.set(studentId, enrollmentState);
+    }
+
+    const requestStateChange = async () => {
+        const lectureId = enrollment.lectureId;
+        await requestMap.forEach((enrollmentState, studentId) => {
+            changeEnrollmentState(lectureId, studentId, enrollmentState)
+                .then(response => {
+                    if (response) {
+                        console.log("change success " + lectureId + ', ' + studentId + ', ' + enrollmentState);
+                    } else {
+                        console.log("change fail " + lectureId + ', ' + studentId + ', ' + enrollmentState);
+                    }
+                })
+                .catch(error => {
+                    console.log("change error " + lectureId + ', ' + studentId + ', ' + enrollmentState + ', ' + error);
+                })
+        })
+    }
+
     return (
         <AnimatePresence>
             {
@@ -117,14 +167,22 @@ function LectureModalWithStudents({isOpen, close, lecture}) {
                     <Overlay initial="initial" animate="isOpen" exit="exit">
                         <ModalContainer variants={containerVariant}>
                             <ModalWrapper>
-                                <CloseButton onClick={() => close(false)}>닫기</CloseButton>
+                                <CloseButton onClick={() => {
+                                    requestStateChange().then(r => {
+                                            requestMap.clear();
+                                            setToggle(1 - toggle);
+                                            close(false);
+                                        }
+                                    );
+                                }}>저장 (신중)</CloseButton>
                                 <ModalDescriptionRow><p>{lecture.lectureName}</p></ModalDescriptionRow>
                                 <ModalDescriptionRow><p>수강생 목록</p></ModalDescriptionRow>
                                 <StudentsArea>
-                                    {Object.values(lecture.studentInfos).map((student, index) => {
+                                    {enrollment && Object.values(enrollment.studentInfos).map((student, index) => {
                                         console.log(student);
                                         return (
-                                            <StudentRow key={student.id} index={index} student={student} />
+                                            <StudentEnrollmentStateRow key={student.id} index={index} student={student}
+                                                                       setStateChangeRequest={setStateChangeRequest}/>
                                         )
                                     })}
                                 </StudentsArea>
@@ -137,4 +195,4 @@ function LectureModalWithStudents({isOpen, close, lecture}) {
     );
 }
 
-export default LectureModalWithStudents;
+export default EnrollmentManageModal;

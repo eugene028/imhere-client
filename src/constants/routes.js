@@ -8,6 +8,7 @@ export const LECTURES = "/lectures";
 export const MY_LECTURE = "/my-lectures";
 
 export const ENROLLMENT = "/enrollment";
+export const MANAGE_ENROLLMENT = "/enrollment/manage";
 export const ATTENDANCE = "/attendance";
 
 export const ADMIN = "/admin";

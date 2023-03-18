@@ -138,6 +138,24 @@ export const getLecturersLectures = async () => {
         })
 }
 
+export const getLecturersEnrollment = async lectureId => {
+    const headers = getHeadersWithToken();
+
+    return await axios.get(`${protocol}://${host}/api/v1/enrollment/${lectureId}`, { headers })
+        .then(response => {
+            console.log(response.data)
+            if (response && response.data) {
+                return response.data
+            }
+
+            return null;
+        })
+        .catch(error => {
+            console.log(error);
+            return null;
+        })
+}
+
 
 export const requestEnrollment = async (lectureId) => {
     const headers = getHeadersWithToken();
@@ -152,5 +170,68 @@ export const requestEnrollment = async (lectureId) => {
         }).catch(error => {
             console.error('requestEnrollment error : ' + error)
             return false;
+        });
+}
+
+// @PostMapping("/api/v1/enrollment/{lecture_id}/student/{student_id}/approval")
+// @PostMapping("/api/v1/enrollment/{lecture_id}/student/{student_id}/rejection")
+
+export const changeEnrollmentState = async (lectureId, studentId, enrollmentState) => {
+    if (enrollmentState === 'APPROVAL') {
+        approvalEnrollment(lectureId, studentId)
+            .then(response => {
+                console.log(response);
+                if(response) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }).catch(error => {
+                console.log('approvalEnrollment fail : ' + error)
+                return false;
+        })
+    } else if (enrollmentState === 'REJECTION') {
+        rejectEnrollment(lectureId, studentId)
+            .then(response => {
+                console.log(response);
+                if(response) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }).catch(error => {
+            console.log('rejectEnrollment fail : ' + error)
+            return false;
+        })
+    } else {
+        console.log('changeEnrollmentState error : ' + enrollmentState + "(", lectureId + ", " + studentId + ")");
+    }
+}
+
+// APPROVAL
+const approvalEnrollment = async (lectureId, studentId) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/approval`,  {},{ headers: headers })
+        .then(response => {
+            console.log('approvalEnrollment : ' + response);
+            return response;
+        }).catch(error => {
+            console.error('approvalEnrollment error : ' + error)
+            return null;
+        });
+}
+
+// REJECTION
+const rejectEnrollment = async (lectureId, studentId) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/rejection`,  {},{ headers: headers })
+        .then(response => {
+            console.log('rejectEnrollment : ' + response);
+            return response;
+        }).catch(error => {
+            console.error('rejectEnrollment error : ' + error)
+            return null;
         });
 }

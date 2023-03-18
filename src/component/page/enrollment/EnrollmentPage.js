@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getLecturersLectures} from "../../../api";
+import {getAllStudentsLectures} from "../../../api";
 import LoadingSpinner from "../../spinner/LoadingSpinner";
-import LectureRow from "./LectureRow";
-import LectureModalWithStudents from "./LectureModalWithStudents";
+import LectureRow from "../lecture/LectureRow";
+import {checkUserHasRole} from "../../../util/AuthFunctions";
 import * as ROUTES from "../../../constants/routes";
 import {useNavigate} from "react-router-dom";
+import LectureModal from "../lecture/LectureModal";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;
@@ -60,17 +61,26 @@ const Title = styled.button`
   color : black;
 `
 
-export const LecturerLecturesPage = () => {
+export const EnrollmentPage = () => {
     const [lectures, setLectures] = useState(null);
     const [currentLecture, setCurrentLecture] = useState(null);
     const [isModalOpen, setModalOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        getLecturersLectures()
+        if (!checkUserHasRole()) {
+            navigate(ROUTES.LOGIN);
+        }
+
+        getAllStudentsLectures()
             .then(lectureList => {
                 if (lectureList) {
-                    setLectures(lectureList);
+                    setLectures((prevLectures) => {
+                        if (prevLectures !== lectureList) {
+                            return lectureList;
+                        }
+                        return prevLectures;
+                    });
                 } else {
                     alert('에러 발생! 관리자에게 문의하세요');
                     navigate(ROUTES.MAIN_PAGE);
@@ -81,21 +91,22 @@ export const LecturerLecturesPage = () => {
     return (
         lectures ?
             <LecturesContainer>
-                <Title>강사 개설 강의 목록</Title>
-                <LectureModalWithStudents isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
+                <Title>개설 강의 목록</Title>
+                <LectureModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
                 <LectureTable>
-                    {Object.values(lectures).map((lecture, index) => {
-                        return (
-                            <LectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
-                                setCurrentLecture(lecture);
-                                setModalOpen(true);
-                                console.log(isModalOpen);
-                            }}/>
-                        )
-                    })}
+                    {
+                        Object.values(lectures).map((lecture, index) => {
+                            return (
+                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
+                                    setCurrentLecture(lecture);
+                                    setModalOpen(true);
+                                }}/>
+                            )
+                        })
+                    }
                 </LectureTable>
             </LecturesContainer>
             :
             <LoadingSpinner/>
-    );
+    )
 }

@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getAllStudentsLectures, getStudentsLectures} from "../../../../api";
+import {getLecturersEnrollment, getLecturersLectures} from "../../../../api";
 import LoadingSpinner from "../../../spinner/LoadingSpinner";
-import LectureRow from "../LectureRow";
-import {checkUserHasRole} from "../../../../util/AuthFunctions";
+import EnrollmentManageModal from "./EnrollmentManageModal";
+import LectureRow from "../../lecture/LectureRow";
 import * as ROUTES from "../../../../constants/routes";
 import {useNavigate} from "react-router-dom";
-import InformModal from "../../../modal/LectureModal";
-import LectureModal from "../../../modal/LectureModal";
+import {checkUserHasRole} from "../../../../util/AuthFunctions";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;
@@ -59,10 +58,10 @@ const Title = styled.button`
   margin: 10px;
   border-radius: 10px;
   background-color: whitesmoke;
-  color : black;
+  color: black;
 `
 
-export const EnrollmentPage = () => {
+export const EnrollmentManagePage = () => {
     const [lectures, setLectures] = useState(null);
     const [currentLecture, setCurrentLecture] = useState(null);
     const [isModalOpen, setModalOpen] = useState(false);
@@ -73,17 +72,13 @@ export const EnrollmentPage = () => {
             navigate(ROUTES.LOGIN);
         }
 
-        getAllStudentsLectures()
+        getLecturersLectures()
             .then(lectureList => {
                 if (lectureList) {
-                    setLectures((prevLectures) => {
-                        if (prevLectures !== lectureList) {
-                            return lectureList;
-                        }
-                        return prevLectures;
-                    });
+                    setLectures(lectureList);
                 } else {
                     alert('에러 발생! 관리자에게 문의하세요');
+                    navigate(ROUTES.MAIN_PAGE);
                 }
             })
     }, []);
@@ -91,8 +86,8 @@ export const EnrollmentPage = () => {
     return (
         lectures ?
             <LecturesContainer>
-                <Title>개설 강의 목록</Title>
-                <LectureModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
+                <Title>강사 개설 강의 목록</Title>
+                <EnrollmentManageModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null}/>
                 <LectureTable>
                     {
                         Object.values(lectures).map((lecture, index) => {
@@ -108,5 +103,5 @@ export const EnrollmentPage = () => {
             </LecturesContainer>
             :
             <LoadingSpinner/>
-    )
+    );
 }

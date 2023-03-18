@@ -39,7 +39,7 @@ export const MainPage = () => {
                 <Button type='button' className='enrollment-button' onClick={() => navigate(ROUTES.ENROLLMENT)}> 강의 수강 신청 </Button>
 
                 <Button type='button' className='attendance-button'> 출석하기 </Button>
-                <Button type='button' className='enrollment-approve-button'> 수강 학생 승인하기 </Button>
+                <Button type='button' className='enrollment-approve-button' onClick={() => navigate(ROUTES.MANAGE_ENROLLMENT)}> 수강 학생 승인하기 </Button>
                 <Button type='button' className='lecture-create-button'> 새 강의 만들기 </Button>
             </ButtonArea>
 
