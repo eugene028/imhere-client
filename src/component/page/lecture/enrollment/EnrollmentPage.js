@@ -88,10 +88,6 @@ export const EnrollmentPage = () => {
             })
     }, []);
 
-    const closeModal = () => {
-        setModalOpen(false);
-    }
-
     return (
         lectures ?
             <LecturesContainer>
@@ -104,7 +100,6 @@ export const EnrollmentPage = () => {
                                 <LectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
                                     setCurrentLecture(lecture);
                                     setModalOpen(true);
-                                    console.log(isModalOpen);
                                 }}/>
                             )
                         })

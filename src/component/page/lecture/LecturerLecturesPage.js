@@ -3,6 +3,8 @@ import styled from "styled-components";
 import {getLecturersLectures} from "../../../api";
 import LoadingSpinner from "../../spinner/LoadingSpinner";
 import LectureRow from "./LectureRow";
+import LectureModal from "../../modal/LectureModal";
+import LectureModalWithStudents from "../../modal/LectureModalWithStudents";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;
@@ -59,6 +61,8 @@ const Title = styled.button`
 
 export const LecturerLecturesPage = () => {
     const [lectures, setLectures] = useState(null);
+    const [currentLecture, setCurrentLecture] = useState(null);
+    const [isModalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
         getLecturersLectures()
@@ -74,11 +78,16 @@ export const LecturerLecturesPage = () => {
     return (
         lectures ?
             <LecturesContainer>
-                <Title>내가 개설한 강의</Title>
+                <Title>강사 개설 강의 목록</Title>
+                <LectureModalWithStudents isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
                 <LectureTable>
                     {Object.values(lectures).map((lecture, index) => {
                         return (
-                            <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
+                            <LectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
+                                setCurrentLecture(lecture);
+                                setModalOpen(true);
+                                console.log(isModalOpen);
+                            }}/>
                         )
                     })}
                 </LectureTable>
