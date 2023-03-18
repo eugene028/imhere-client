@@ -1,7 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
 import StudentRow from "./StudentRow";
+import {changeLectureState, getLecturersLectures} from "../../../../api";
 
 const Overlay = styled(motion.div)`
   position: fixed;
@@ -100,6 +101,18 @@ const CloseButton = styled.button`
   z-index: 1000;
 `;
 
+const SaveButton = styled.button`
+  position: absolute;
+  left: 2%;
+  top: 3%;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: white;
+  border: black 1px solid;
+  color: black;
+  z-index: 1000;
+`;
+
 const StudentsArea = styled.div`
   //position: absolute;
   //bottom: 8%;
@@ -109,7 +122,29 @@ const StudentsArea = styled.div`
   //justify-content: center;
 `
 
+const Button = styled.button`
+  margin: 0px 10px;
+`
+
 function LectureModalWithStudents({isOpen, close, lecture}) {
+    const [openButtonColor, setOpenButtonColor] = useState('green');
+    const [closeButtonColor, setCloseButtonColor] = useState('green');
+    const [lectureStateRequest, setLectureStateRequest] = useState(null);
+
+    const requestLectureStateChange = async () => {
+        console.log(lectureStateRequest + ', ' + lecture.lectureState);
+        if (lectureStateRequest && lectureStateRequest !== lecture.lectureState) {
+            await changeLectureState(lecture.lectureId, lectureStateRequest)
+                .then(response => {
+                    if (response) {
+                        alert('강의 출석 번호는 ' + response + '입니다! 잊지 마세요!!');
+                    }
+                })
+                .catch(erorr => {
+                    alert('에러가 발생했습니다 관리자에게 문의하세요 ' + erorr);
+                })
+        }
+    }
     return (
         <AnimatePresence>
             {
@@ -117,14 +152,42 @@ function LectureModalWithStudents({isOpen, close, lecture}) {
                     <Overlay initial="initial" animate="isOpen" exit="exit">
                         <ModalContainer variants={containerVariant}>
                             <ModalWrapper>
-                                <CloseButton onClick={() => close(false)}>닫기</CloseButton>
+                                <CloseButton onClick={() => {
+                                    requestLectureStateChange()
+                                        .finally(() => {
+                                                setOpenButtonColor('green');
+                                                setCloseButtonColor('green');
+                                                setLectureStateRequest(null);
+                                                close(false);
+                                            }
+                                        )
+                                    ;
+
+                                }}>닫기 (강의 상태 변경)</CloseButton>
                                 <ModalDescriptionRow><p>{lecture.lectureName}</p></ModalDescriptionRow>
+                                <ModalDescriptionRow>
+                                    <Button onClick={() => {
+                                        setOpenButtonColor('red');
+                                        setCloseButtonColor('green');
+                                        setLectureStateRequest('OPEN');
+                                    }}
+                                            style={{backgroundColor: openButtonColor}}
+                                    >강의 열기</Button>
+
+                                    <Button onClick={() => {
+                                        setOpenButtonColor('green');
+                                        setCloseButtonColor('red');
+                                        setLectureStateRequest('CLOSED');
+                                    }}
+                                            style={{backgroundColor: closeButtonColor}}
+                                    >강의 닫기</Button>
+                                </ModalDescriptionRow>
                                 <ModalDescriptionRow><p>수강생 목록</p></ModalDescriptionRow>
+
                                 <StudentsArea>
                                     {Object.values(lecture.studentInfos).map((student, index) => {
-                                        console.log(student);
                                         return (
-                                            <StudentRow key={student.id} index={index} student={student} />
+                                            <StudentRow key={student.id} index={index} student={student}/>
                                         )
                                     })}
                                 </StudentsArea>

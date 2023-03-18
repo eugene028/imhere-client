@@ -6,7 +6,7 @@ import LectureRow from "../lecture/LectureRow";
 import {checkUserHasRole} from "../../../util/AuthFunctions";
 import * as ROUTES from "../../../constants/routes";
 import {useNavigate} from "react-router-dom";
-import LectureModal from "../lecture/LectureModal";
+import LectureModal from "./LectureModal";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;

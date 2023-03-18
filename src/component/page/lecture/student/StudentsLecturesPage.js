@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getStudentsLectures} from "../../../api";
-import LoadingSpinner from "../../spinner/LoadingSpinner";
-import LectureRow from "./LectureRow";
-import * as ROUTES from "../../../constants/routes";
+import {getStudentsLectures} from "../../../../api";
+import LoadingSpinner from "../../../spinner/LoadingSpinner";
+import LectureRow from "../LectureRow";
+import * as ROUTES from "../../../../constants/routes";
 import {useNavigate} from "react-router-dom";
 
 const LecturesContainer = styled.div`

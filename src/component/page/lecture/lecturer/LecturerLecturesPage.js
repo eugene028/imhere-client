@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getLecturersLectures} from "../../../api";
-import LoadingSpinner from "../../spinner/LoadingSpinner";
-import LectureRow from "./LectureRow";
+import {getLecturersLectures} from "../../../../api";
+import LoadingSpinner from "../../../spinner/LoadingSpinner";
+import LectureRow from "../LectureRow";
 import LectureModalWithStudents from "./LectureModalWithStudents";
-import * as ROUTES from "../../../constants/routes";
+import * as ROUTES from "../../../../constants/routes";
 import {useNavigate} from "react-router-dom";
+import LecturerLectureRow from "./LecturerLectureRow";
 
 const LecturesContainer = styled.div`
-  min-width: 40vw;
+  min-width: 70vw;
   max-height: 70vh;
   border-radius: 10px;
   margin: 0 auto;
@@ -76,7 +77,7 @@ export const LecturerLecturesPage = () => {
                     navigate(ROUTES.MAIN_PAGE);
                 }
             })
-    }, []);
+    }, [isModalOpen]);
 
     return (
         lectures ?
@@ -86,10 +87,9 @@ export const LecturerLecturesPage = () => {
                 <LectureTable>
                     {Object.values(lectures).map((lecture, index) => {
                         return (
-                            <LectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
+                            <LecturerLectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
                                 setCurrentLecture(lecture);
                                 setModalOpen(true);
-                                console.log(isModalOpen);
                             }}/>
                         )
                     })}

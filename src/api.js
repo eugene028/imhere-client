@@ -5,79 +5,79 @@ const protocol = `http`
 const host = `localhost:8080`
 
 export const generateVerificationNumber = async email => {
-  return await axios.post(`${protocol}://${host}/member/verification/${email}`)
-    .then(response => {
-      if (response.status === 200) {
-        return true;
-      }
-      return false;
-    }).catch(error => {
-      console.error('generateVerificationNumber error : ' + error)
-      return false;
-    });
+    return await axios.post(`${protocol}://${host}/member/verification/${email}`)
+        .then(response => {
+            if (response.status === 200) {
+                return true;
+            }
+            return false;
+        }).catch(error => {
+            console.error('generateVerificationNumber error : ' + error)
+            return false;
+        });
 }
 
 // TODO
 export const verifyValidateNumber = async (email, verificationCode) => {
-  return await axios.get(`${protocol}://${host}/member/verification/${email}/${verificationCode}`)
-    .then(response => {
-      console.log(response.data);
-      if (response.data === true) {
-        return true;
-      }
-      return false;
-    }).catch(error => {
-      console.error('generateVerificationNumber error : ' + error)
-      return false;
-    });
+    return await axios.get(`${protocol}://${host}/member/verification/${email}/${verificationCode}`)
+        .then(response => {
+            console.log(response.data);
+            if (response.data === true) {
+                return true;
+            }
+            return false;
+        }).catch(error => {
+            console.error('generateVerificationNumber error : ' + error)
+            return false;
+        });
 }
 
 export const signUpNewMember = async (univId, name, password) => {
-  const payload = {
-    "univId": `${univId}`,
-    "name": `${name}`,
-    "password": `${password}`
-  }
+    const payload = {
+        "univId": `${univId}`,
+        "name": `${name}`,
+        "password": `${password}`
+    }
 
-  const headers = {
-    'Content-Type': 'application/json'
-  }
+    const headers = {
+        'Content-Type': 'application/json'
+    }
 
-  return await axios.post(`${protocol}://${host}/member/new`, payload, { headers: headers })
-    .then(response => {
-      console.log('signUpNewMember : ' + response);
-      if (response.status === 200) {
-        return true;
-      }
-      return false;
-    }).catch(error => {
-      console.error('signUpNewMember error : ' + error)
-      return false;
-    });
+    return await axios.post(`${protocol}://${host}/member/new`, payload, {headers: headers})
+        .then(response => {
+            console.log('signUpNewMember : ' + response);
+            if (response.status === 200) {
+                return true;
+            }
+            return false;
+        }).catch(error => {
+            console.error('signUpNewMember error : ' + error)
+            return false;
+        });
 }
 
 
 export const requestSignIn = async (univId, password) => {
-  const payload = {
-    "univId": univId,
-    "password": password
-  }
+    const payload = {
+        "univId": univId,
+        "password": password
+    }
 
-  const headers = {
-    'Content-Type': 'application/json'
-  }
+    const headers = {
+        'Content-Type': 'application/json'
+    }
 
-  return await axios.post(`${protocol}://${host}/login`, payload, { headers: headers })
-    .then(response => {
-      console.log('token : ' + response.headers['authorization']);
-      if (response && response.headers['authorization']) {
-        console.log("login success");
-        return response.headers['authorization'];
-      }
-      return null;
-    }).catch(error => {
-      alert('올바른 id와 비밀번호를 입력해주세요')
-    });
+    return await axios.post(`${protocol}://${host}/login`, payload, {headers: headers})
+        .then(response => {
+            console.log('token : ' + response.headers['authorization']);
+            if (response && response.headers['authorization']) {
+                console.log("login success");
+                return response.headers['authorization'];
+            }
+            return null;
+        }).catch(error => {
+            alert('올바른 id와 비밀번호를 입력해주세요')
+        });
 }
 
 
@@ -89,7 +89,7 @@ export const requestSignIn = async (univId, password) => {
 export const getStudentsLectures = async () => {
     const headers = getHeadersWithToken();
 
-    return await axios.get(`${protocol}://${host}/api/v1/students/lectures`, { headers })
+    return await axios.get(`${protocol}://${host}/api/v1/students/lectures`, {headers})
         .then(response => {
             if (response && response.data) {
                 return response.data
@@ -105,7 +105,7 @@ export const getStudentsLectures = async () => {
 export const getAllStudentsLectures = async () => {
     const headers = getHeadersWithToken();
 
-    return await axios.get(`${protocol}://${host}/api/v1/students/all-lectures`, { headers })
+    return await axios.get(`${protocol}://${host}/api/v1/students/all-lectures`, {headers})
         .then(response => {
             console.log(response.data)
             if (response && response.data) {
@@ -123,7 +123,7 @@ export const getAllStudentsLectures = async () => {
 export const getLecturersLectures = async () => {
     const headers = getHeadersWithToken();
 
-    return await axios.get(`${protocol}://${host}/api/v1/lectures`, { headers })
+    return await axios.get(`${protocol}://${host}/api/v1/lectures`, {headers})
         .then(response => {
             console.log(response.data)
             if (response && response.data) {
@@ -141,7 +141,7 @@ export const getLecturersLectures = async () => {
 export const getLecturersEnrollment = async lectureId => {
     const headers = getHeadersWithToken();
 
-    return await axios.get(`${protocol}://${host}/api/v1/enrollment/${lectureId}`, { headers })
+    return await axios.get(`${protocol}://${host}/api/v1/enrollment/${lectureId}`, {headers})
         .then(response => {
             console.log(response.data)
             if (response && response.data) {
@@ -160,7 +160,7 @@ export const getLecturersEnrollment = async lectureId => {
 export const requestEnrollment = async (lectureId) => {
     const headers = getHeadersWithToken();
 
-    return await axios.post(`${protocol}://${host}/api/v1/students/enrollment/${lectureId}`,  {},{ headers: headers })
+    return await axios.post(`${protocol}://${host}/api/v1/students/enrollment/${lectureId}`, {}, {headers: headers})
         .then(response => {
             console.log('requestEnrollment : ' + response);
             if (response.status === 200) {
@@ -181,20 +181,20 @@ export const changeEnrollmentState = async (lectureId, studentId, enrollmentStat
         approvalEnrollment(lectureId, studentId)
             .then(response => {
                 console.log(response);
-                if(response) {
+                if (response) {
                     return true;
                 } else {
                     return false;
                 }
             }).catch(error => {
-                console.log('approvalEnrollment fail : ' + error)
-                return false;
+            console.log('approvalEnrollment fail : ' + error)
+            return false;
         })
     } else if (enrollmentState === 'REJECTION') {
         rejectEnrollment(lectureId, studentId)
             .then(response => {
                 console.log(response);
-                if(response) {
+                if (response) {
                     return true;
                 } else {
                     return false;
@@ -212,7 +212,7 @@ export const changeEnrollmentState = async (lectureId, studentId, enrollmentStat
 const approvalEnrollment = async (lectureId, studentId) => {
     const headers = getHeadersWithToken();
 
-    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/approval`,  {},{ headers: headers })
+    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/approval`, {}, {headers: headers})
         .then(response => {
             console.log('approvalEnrollment : ' + response);
             return response;
@@ -226,12 +226,70 @@ const approvalEnrollment = async (lectureId, studentId) => {
 const rejectEnrollment = async (lectureId, studentId) => {
     const headers = getHeadersWithToken();
 
-    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/rejection`,  {},{ headers: headers })
+    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/rejection`, {}, {headers: headers})
         .then(response => {
             console.log('rejectEnrollment : ' + response);
             return response;
         }).catch(error => {
             console.error('rejectEnrollment error : ' + error)
+            return null;
+        });
+}
+
+// 강의 열고 닫기
+// @PostMapping("/api/v1/lectures/{lecture_id}/open")
+// @PostMapping("/api/v1/lectures/{lecture_id}/close")
+
+export const changeLectureState = async (lectureId, lectureState) => {
+    console.log(lectureState);
+    if (lectureState === 'OPEN') {
+        return openLecture(lectureId)
+            .then(response => {
+                if (response.data && response.data.attendanceNumber) {
+                    return response.data.attendanceNumber;
+                } else {
+                    return null;
+                }
+            }).catch(error => {
+            console.log('openLecture fail : ' + lectureId + ", " + error)
+            return null;
+        })
+    } else if (lectureState === 'CLOSED') {
+        return closeLecture(lectureId)
+            .then(response => {
+                return null;
+            }).catch(error => {
+            console.log('closeLecture fail : ' + lectureId + ", " + error)
+            return null;
+        })
+    } else {
+        console.log('changeLectureState error : ' + lectureId + ", " + lectureState);
+        return null;
+    }
+}
+
+const openLecture = async (lectureId) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.post(`${protocol}://${host}/api/v1/lectures/${lectureId}/open`, {}, {headers: headers})
+        .then(response => {
+            console.log('openLecture : ' + response);
+            return response;
+        }).catch(error => {
+            console.error('openLecture error : ' + error)
+            return null;
+        });
+}
+
+const closeLecture = async (lectureId) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.post(`${protocol}://${host}/api/v1/lectures/${lectureId}/close`, {}, {headers: headers})
+        .then(response => {
+            console.log('closeLecture : ' + response);
+            return response;
+        }).catch(error => {
+            console.error('closeLecture error : ' + error)
             return null;
         });
 }
