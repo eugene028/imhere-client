@@ -5,7 +5,7 @@ import './App.css';
 import {LoginPage} from "./component/page/LoginPage";
 import {SignUpPage} from "./component/page/SignUpPage";
 import {MainPage} from "./component/page/MainPage";
-import {AuthFunctions} from "./util/AuthFunctions";
+import {LecturesPage} from "./component/page/lecture";
 
 
 function makeSnow() {
@@ -31,9 +31,10 @@ const App = () => {
         <>
             <Router>
                 <Routes>
-                    <Route path={ROUTES.LOGIN} element={<LoginPage/>}/>
-                    <Route path={ROUTES.SIGN_UP} element={<SignUpPage/>}/>
-                    <Route path={ROUTES.MAIN_PAGE} element={<MainPage/>}/>
+                    <Route path={ROUTES.LOGIN} element={<LoginPage />}/>
+                    <Route path={ROUTES.SIGN_UP} element={<SignUpPage />}/>
+                    <Route path={ROUTES.MAIN_PAGE} element={<MainPage />}/>
+                    <Route path={ROUTES.LECTURES} element={<LecturesPage />}/>
                 </Routes>
             </Router>
         </>

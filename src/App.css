@@ -50,11 +50,11 @@ body {
   background: #002b36;
 }
 
-
 .snow {
   position: absolute;
   top: -10px;
-  background: lightblue;
+  /*background: lightblue;*/
+  background: whitesmoke;
   border-radius: 50%;
   animation: fall linear;
 }

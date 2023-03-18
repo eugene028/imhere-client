@@ -91,7 +91,6 @@ export const getStudentsLectures = async () => {
 
     return await axios.get(`${protocol}://${host}/api/v1/students/lectures`, { headers })
         .then(response => {
-            console.log(response.data)
             if (response && response.data) {
                 return response.data
             }
