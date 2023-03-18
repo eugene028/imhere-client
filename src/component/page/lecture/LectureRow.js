@@ -25,8 +25,8 @@ const LectureRowWrapper = styled.div`
 
 const LectureRow = ({index, lecture, onClick}) => {
     return (
-        <LectureRowWrapper>
-            <Lecture onClick={onClick}>
+        <LectureRowWrapper onClick={onClick}>
+            <Lecture>
                 <div className="lecture-index">{index + 1}</div>
                 <div className="lecture-name">{lecture.lectureName}</div>
                 <div className="lecturer-name">{lecture.lecturerName}</div>
