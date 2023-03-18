@@ -48,11 +48,6 @@ const LectureTable = styled.div`
   }
 `;
 
-const LectureRowDiv = styled.div`
-  padding: 25px 10px;
-  border-radius: 10px;
-`
-
 export const StudentsLecturesPage = () => {
     const [lectures, setLectures] = useState(null);
 
@@ -73,9 +68,7 @@ export const StudentsLecturesPage = () => {
                 <LectureTable>
                     {Object.values(lectures).map((lecture, index) => {
                         return (
-                            <LectureRowDiv>
-                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
-                            </LectureRowDiv>
+                            <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
                         )
                     })}
                 </LectureTable>

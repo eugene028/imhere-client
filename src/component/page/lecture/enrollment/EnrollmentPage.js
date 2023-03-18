@@ -6,6 +6,8 @@ import LectureRow from "../LectureRow";
 import {checkUserHasRole} from "../../../../util/AuthFunctions";
 import * as ROUTES from "../../../../constants/routes";
 import {useNavigate} from "react-router-dom";
+import InformModal from "../../../modal/LectureModal";
+import LectureModal from "../../../modal/LectureModal";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;
@@ -51,13 +53,10 @@ const LectureTable = styled.div`
   }
 `;
 
-const LectureRowDiv = styled.div`
-  padding: 25px 10px;
-  border-radius: 10px;
-`
-
 export const EnrollmentPage = () => {
     const [lectures, setLectures] = useState(null);
+    const [currentLecture, setCurrentLecture] = useState(null);
+    const [isModalOpen, setModalOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -67,25 +66,36 @@ export const EnrollmentPage = () => {
 
         getAllStudentsLectures()
             .then(lectureList => {
-                console.log(lectureList);
                 if (lectureList) {
-                    setLectures(lectureList);
+                    setLectures((prevLectures) => {
+                        if (prevLectures !== lectureList) {
+                            return lectureList;
+                        }
+                        return prevLectures;
+                    });
                 } else {
                     alert('에러 발생! 관리자에게 문의하세요');
                 }
             })
     }, []);
 
+    const closeModal = () => {
+        setModalOpen(false);
+    }
+
     return (
         lectures ?
             <LecturesContainer>
+                <LectureModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
                 <LectureTable>
                     {
                         Object.values(lectures).map((lecture, index) => {
                             return (
-                                <LectureRowDiv>
-                                    <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
-                                </LectureRowDiv>
+                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
+                                    setCurrentLecture(lecture);
+                                    setModalOpen(true);
+                                    console.log(isModalOpen);
+                                }}/>
                             )
                         })
                     }
@@ -93,5 +103,5 @@ export const EnrollmentPage = () => {
             </LecturesContainer>
             :
             <LoadingSpinner/>
-    );
+    )
 }

@@ -2,10 +2,9 @@ import React, {useContext, useEffect} from "react";
 import {useState} from "react";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
-import {AuthContext, checkAndGetUserRole, checkUserHasRole, validateUserAuth} from "../../util/AuthFunctions";
+import {checkUserHasRole} from "../../util/AuthFunctions";
 import * as ROUTES from "../../constants/routes";
 import LoadingSpinner from "../spinner/LoadingSpinner";
-import {getLecturersLectures} from "../../api";
 
 const ButtonArea = styled.div`
   display: flex;
@@ -20,6 +19,7 @@ const Button = styled.button`
   min-width: 9.8vw;
   min-height: 6vh;
   margin: 10px;
+  border-radius: 10px;
 `
 
 export const MainPage = () => {

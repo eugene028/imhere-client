@@ -137,3 +137,20 @@ export const getLecturersLectures = async () => {
             return null;
         })
 }
+
+
+export const requestEnrollment = async (lectureId) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.post(`${protocol}://${host}/api/v1/students/enrollment/${lectureId}`,  {},{ headers: headers })
+        .then(response => {
+            console.log('requestEnrollment : ' + response);
+            if (response.status === 200) {
+                return true;
+            }
+            return false;
+        }).catch(error => {
+            console.error('requestEnrollment error : ' + error)
+            return false;
+        });
+}
