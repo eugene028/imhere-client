@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Lecture = styled.div`
   display: grid;
-  grid-template-columns: 5% 60% 20% 15%;
+  grid-template-columns: 5% 75% 20%;
   padding: 5px 20px;
   align-items: center;
 
@@ -29,8 +29,8 @@ const LectureRow = ({index, lecture, onClick}) => {
             <Lecture>
                 <div className="lecture-index">{index + 1}</div>
                 <div className="lecture-name">{lecture.lectureName}</div>
-                <div className="lecturer-name">{lecture.lecturerName}</div>
-                <div className="lecture-state">{lecture.lectureState}</div>
+                <div className="lecturer-name">{lecture.lecturerName} 강사</div>
+                {/*<div className="lecture-state">{lecture.lectureState}</div>*/}
             </Lecture>
         </LectureRowWrapper>
     );

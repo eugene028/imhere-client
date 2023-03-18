@@ -53,6 +53,15 @@ const LectureTable = styled.div`
   }
 `;
 
+const Title = styled.button`
+  font-size: 20px;
+  min-height: 4vh;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  color : black;
+`
+
 export const EnrollmentPage = () => {
     const [lectures, setLectures] = useState(null);
     const [currentLecture, setCurrentLecture] = useState(null);
@@ -86,6 +95,7 @@ export const EnrollmentPage = () => {
     return (
         lectures ?
             <LecturesContainer>
+                <Title>개설 강의 목록</Title>
                 <LectureModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
                 <LectureTable>
                     {

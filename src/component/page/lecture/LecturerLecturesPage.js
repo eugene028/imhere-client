@@ -48,6 +48,15 @@ const LectureTable = styled.div`
   }
 `;
 
+const Title = styled.button`
+  font-size: 20px;
+  min-height: 4vh;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  color : black;
+`
+
 export const LecturerLecturesPage = () => {
     const [lectures, setLectures] = useState(null);
 
@@ -63,9 +72,9 @@ export const LecturerLecturesPage = () => {
     }, []);
 
     return (
-
         lectures ?
             <LecturesContainer>
+                <Title>내가 개설한 강의</Title>
                 <LectureTable>
                     {Object.values(lectures).map((lecture, index) => {
                         return (
