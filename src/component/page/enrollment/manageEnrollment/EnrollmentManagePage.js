@@ -68,8 +68,9 @@ export const EnrollmentManagePage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!checkUserHasRole()) {
+        if (!checkUserHasRole(['ROLE_ADMIN', 'ROLE_LECTURER'])) {
             navigate(ROUTES.LOGIN);
+            return;
         }
 
         getLecturersLectures()
@@ -87,7 +88,8 @@ export const EnrollmentManagePage = () => {
         lectures ?
             <LecturesContainer>
                 <Title>강사 개설 강의 목록</Title>
-                <EnrollmentManageModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null}/>
+                <EnrollmentManageModal isOpen={isModalOpen} close={setModalOpen}
+                                       lecture={currentLecture ? currentLecture : null}/>
                 <LectureTable>
                     {
                         Object.values(lectures).map((lecture, index) => {

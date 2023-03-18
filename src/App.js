@@ -8,6 +8,7 @@ import {MainPage} from "./component/page/MainPage";
 import {LecturesPage} from "./component/page/lecture";
 import {EnrollmentPage} from "./component/page/enrollment/EnrollmentPage";
 import {EnrollmentManagePage} from "./component/page/enrollment/manageEnrollment/EnrollmentManagePage";
+import {LectureCreatePage} from "./component/page/lecture/lecturer/LectureCreatePage";
 
 
 function makeSnow() {
@@ -40,6 +41,8 @@ const App = () => {
                     {/*Need Auth*/}
                     <Route path={ROUTES.MAIN_PAGE} element={<MainPage />}/>
                     <Route path={ROUTES.LECTURES} element={<LecturesPage />}/>
+                    <Route path={ROUTES.LECTURE_CREATE} element={<LectureCreatePage />}/>
+
                     <Route path={ROUTES.ENROLLMENT} element={<EnrollmentPage />}/>
                     <Route path={ROUTES.MANAGE_ENROLLMENT} element={<EnrollmentManagePage />}/>
                 </Routes>

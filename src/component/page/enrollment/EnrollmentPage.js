@@ -70,6 +70,7 @@ export const EnrollmentPage = () => {
     useEffect(() => {
         if (!checkUserHasRole()) {
             navigate(ROUTES.LOGIN);
+            return;
         }
 
         getAllStudentsLectures()

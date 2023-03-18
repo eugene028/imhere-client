@@ -152,6 +152,5 @@ export const SignUpPage = () => {
           </SignUpArea>
       }
     </>
-
   )
 }

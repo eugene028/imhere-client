@@ -293,3 +293,27 @@ const closeLecture = async (lectureId) => {
             return null;
         });
 }
+
+// 출석 시퀀스
+// getStudentOpenLectures
+// @GetMapping("/api/v1/students/open-lectures")
+
+
+// 강의 생성
+// @PostMapping("/api/v1/lectures")
+// createLecture
+export const createLecture = async (lectureName) => {
+    const headers = getHeadersWithToken();
+
+    const payload = {
+        "lectureName": `${lectureName}`
+    }
+
+    return await axios.post(`${protocol}://${host}/api/v1/lectures`, payload, {headers: headers})
+        .then(response => {
+            console.log(response);
+            return response;
+        }).catch(error => {
+            console.log('createLecture error : ' + error);
+        });
+}

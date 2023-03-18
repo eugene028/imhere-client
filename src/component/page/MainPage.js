@@ -28,6 +28,7 @@ export const MainPage = () => {
     useEffect(() => {
         if (!checkUserHasRole()) {
             navigate(ROUTES.LOGIN);
+            return;
         }
     }, []);
 
@@ -40,7 +41,7 @@ export const MainPage = () => {
 
                 <Button type='button' className='attendance-button'> 출석하기 </Button>
                 <Button type='button' className='enrollment-approve-button' onClick={() => navigate(ROUTES.MANAGE_ENROLLMENT)}> 수강 학생 승인하기 </Button>
-                <Button type='button' className='lecture-create-button'> 새 강의 만들기 </Button>
+                <Button type='button' className='lecture-create-button' onClick={() => navigate(ROUTES.LECTURE_CREATE)}> 새 강의 만들기 </Button>
             </ButtonArea>
 
             {/*{*/}
