@@ -56,11 +56,12 @@ const Title = styled.button`
   margin: 10px;
   border-radius: 10px;
   background-color: whitesmoke;
-  color : black;
+  color: black;
 `
 
 export const StudentsLecturesPage = () => {
     const [lectures, setLectures] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -72,21 +73,27 @@ export const StudentsLecturesPage = () => {
                     alert('에러 발생! 관리자에게 문의하세요');
                     navigate(ROUTES.MAIN_PAGE);
                 }
+                setLoading(true);
             })
     }, []);
 
     return (
-        lectures ?
-            <LecturesContainer>
-                <Title> 내 강의 모음 </Title>
-                <LectureTable>
-                    {Object.values(lectures).map((lecture, index) => {
-                        return (
-                            <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
-                        )
-                    })}
-                </LectureTable>
-            </LecturesContainer>
+        loading ?
+            lectures.length !== 0 ?
+                <LecturesContainer>
+                    <Title> 내 강의 </Title>
+                    <LectureTable>
+                        {Object.values(lectures).map((lecture, index) => {
+                            return (
+                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
+                            )
+                        })}
+                    </LectureTable>
+                </LecturesContainer>
+                :
+                <LecturesContainer>
+                    <Title> 수강중인 강의가 없습니다. </Title>
+                </LecturesContainer>
             :
             <LoadingSpinner/>
     );

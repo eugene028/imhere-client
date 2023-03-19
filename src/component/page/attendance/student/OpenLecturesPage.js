@@ -96,7 +96,6 @@ export const OpenLecturesPage = () => {
             lectures.length !== 0 ?
                 <LecturesContainer>
                     <Title>출석 체크 가능 강좌 목록</Title>
-                    {/*// TODO 출석용으로 모달 변경 필요*/}
                     <AttendanceModal isOpen={isModalOpen} close={setModalOpen}
                                      lecture={currentLecture ? currentLecture : null}/>
                     <LectureTable>
