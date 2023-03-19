@@ -100,10 +100,6 @@ function AttendanceModal({isOpen, close, lecture}) {
                 const {latitude, longitude, accuracy} = position.coords;
                 setAccuracy(accuracy);
                 setDistance(calculateDistance(latitude, longitude));
-                console.log(latitude);
-                console.log(longitude);
-                console.log(accuracy);
-                console.log(calculateDistance(latitude, longitude));
             },
             error => {
                 console.log(error.message)
@@ -130,9 +126,10 @@ function AttendanceModal({isOpen, close, lecture}) {
         requestAttendance(lecture.lectureId, payload)
             .then(response => {
                 if (response) {
-                    alert('출석 성공')
+                    alert('출석 성공');
+                    close(false);
                 } else {
-                    alert('출석 실패')
+                    alert('출석 실패');
                 }
             });
     }

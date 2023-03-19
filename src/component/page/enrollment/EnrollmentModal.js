@@ -97,8 +97,9 @@ function EnrollmentModal({isOpen, close, lecture}) {
         console.log(lecture.lectureId)
         requestEnrollment(lecture.lectureId)
             .then(response => {
-                console.log(response);
-            });
+                alert('수강신청 성공')
+            })
+            .finally(close(false));
     }
 
     return (
