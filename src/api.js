@@ -371,3 +371,19 @@ export const getAllStudentsOPENLectures = async () => {
             return null;
         })
 }
+
+export const requestAttendance = async (lectureId, payload) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.post(`${protocol}://${host}/api/v1/students/attendance/${lectureId}`, payload, {headers: headers})
+        .then(response => {
+            console.log('requestAttendance : ' + response);
+            if (response.status === 200) {
+                return true;
+            }
+            return false;
+        }).catch(error => {
+            console.error('signUpNewMember error : ' + error)
+            return false;
+        });
+}

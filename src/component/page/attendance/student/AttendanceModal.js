@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
 import {calculateDistance} from "../../../../util/DistanceCalculator";
+import {requestAttendance} from "../../../../api";
 
 const Overlay = styled(motion.div)`
   position: fixed;
@@ -90,8 +91,6 @@ const AttendanceNumberInput = styled.input`
 
 function AttendanceModal({isOpen, close, lecture}) {
     const [attendanceNumber, setAttendanceNumber] = useState(0);
-    const [latitude, setLatitude] = useState(0);
-    const [longitude, setLongitude] = useState(0);
     const [accuracy, setAccuracy] = useState(-1);
     const [distance, setDistance] = useState(-1);
 
@@ -99,8 +98,6 @@ function AttendanceModal({isOpen, close, lecture}) {
         navigator.geolocation.getCurrentPosition(
             position => {
                 const {latitude, longitude, accuracy} = position.coords;
-                setLatitude(latitude);
-                setLongitude(longitude);
                 setAccuracy(accuracy);
                 setDistance(calculateDistance(latitude, longitude));
                 console.log(latitude);
@@ -116,22 +113,27 @@ function AttendanceModal({isOpen, close, lecture}) {
     }, []);
 
     const requestCurrentLectureAttendance = () => {
-        if (!isNaN(attendanceNumber) || accuracy === -1 || distance === -1) {
+        if (isNaN(attendanceNumber) || accuracy === -1 || distance === -1) {
             alert('좌표 정보를 가져오는데 문제가 발생했습니다.');
             return;
         }
 
         const payload = {
-            latitude: latitude,
-            longitude: longitude,
-            accuracy: accuracy,
+            attendanceNumber: attendanceNumber,
             distance: distance,
+            accuracy: accuracy,
+            milliseconds: (new Date()).getTime()
         }
-        // lectureId: lecture.lectureId,
-        //     attendanceNumber: attendanceNumber,
-        requestAttendance(payload)
+
+        console.log(payload);
+
+        requestAttendance(lecture.lectureId, payload)
             .then(response => {
-                alert('출석 성공')
+                if (response) {
+                    alert('출석 성공')
+                } else {
+                    alert('출석 실패')
+                }
             });
     }
 
