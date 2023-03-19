@@ -38,7 +38,7 @@ const YearSelect = styled.select``
 const MonthSelect = styled.select``
 const DaySelect = styled.select``
 
-export const AttendancePage = () => {
+export const LecturerAttendancePage = () => {
     const [loading, setLoading] = useState(false);
     const [studentInfos, setStudentInfos] = useState([]);
     const [time, setTime] = useState({

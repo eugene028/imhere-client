@@ -349,3 +349,25 @@ export const getTodayAttendance = async (lectureId, dayMilliseconds) => {
             return null;
         })
 }
+
+
+// 학생 Attendance 과정
+// 1. 열린 강의 전부 가져오기
+// 2. 출석 하기
+
+export const getAllStudentsOPENLectures = async () => {
+    const headers = getHeadersWithToken();
+
+    return await axios.get(`${protocol}://${host}/api/v1/students/open-lectures`, {headers})
+        .then(response => {
+            console.log(response.data)
+            if (response && response.data) {
+                return response.data
+            }
+            return null;
+        })
+        .catch(error => {
+            console.log(error);
+            return null;
+        })
+}

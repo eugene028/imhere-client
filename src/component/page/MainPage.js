@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import {checkUserHasRole} from "../../util/AuthFunctions";
 import * as ROUTES from "../../constants/routes";
 import LoadingSpinner from "../spinner/LoadingSpinner";
+import {AttendancePage} from "./attendance";
 
 const ButtonArea = styled.div`
   display: flex;
@@ -39,7 +40,7 @@ export const MainPage = () => {
                 <Button type='button' className='own-lecture-button' onClick={() => navigate(ROUTES.LECTURES)}> 내가 만든 강의 불러오기 </Button>
                 <Button type='button' className='enrollment-button' onClick={() => navigate(ROUTES.ENROLLMENT)}> 강의 수강 신청 </Button>
 
-                <Button type='button' className='attendance-button'> 출석하기 </Button>
+                <Button type='button' className='attendance-button' onClick={() => navigate(ROUTES.ATTENDANCE)}> 출석하기 </Button>
                 <Button type='button' className='enrollment-approve-button' onClick={() => navigate(ROUTES.MANAGE_ENROLLMENT)}> 수강 학생 승인하기 </Button>
                 <Button type='button' className='lecture-create-button' onClick={() => navigate(ROUTES.LECTURE_CREATE)}> 새 강의 만들기 </Button>
             </ButtonArea>

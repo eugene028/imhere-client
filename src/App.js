@@ -9,8 +9,8 @@ import {LecturesPage} from "./component/page/lecture";
 import {EnrollmentPage} from "./component/page/enrollment/EnrollmentPage";
 import {EnrollmentManagePage} from "./component/page/enrollment/manageEnrollment/EnrollmentManagePage";
 import {LectureCreatePage} from "./component/page/lecture/lecturer/LectureCreatePage";
-import {AttendancePage} from "./component/page/attendance/AttendancePage";
 import {LogoutButton} from "./component/page/LogoutButton";
+import {AttendancePage} from "./component/page/attendance";
 
 
 function makeSnow() {
@@ -38,18 +38,18 @@ const App = () => {
                 <LogoutButton>
                     <Routes>
                         {/*No Auth*/}
-                        <Route path={ROUTES.LOGIN} element={<LoginPage/>}/>
-                        <Route path={ROUTES.SIGN_UP} element={<SignUpPage/>}/>
+                        <Route path={ROUTES.LOGIN} element={<LoginPage />}/>
+                        <Route path={ROUTES.SIGN_UP} element={<SignUpPage />}/>
 
                         {/*Need Auth*/}
-                        <Route path={ROUTES.MAIN_PAGE} element={<MainPage/>}/>
-                        <Route path={ROUTES.LECTURES} element={<LecturesPage/>}/>
-                        <Route path={ROUTES.LECTURE_CREATE} element={<LectureCreatePage/>}/>
+                        <Route path={ROUTES.MAIN_PAGE} element={<MainPage />}/>
+                        <Route path={ROUTES.LECTURES} element={<LecturesPage />}/>
+                        <Route path={ROUTES.LECTURE_CREATE} element={<LectureCreatePage />}/>
 
-                        <Route path={ROUTES.ENROLLMENT} element={<EnrollmentPage/>}/>
-                        <Route path={ROUTES.MANAGE_ENROLLMENT} element={<EnrollmentManagePage/>}/>
+                        <Route path={ROUTES.ENROLLMENT} element={<EnrollmentPage />}/>
+                        <Route path={ROUTES.MANAGE_ENROLLMENT} element={<EnrollmentManagePage />}/>
 
-                        <Route path={ROUTES.ATTENDANCE} element={<AttendancePage/>}/>
+                        <Route path={ROUTES.ATTENDANCE} element={<AttendancePage />}/>
                     </Routes>
                 </LogoutButton>
             </Router>
