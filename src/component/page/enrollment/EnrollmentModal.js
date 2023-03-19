@@ -91,7 +91,7 @@ const EnrollmentButton = styled.button`
   border-radius: 10px;
 `
 
-function LectureModal({isOpen, close, lecture}) {
+function EnrollmentModal({isOpen, close, lecture}) {
 
     const requestCurrentLectureEnrollment = () => {
         console.log(lecture.lectureId)
@@ -123,4 +123,4 @@ function LectureModal({isOpen, close, lecture}) {
     );
 }
 
-export default LectureModal;
+export default EnrollmentModal;

@@ -4,9 +4,9 @@ import * as ROUTES from "../../../../constants/routes"
 import {useNavigate} from "react-router-dom";
 import {getAllStudentsOPENLectures} from "../../../../api";
 import {checkUserHasRole} from "../../../../util/AuthFunctions";
-import LectureModal from "../../enrollment/LectureModal";
 import LoadingSpinner from "../../../spinner/LoadingSpinner";
 import LectureRow from "../../lecture/LectureRow";
+import AttendanceModal from "./AttendanceModal";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;
@@ -97,8 +97,8 @@ export const OpenLecturesPage = () => {
                 <LecturesContainer>
                     <Title>출석 체크 가능 강좌 목록</Title>
                     {/*// TODO 출석용으로 모달 변경 필요*/}
-                    <LectureModal isOpen={isModalOpen} close={setModalOpen}
-                                  lecture={currentLecture ? currentLecture : null}/>
+                    <AttendanceModal isOpen={isModalOpen} close={setModalOpen}
+                                     lecture={currentLecture ? currentLecture : null}/>
                     <LectureTable>
                         {
                             Object.values(lectures).map((lecture, index) => {

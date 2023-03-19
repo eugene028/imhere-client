@@ -6,7 +6,7 @@ import LectureRow from "../lecture/LectureRow";
 import {checkUserHasRole} from "../../../util/AuthFunctions";
 import * as ROUTES from "../../../constants/routes";
 import {useNavigate} from "react-router-dom";
-import LectureModal from "./LectureModal";
+import EnrollmentModal from "./EnrollmentModal";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;
@@ -93,7 +93,7 @@ export const EnrollmentPage = () => {
         lectures ?
             <LecturesContainer>
                 <Title>개설 강의 목록</Title>
-                <LectureModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
+                <EnrollmentModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
                 <LectureTable>
                     {
                         Object.values(lectures).map((lecture, index) => {
