@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from "react";
 import {useState} from "react";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
-import {checkUserHasRole} from "../../util/AuthFunctions";
+import {checkAndGetUserRole, checkUserHasRole} from "../../util/AuthFunctions";
 import * as ROUTES from "../../constants/routes";
 import LoadingSpinner from "../spinner/LoadingSpinner";
 import {AttendancePage} from "./attendance";
@@ -24,46 +24,41 @@ const Button = styled.button`
 `
 
 export const MainPage = () => {
+    const [role, setRole] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!checkUserHasRole()) {
+        const role = checkAndGetUserRole();
+        if (!role) {
             navigate(ROUTES.LOGIN);
-            return;
+        } else {
+            setRole(role);
         }
     }, []);
 
     return (
         <>
-            <ButtonArea>
-                <Button type='button' className='lecture-button' onClick={() => navigate(ROUTES.LECTURES)}> 학생용 내 강의 불러오기 </Button>
-                <Button type='button' className='own-lecture-button' onClick={() => navigate(ROUTES.LECTURES)}> 내가 만든 강의 불러오기 </Button>
-                <Button type='button' className='enrollment-button' onClick={() => navigate(ROUTES.ENROLLMENT)}> 강의 수강 신청 </Button>
+            {
+                role ?
+                    role === 'ROLE_STUDENT'
+                        ?
+                        // 학생
+                        <ButtonArea>
+                            <Button type='button' className='lecture-button' onClick={() => navigate(ROUTES.LECTURES)}> 내 강의 </Button>
+                            <Button type='button' className='attendance-button' onClick={() => navigate(ROUTES.ATTENDANCE)}> 출석하기 </Button>
+                            <Button type='button' className='enrollment-button' onClick={() => navigate(ROUTES.ENROLLMENT)}> 강의 수강 신청 </Button>
+                        </ButtonArea>
+                        :
 
-                <Button type='button' className='attendance-button' onClick={() => navigate(ROUTES.ATTENDANCE)}> 출석하기 </Button>
-                <Button type='button' className='enrollment-approve-button' onClick={() => navigate(ROUTES.MANAGE_ENROLLMENT)}> 수강 학생 승인하기 </Button>
-                <Button type='button' className='lecture-create-button' onClick={() => navigate(ROUTES.LECTURE_CREATE)}> 새 강의 만들기 </Button>
-            </ButtonArea>
-
-            {/*{*/}
-            {/*    role ?*/}
-            {/*        role === 'ROLE_STUDENT'*/}
-            {/*            ?*/}
-            {/*            <ButtonArea>*/}
-            {/*                <ButtonGreen type='button' className='lecture-button'> 내 강의 불러오기 </Button>*/}
-            {/*                <ButtonGreen type='button' className='attendance-button'> 출석하기 </Button>*/}
-            {/*                <ButtonGreen type='button' className='enrollment-button'> 강의 수강 신청 </Button>*/}
-            {/*            </ButtonArea>*/}
-            {/*            :*/}
-            {/*            <ButtonArea>*/}
-            {/*                <ButtonGreen type='button' className='own-lecture-button'> 내가 만든 강의 불러오기 </Button>*/}
-            {/*                <ButtonGreen type='button' className='enrollment-approve-button'> 수강 학생 승인하기 </Button>*/}
-            {/*                <ButtonGreen type='button' className='lecture-create-button'> 새 강의 만들기 </Button>*/}
-            {/*                <ButtonGreen type='button' className='lecture-button'> 수강중인 강의 불러오기 </Button>*/}
-            {/*            </ButtonArea>*/}
-            {/*        :*/}
-            {/*        <LoadingSpinner />*/}
-            {/*}*/}
+                        // 강사
+                        <ButtonArea>
+                            <Button type='button' className='lecture-button' onClick={() => navigate(ROUTES.LECTURES)}> 내 강의 </Button>
+                            <Button type='button' className='lecture-create-button' onClick={() => navigate(ROUTES.LECTURE_CREATE)}> 새 강의 만들기 </Button>
+                            <Button type='button' className='enrollment-approve-button' onClick={() => navigate(ROUTES.MANAGE_ENROLLMENT)}> 수강 학생 승인하기 </Button>
+                        </ButtonArea>
+                    :
+                    <LoadingSpinner />
+            }
         </>
     )
 }
