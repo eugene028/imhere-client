@@ -10,7 +10,7 @@ const CreateLectureArea = styled.div`
   flex-direction: column;
   font-size: 10px;
   margin-top: 10px;
-  width: 25vw;
+  min-width: 30vw;
   position: relative;
 `
 
@@ -20,12 +20,12 @@ const CreateButton = styled.div`
   justify-content: space-between;
   font-size: 10px;
   margin-top: 10px;
-  width: 20vw;
+  width: 100%;
 `
 
 const Button = styled.button`
   font-size: 10px;
-  min-width: 25vw;
+  width: 100%;
 `
 
 const Title = styled.button`

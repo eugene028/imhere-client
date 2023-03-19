@@ -11,7 +11,7 @@ const LoginArea = styled.div`
   flex-direction: column;
   font-size: 10px;
   margin-top: 10px;
-  width: 20vw;
+  min-width: 60vw;
   position: relative;
 `
 
@@ -21,12 +21,12 @@ const LoginAndSignUpBox = styled.div`
   justify-content: space-between;
   font-size: 10px;
   margin-top: 10px;
-  width: 20vw;
+  min-width: 60vw;
 `
 
 const Button = styled.button`
   font-size: 10px;
-  min-width: 9.8vw;
+  min-width: 29.5vw;
 `
 
 const UnivIdInput = styled.input`

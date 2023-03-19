@@ -12,12 +12,14 @@ const ButtonArea = styled.div`
   flex-direction: column;
   justify-content: space-between;
   font-size: 10px;
-  width: 30vw;
+  min-width: 30vw;
+  max-width: 50vw;
 `
 
 const Button = styled.button`
   font-size: 20px;
-  min-width: 9.8vw;
+  //min-width: 9.8vw;
+  width: 100%;
   min-height: 6vh;
   margin: 10px;
   border-radius: 10px;

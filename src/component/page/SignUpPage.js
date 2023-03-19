@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { generateVerificationNumber, signUpNewMember, verifyValidateNumber } from "../../api";
 import { useNavigate } from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
+import {checkAndGetUserRole} from "../../util/AuthFunctions";
 
 const SignUpArea = styled.div`
   display: flex;
@@ -50,6 +51,10 @@ export const SignUpPage = () => {
     domain: '@gmail.com',
   })
   const navigate = useNavigate();
+
+  useEffect(() => {
+    alert('모든 비밀번호는 단방향 암호화를 통해 암호화 되어 저장됩니다.\n비밀번호는 영문자와 숫자를 조합하여 8~20자 이내로 입력해주세요.')
+  }, []);
 
   const handleValue = (event) => {
     const { value, name } = event.target;
