@@ -12,10 +12,7 @@ import React from "react";
 const checkTokenExpirationTime = () => {
     const expirationTime = localStorage.getItem('expirationTime');
     if (!expirationTime || expirationTime < new Date()) {
-        localStorage.removeItem('univId');
-        localStorage.removeItem('role');
-        localStorage.removeItem('expirationTime');
-        localStorage.removeItem('accessToken');
+        removeToken();
         alert('로그인 하세요');
 
         return false;
@@ -39,6 +36,7 @@ export const checkUserHasRole = (roles) => {
     const role = localStorage.getItem('role');
 
     if (roles && !roles.includes(role)) {
+        removeToken();
         alert('잘못된 접근입니다.');
         return false;
     }
@@ -54,6 +52,7 @@ export const checkAndGetUserRole = (roles) => {
     const role = localStorage.getItem('role');
 
     if (roles && !roles.includes(role)) {
+        removeToken();
         alert('잘못된 접근입니다.');
         return null;
     }
