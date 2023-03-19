@@ -159,7 +159,8 @@ function LectureModalWithStudents({isOpen, close, lecture}) {
             await changeLectureState(lecture.lectureId, lectureStateRequest)
                 .then(response => {
                     if (response) {
-                        alert('강의 출석 번호는 ' + response + '입니다! 잊지 마세요!!');
+                        alert('강의 출석 번호는 ' + response + '입니다! 잊지 마세요!!\n' +
+                            '출석 번호는 5분간 유효합니다!');
                     }
                 })
                 .catch(erorr => {
