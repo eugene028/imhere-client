@@ -5,15 +5,13 @@ import * as ROUTES from "../../../constants/routes";
 import {checkUserHasRole} from "../../../util/AuthFunctions";
 import LoadingSpinner from "../../spinner/LoadingSpinner";
 import {getTodayAttendance} from "../../../api";
-import StudentRow from "../lecture/lecturer/StudentRow";
 import {StudentAttendanceInfoRow} from "./StudentAttendanceInfoRow";
 
 const AttendanceAreaWrapper = styled.div`
-  //position: absolute;
   min-width: 70vw;
   max-height: 70vh;
   border-radius: 10px;
-  //margin: 0 auto;
+  padding: 20px;
   background-color: whitesmoke;
   overflow: visible;
   display: flex;
@@ -81,9 +79,7 @@ export const AttendancePage = () => {
             const lectureId = location.state.lectureId;
             getTodayAttendance(lectureId, milliseconds)
                 .then(response => {
-                    if (response) {
-                        // console.log(response);
-
+                    if (response && response.attendanceInfos) {
                         setStudentInfos(response.attendanceInfos);
                     }
                 })

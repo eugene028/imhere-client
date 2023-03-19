@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getHeadersWithToken, getToken} from "./util/AuthFunctions";
+import {getHeadersWithToken, getToken, removeToken} from "./util/AuthFunctions";
 
 const protocol = `http`
 const host = `localhost:8080`
@@ -56,7 +56,6 @@ export const signUpNewMember = async (univId, name, password) => {
         });
 }
 
-
 export const requestSignIn = async (univId, password) => {
     const payload = {
         "univId": univId,
@@ -75,6 +74,21 @@ export const requestSignIn = async (univId, password) => {
             return null;
         }).catch(error => {
             alert('올바른 id와 비밀번호를 입력해주세요')
+        });
+}
+
+export const logout = async () => {
+    const headers = getHeadersWithToken();
+
+    if (!headers) {
+        return;
+    }
+
+    return axios.post(`${protocol}://${host}/logout`, {}, {headers})
+        .finally(final => {
+            console.log(final);
+            removeToken();
+            alert('로그아웃 완료')
         });
 }
 

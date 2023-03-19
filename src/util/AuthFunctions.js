@@ -15,6 +15,7 @@ const checkTokenExpirationTime = () => {
         localStorage.removeItem('univId');
         localStorage.removeItem('role');
         localStorage.removeItem('expirationTime');
+        localStorage.removeItem('accessToken');
         alert('로그인 하세요');
 
         return false;
@@ -28,10 +29,6 @@ export const setAccessToken = (accessToken) => {
     localStorage.setItem('role', parsedToken.role);
     localStorage.setItem('expirationTime', parsedToken.expirationTime);
     localStorage.setItem('accessToken', accessToken);
-}
-
-export const validateUserAuth = () => {
-    return checkTokenExpirationTime();
 }
 
 export const checkUserHasRole = (roles) => {
@@ -102,3 +99,10 @@ const parseToken = (token) => {
     console.log("expirationTime : " + expirationTime);
     return {univId, role, expirationTime};
 };
+
+export const removeToken = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('univId');
+    localStorage.removeItem('role');
+    localStorage.removeItem('expirationTime');
+}
