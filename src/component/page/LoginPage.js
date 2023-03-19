@@ -39,6 +39,7 @@ const EmailArea = styled.div`
   display: grid;
   grid-template-columns: 60% minmax(0px, auto);
 `
+
 export const LoginPage = () => {
     const [userData, setUserData] = useState({
         univId: '',
@@ -63,14 +64,12 @@ export const LoginPage = () => {
             console.log("null")
             return null;
         }
+
         requestSignIn(univId, password)
             .then(response => {
-                console.log(response);
                 if (response) {
                     setAccessToken(response);
                     navigate(ROUTES.MAIN_PAGE);
-                } else {
-                    alert('올바른 아이디와 비밀번호를 입력해주세요');
                 }
             });
     }

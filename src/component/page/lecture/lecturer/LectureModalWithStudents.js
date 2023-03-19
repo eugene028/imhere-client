@@ -3,6 +3,8 @@ import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
 import StudentRow from "./StudentRow";
 import {changeLectureState, getLecturersLectures} from "../../../../api";
+import {useNavigate} from "react-router-dom";
+import * as ROUTES from "../../../../constants/routes";
 
 const Overlay = styled(motion.div)`
   position: fixed;
@@ -25,7 +27,7 @@ const ModalContainer = styled(motion.div)`
   -moz-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.75);
   box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.75);
 
-  min-width: 40vw;
+  min-width: 60vw;
   min-height: 40vh;
   max-height: 70vh;
 
@@ -52,6 +54,11 @@ const ModalContainer = styled(motion.div)`
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #999;
+  }
+
+  button:hover {
+    cursor: pointer;
+
   }
 `;
 
@@ -94,11 +101,10 @@ const CloseButton = styled.button`
   right: 2%;
   top: 3%;
   border-radius: 10px;
-  cursor: pointer;
   background-color: white;
   border: black 1px solid;
   color: black;
-  z-index: 1000;
+  z-index: 10;
 `;
 
 const SaveButton = styled.button`
@@ -126,13 +132,29 @@ const Button = styled.button`
   margin: 0px 10px;
 `
 
+const AttendancePageButton = styled.button`
+  position: absolute;
+  left: 2%;
+  top: 3%;
+  border-radius: 10px;
+  background-color: white;
+  border: black 1px solid;
+  color: black;
+  z-index: 10;
+`
+
 function LectureModalWithStudents({isOpen, close, lecture}) {
-    const [openButtonColor, setOpenButtonColor] = useState('green');
-    const [closeButtonColor, setCloseButtonColor] = useState('green');
+    const [openButtonColor, setOpenButtonColor] = useState(green);
+    const [closeButtonColor, setCloseButtonColor] = useState(green);
     const [lectureStateRequest, setLectureStateRequest] = useState(null);
+    const navigate = useNavigate();
+
+    const open = 'OPEN';
+    const closed = 'CLOSED';
+    const red = 'red';
+    const green = 'green';
 
     const requestLectureStateChange = async () => {
-        console.log(lectureStateRequest + ', ' + lecture.lectureState);
         if (lectureStateRequest && lectureStateRequest !== lecture.lectureState) {
             await changeLectureState(lecture.lectureId, lectureStateRequest)
                 .then(response => {
@@ -145,6 +167,33 @@ function LectureModalWithStudents({isOpen, close, lecture}) {
                 })
         }
     }
+
+    const handleButtonClick = (button) => {
+        if (button === open) {
+            if (lectureStateRequest === open) {
+                setOpenButtonColor(green);
+                setLectureStateRequest(null);
+            } else {
+                setOpenButtonColor(red);
+                setLectureStateRequest(open);
+            }
+            setCloseButtonColor(green);
+        } else {
+            if (lectureStateRequest === closed) {
+                setCloseButtonColor(green);
+                setLectureStateRequest(null);
+            } else {
+                setCloseButtonColor(red);
+                setLectureStateRequest(closed);
+            }
+            setOpenButtonColor(green)
+        }
+    }
+
+    const navigateAttendancePage = () => {
+        navigate(ROUTES.ATTENDANCE, { state : { lectureId : lecture.lectureId } });
+    }
+
     return (
         <AnimatePresence>
             {
@@ -155,30 +204,22 @@ function LectureModalWithStudents({isOpen, close, lecture}) {
                                 <CloseButton onClick={() => {
                                     requestLectureStateChange()
                                         .finally(() => {
-                                                setOpenButtonColor('green');
-                                                setCloseButtonColor('green');
+                                                setOpenButtonColor(green);
+                                                setCloseButtonColor(green);
                                                 setLectureStateRequest(null);
                                                 close(false);
                                             }
                                         )
                                     ;
-
                                 }}>닫기 (강의 상태 변경)</CloseButton>
+                                <AttendancePageButton onClick={() => navigateAttendancePage()}>출석 페이지 이동</AttendancePageButton>
                                 <ModalDescriptionRow><p>{lecture.lectureName}</p></ModalDescriptionRow>
                                 <ModalDescriptionRow>
-                                    <Button onClick={() => {
-                                        setOpenButtonColor('red');
-                                        setCloseButtonColor('green');
-                                        setLectureStateRequest('OPEN');
-                                    }}
+                                    <Button onClick={() => handleButtonClick(open)}
                                             style={{backgroundColor: openButtonColor}}
                                     >강의 열기</Button>
 
-                                    <Button onClick={() => {
-                                        setOpenButtonColor('green');
-                                        setCloseButtonColor('red');
-                                        setLectureStateRequest('CLOSED');
-                                    }}
+                                    <Button onClick={() => handleButtonClick(closed)}
                                             style={{backgroundColor: closeButtonColor}}
                                     >강의 닫기</Button>
                                 </ModalDescriptionRow>

@@ -69,9 +69,7 @@ export const requestSignIn = async (univId, password) => {
 
     return await axios.post(`${protocol}://${host}/login`, payload, {headers: headers})
         .then(response => {
-            console.log('token : ' + response.headers['authorization']);
             if (response && response.headers['authorization']) {
-                console.log("login success");
                 return response.headers['authorization'];
             }
             return null;
@@ -316,4 +314,24 @@ export const createLecture = async (lectureName) => {
         }).catch(error => {
             console.log('createLecture error : ' + error);
         });
+}
+
+// Attendance
+// @GetMapping("/api/v1/lecturer/{lecture_id}/attendance/{day_milliseconds}")
+export const getTodayAttendance = async (lectureId, dayMilliseconds) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.get(`${protocol}://${host}/api/v1/lecturer/${lectureId}/attendance/${dayMilliseconds}`, {headers})
+        .then(response => {
+            console.log(response.data)
+            if (response && response.data) {
+                return response.data
+            }
+
+            return null;
+        })
+        .catch(error => {
+            console.log(error);
+            return null;
+        })
 }

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Lecture = styled.div`
   display: grid;
-  grid-template-columns: 10% 60% 30%;
+  grid-template-columns: 10% 50% 30% 10%;
   padding: 5px 20px;
   align-items: center;
 
@@ -16,6 +16,10 @@ const Lecture = styled.div`
       text-align: center;
     }
   }
+`
+
+const Button = styled.button`
+  font-size: 15px;
 `
 
 const LectureRowWrapper = styled.div`

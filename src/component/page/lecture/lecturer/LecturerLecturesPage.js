@@ -17,7 +17,6 @@ const LecturesContainer = styled.div`
   overflow: visible;
   display: flex;
   flex-direction: column;
-
 `;
 
 const LectureTable = styled.div`
