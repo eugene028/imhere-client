@@ -6,6 +6,7 @@ import {checkUserHasRole} from "../../../util/AuthFunctions";
 import LoadingSpinner from "../../spinner/LoadingSpinner";
 import {getTodayAttendance} from "../../../api";
 import {StudentAttendanceInfoRow} from "./StudentAttendanceInfoRow";
+import {DescriptionRow} from "./DescriptionRow";
 
 const AttendanceAreaWrapper = styled.div`
   min-width: 70vw;
@@ -58,6 +59,16 @@ export const LecturerAttendancePage = () => {
         if (!checkUserHasRole(['ROLE_ADMIN', 'ROLE_LECTURER'])) {
             navigate(ROUTES.LOGIN);
         }
+        const today = new Date();
+        const timeToday = ({
+            year: today.getFullYear(),
+            month: today.getMonth() + 1,
+            day: today.getDate()
+        })
+        setTime(timeToday)
+
+        requestGetAttendance(timeToday);
+
         setLoading(true)
     }, []);
 
@@ -66,8 +77,9 @@ export const LecturerAttendancePage = () => {
         setTime({...time, [name]: value});
     }
 
-    const requestGetAttendance = () => {
-        const {year, month, day} = time;
+    const requestGetAttendance = (requestTime) => {
+        const {year, month, day} = requestTime;
+        console.log(requestTime)
         const milliseconds = (new Date(year, month -1, day)).getTime();
 
         if (!milliseconds) {
@@ -113,11 +125,12 @@ export const LecturerAttendancePage = () => {
                                     })
                                 }
                             </DaySelect>
-                            <button type='button' onClick={() => requestGetAttendance()}>
+                            <button type='button' onClick={() => requestGetAttendance(time)}>
                                 search
                             </button>
                         </TimeSetArea>
                         <StudentsArea>
+                            <DescriptionRow/>
                             {Object.values(studentInfos).map((student, index) => {
                                 console.log(student);
                                 return (

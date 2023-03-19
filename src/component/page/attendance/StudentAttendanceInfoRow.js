@@ -36,8 +36,8 @@ export const StudentAttendanceInfoRow = ({index, student}) => {
                 <div className="lecture-name">{univId}</div>
                 <div className="lecture-name">{dateString}</div>
                 <div className="lecture-name">{timeString}</div>
-                <div className="lecture-name">{distance}</div>
-                <div className="lecture-name">{accuracy}</div>
+                <div className="lecture-name">{Number(distance).toFixed(0)}</div>
+                <div className="lecture-name">{Number(accuracy).toFixed(0)}</div>
             </Student>
         </StudentRowWrapper>
     );
