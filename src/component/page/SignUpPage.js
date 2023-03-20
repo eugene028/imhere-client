@@ -10,22 +10,46 @@ const SignUpArea = styled.div`
   flex-direction: column;
   font-size: 10px;
   margin-top: 10px;
-  width: 25vw;
+  min-width: 60vw;
   position: relative;
 `
 
 const SignUpButtonBox = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   font-size: 10px;
   margin-top: 10px;
-  width: 20vw;
+  width: 100%;
 `
 
 const Button = styled.button`
   font-size: 10px;
-  min-width : 25vw;
+  width: 100%;
+  margin-top: 5px;
+`
+
+const AgreementArea = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
+  margin-top: 5px;
+  
+  p {
+    font-size: 5px;
+  }
+`
+
+const ReadButton = styled.button`
+  font-size: 5px;
+  background-color: transparent;
+  border-radius: 15px;
+  border: 2px solid whitesmoke;
+  padding: 5px;
+  margin-right: 10px;
 `
 
 const UnivIdInput = styled.input`
@@ -49,6 +73,8 @@ export const SignUpPage = () => {
     name: '',
     validateCode: '',
     domain: '@gmail.com',
+    checkBox1: false,
+    checkBox2: false,
   })
   const navigate = useNavigate();
 
@@ -61,7 +87,17 @@ export const SignUpPage = () => {
     setSignUpInputData({ ...signUpInputData, [name]: value });
   }
 
+  const handleCheckbox1Change = (e) => {
+    setSignUpInputData({ ...signUpInputData, ['checkBox1'] : e.target.checked});
+    console.log(signUpInputData.checkBox1);
+  };
+
+  const handleCheckbox2Change = (e) => {
+    setSignUpInputData({ ...signUpInputData, ['checkBox2'] : e.target.checked});
+  };
+
   const validateUserData = () => {
+    const { univId, password, name, checkBox1, checkBox2 } = signUpInputData;
     const nameRegex = /^[가-힣]{2,4}$/;
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,20}$/;
     const univIdRegex = /^[a-zA-Z0-9]+$/;
@@ -69,18 +105,28 @@ export const SignUpPage = () => {
     // const gmailDomain = `@gmail.com`;
     // const hongikGmailDomain = `@g.hongik.ac.kr`;
 
-    if (!univIdRegex.test(signUpInputData.univId)) {
+    if (!univIdRegex.test(univId)) {
       alert('이메일 형식이 올바르지 않습니다.');
       return false;
     }
 
-    if (!passwordRegex.test(signUpInputData.password)) {
+    if (!passwordRegex.test(password)) {
       alert('비밀번호는 영문자와 숫자를 조합하여 8~20자 이내로 입력해주세요.');
       return false;
     }
 
-    if (!nameRegex.test(signUpInputData.name)) {
+    if (!nameRegex.test(name)) {
       alert('이름은 2~4글자의 한글로 입력해주세요');
+      return false;
+    }
+
+    if (!checkBox1) {
+      alert('이용 약관을 읽고 동의해주세요');
+      return false;
+    }
+
+    if (!checkBox2) {
+      alert('개인정보수집/이용 동의 약관을 읽고 동의해주세요');
       return false;
     }
 
@@ -88,10 +134,8 @@ export const SignUpPage = () => {
   };
 
   const handleInputDataButton = () => {
-
-
     if (validateUserData()) {
-      // alert('통과..통과일세')
+      alert('이메일로 온 가입 인증 번호를 10분 안에 입력하세요\n 입력시 이용 약관과 개인정보수집/이용 약관에 동의하는 것으로 간주됩니다.')
       const { univId, domain } = signUpInputData;
       const email = univId + domain;
       generateVerificationNumber(email)
@@ -138,13 +182,23 @@ export const SignUpPage = () => {
               <UnivIdInput type='text' className='input-univId' name='univId' placeholder='이메일' value={signUpInputData.univId} onChange={handleValue} />
               <DomainSelect className='select-domain' name='domain' placeholder='도메인 선택' value={signUpInputData.domain} onChange={handleValue} >
                 <option>@gmail.com</option>
-                {/* <option>@g.hongik.ac.kr</option> */}
               </DomainSelect>
             </EmailArea>
 
             <input type='text' className='input-password' name='password' placeholder='비밀번호' value={signUpInputData.password} onChange={handleValue} />
             <input type='text' className='input-name' name='name' placeholder='이름' value={signUpInputData.name} onChange={handleValue} />
             <SignUpButtonBox>
+              <AgreementArea>
+                <ReadButton> 이용약관 읽기 </ReadButton>
+                <p> 이용 약관을 충분히 읽어 보았으며 이에 동의합니다. </p>
+                <input type="checkbox" name='checkBox1' checked={signUpInputData.checkBox1} onChange={handleCheckbox1Change} />
+              </AgreementArea>
+              <AgreementArea>
+                <ReadButton> 개인정보수집/이용 동의 읽기 </ReadButton>
+                <p> 개인정보수집/이용 동의 약관을 충분히 읽어 보았으며 이에 동의합니다. </p>
+                <input type="checkbox" name='checkBox2' checked={signUpInputData.checkBox2} onChange={handleCheckbox2Change} />
+              </AgreementArea>
+
               <Button type='button' className='input-data-button' onClick={handleInputDataButton}> 이메일 인증 </Button>
             </SignUpButtonBox>
           </SignUpArea>
