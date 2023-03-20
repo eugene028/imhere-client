@@ -4,6 +4,9 @@ import { generateVerificationNumber, signUpNewMember, verifyValidateNumber } fro
 import { useNavigate } from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
 import {checkAndGetUserRole} from "../../util/AuthFunctions";
+import EnrollmentManageModal from "./enrollment/manageEnrollment/EnrollmentManageModal";
+import AgreementModal from "./AgreementModal";
+import {agreement1, agreement2} from "../../util/agreement";
 
 const SignUpArea = styled.div`
   display: flex;
@@ -17,7 +20,7 @@ const SignUpArea = styled.div`
 const SignUpButtonBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   font-size: 10px;
   margin-top: 10px;
   width: 100%;
@@ -26,7 +29,7 @@ const SignUpButtonBox = styled.div`
 const Button = styled.button`
   font-size: 10px;
   width: 100%;
-  margin-top: 5px;
+  margin-top: 10px;
 `
 
 const AgreementArea = styled.div`
@@ -66,6 +69,8 @@ const EmailArea = styled.div`
 `
 
 export const SignUpPage = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [contents, setContents] = useState(agreement1);
   const [isInputValidate, setInputValidate] = useState(false);
   const [signUpInputData, setSignUpInputData] = useState({
     univId: '',
@@ -178,6 +183,7 @@ export const SignUpPage = () => {
       {
         !isInputValidate ?
           <SignUpArea>
+            <AgreementModal isOpen={isModalOpen} close={setModalOpen} contents={contents}/>
             <EmailArea>
               <UnivIdInput type='text' className='input-univId' name='univId' placeholder='이메일' value={signUpInputData.univId} onChange={handleValue} />
               <DomainSelect className='select-domain' name='domain' placeholder='도메인 선택' value={signUpInputData.domain} onChange={handleValue} >
@@ -189,12 +195,18 @@ export const SignUpPage = () => {
             <input type='text' className='input-name' name='name' placeholder='이름' value={signUpInputData.name} onChange={handleValue} />
             <SignUpButtonBox>
               <AgreementArea>
-                <ReadButton> 이용약관 읽기 </ReadButton>
+                <ReadButton onClick={() => {
+                  setModalOpen(true)
+                  setContents(agreement1);
+                }}> 이용약관 읽기 </ReadButton>
+
                 <p> 이용 약관을 충분히 읽어 보았으며 이에 동의합니다. </p>
                 <input type="checkbox" name='checkBox1' checked={signUpInputData.checkBox1} onChange={handleCheckbox1Change} />
               </AgreementArea>
               <AgreementArea>
-                <ReadButton> 개인정보수집/이용 동의 읽기 </ReadButton>
+                <ReadButton onClick={() => {
+                  setModalOpen(true)
+                  setContents(agreement2)}}> 개인정보수집/이용 동의 읽기 </ReadButton>
                 <p> 개인정보수집/이용 동의 약관을 충분히 읽어 보았으며 이에 동의합니다. </p>
                 <input type="checkbox" name='checkBox2' checked={signUpInputData.checkBox2} onChange={handleCheckbox2Change} />
               </AgreementArea>
