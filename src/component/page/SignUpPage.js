@@ -50,8 +50,6 @@ const AgreementArea = styled.div`
 const ReadButton = styled.button`
   font-size: 8px;
   background-color: transparent;
-  //border-radius: 15px;
-  //border: 2px solid whitesmoke;
   padding: 5px;
   margin-right: 10px;
   font-weight: bold;
