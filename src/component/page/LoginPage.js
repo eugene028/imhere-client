@@ -26,7 +26,7 @@ const LoginAndSignUpBox = styled.div`
 
 const Button = styled.button`
   font-size: 10px;
-  min-width: 29.5vw;
+  min-width: 49%;
 `
 
 const UnivIdInput = styled.input`
