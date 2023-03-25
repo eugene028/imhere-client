@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getHeadersWithToken, getToken, removeToken} from "./util/AuthFunctions";
+import {getHeadersWithToken, removeToken} from "./util/AuthFunctions";
 
 const protocol = `http`
 const host = `localhost:8080`
@@ -7,7 +7,7 @@ const host = `localhost:8080`
 export const generateVerificationNumber = async email => {
     return await axios.post(`${protocol}://${host}/member/verification/${email}`)
         .then(response => {
-            if (response.status === 200) {
+            if (response && response.status === 200) {
                 return true;
             }
             return false;
@@ -21,8 +21,7 @@ export const generateVerificationNumber = async email => {
 export const verifyValidateNumber = async (email, verificationCode) => {
     return await axios.get(`${protocol}://${host}/member/verification/${email}/${verificationCode}`)
         .then(response => {
-            console.log(response.data);
-            if (response.data === true) {
+            if (response && response.data && response.data === true) {
                 return true;
             }
             return false;
@@ -46,7 +45,7 @@ export const signUpNewMember = async (univId, name, password) => {
     return await axios.post(`${protocol}://${host}/member/new`, payload, {headers: headers})
         .then(response => {
             console.log('signUpNewMember : ' + response);
-            if (response.status === 200) {
+            if (response && response.status === 200) {
                 return true;
             }
             return false;
@@ -119,7 +118,6 @@ export const getAllStudentsLectures = async () => {
 
     return await axios.get(`${protocol}://${host}/api/v1/students/all-lectures`, {headers})
         .then(response => {
-            console.log(response.data)
             if (response && response.data) {
                 return response.data
             }
@@ -137,7 +135,6 @@ export const getLecturersLectures = async () => {
 
     return await axios.get(`${protocol}://${host}/api/v1/lectures`, {headers})
         .then(response => {
-            console.log(response.data)
             if (response && response.data) {
                 return response.data
             }
@@ -155,7 +152,6 @@ export const getLecturersEnrollment = async lectureId => {
 
     return await axios.get(`${protocol}://${host}/api/v1/enrollment/${lectureId}`, {headers})
         .then(response => {
-            console.log(response.data)
             if (response && response.data) {
                 return response.data
             }
@@ -175,7 +171,7 @@ export const requestEnrollment = async (lectureId) => {
     return await axios.post(`${protocol}://${host}/api/v1/students/enrollment/${lectureId}`, {}, {headers: headers})
         .then(response => {
             console.log('requestEnrollment : ' + response);
-            if (response.status === 200) {
+            if (response && response.status === 200) {
                 return true;
             }
             return false;
@@ -257,7 +253,7 @@ export const changeLectureState = async (lectureId, lectureState) => {
     if (lectureState === 'OPEN') {
         return openLecture(lectureId)
             .then(response => {
-                if (response.data && response.data.attendanceNumber) {
+                if (response && response.data && response.data.attendanceNumber) {
                     return response.data.attendanceNumber;
                 } else {
                     return null;
@@ -337,7 +333,6 @@ export const getTodayAttendance = async (lectureId, dayMilliseconds) => {
 
     return await axios.get(`${protocol}://${host}/api/v1/lecturer/${lectureId}/attendance/${dayMilliseconds}`, {headers})
         .then(response => {
-            console.log(response.data)
             if (response && response.data) {
                 return response.data
             }
@@ -360,7 +355,7 @@ export const getAllStudentsOPENLectures = async () => {
 
     return await axios.get(`${protocol}://${host}/api/v1/students/open-lectures`, {headers})
         .then(response => {
-            console.log(response.data)
+            // console.log(response?.data)
             if (response && response.data) {
                 return response.data
             }
@@ -378,7 +373,7 @@ export const requestAttendance = async (lectureId, payload) => {
     return await axios.post(`${protocol}://${host}/api/v1/students/attendance/${lectureId}`, payload, {headers: headers})
         .then(response => {
             console.log('requestAttendance : ' + response);
-            if (response.status === 200) {
+            if (response && response.status === 200) {
                 return true;
             }
             return false;

@@ -20,20 +20,20 @@ function makeSnow() {
     snow.style.width = size + "px";
     snow.style.height = size + "px";
     snow.style.left = Math.random() * window.innerWidth + "px";
-    snow.style.animationDuration = Math.random() * 3 + 2.5 + "s";
+    snow.style.animationDuration = Math.random() * 3 + 1.5 + "s";
     snow.style.zIndex = "-1";
     document.body.appendChild(snow);
     setTimeout(() => snow.remove(), 5000);
 }
 
-const App = () => {
+function App () {
     useEffect(() => {
         const interval = setInterval(makeSnow, 20);
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <>
+        <div className="App">
             <Router>
                 <LogoutButton>
                     <Routes>
@@ -53,7 +53,7 @@ const App = () => {
                     </Routes>
                 </LogoutButton>
             </Router>
-        </>
+        </div>
     )
 }
 
