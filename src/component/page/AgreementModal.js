@@ -12,7 +12,7 @@ const Overlay = styled(motion.div)`
 
 const ModalContainer = styled(motion.div)`
   background-color: white;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -23,19 +23,17 @@ const ModalContainer = styled(motion.div)`
   -moz-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.75);
   box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.75);
   
-  min-width: 60vw;
+  //min-width: 60vw;
+  max-width: 60vw;
   max-height: 60vh;
   
   overflow: scroll;
   pointer-events: all;
-`;
 
-const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  pointer-events: all;
 `;
 
 const ModalTitleRow = styled.div`
@@ -65,15 +63,15 @@ const containerVariant = {
 };
 
 const CloseButton = styled.button`
-  position: absolute;
-  right: 2%;
+  position: sticky;
   top: 3%;
+  margin-left: 90%;
   border-radius: 10px;
   cursor: pointer;
-  background-color: white;
+  background-color: transparent;
   border: black 1px solid;
   color: black;
-  z-index: 1000;
+  z-index: 10;
 `;
 
 function AgreementModal({isOpen, close, title, contents}) {
@@ -84,11 +82,11 @@ function AgreementModal({isOpen, close, title, contents}) {
                 isOpen && (
                     <Overlay initial="initial" animate="isOpen" exit="exit">
                         <ModalContainer variants={containerVariant}>
-                            <ModalWrapper>
+                            {/*<ModalWrapper>*/}
                                 <CloseButton onClick={() => close(false)}>닫기</CloseButton>
                                 <ModalTitleRow>{title}</ModalTitleRow>
                                 <ModalDescriptionRow> {contents} </ModalDescriptionRow>
-                            </ModalWrapper>
+                            {/*</ModalWrapper>*/}
                         </ModalContainer>
                     </Overlay>
                 )
