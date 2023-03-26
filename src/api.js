@@ -1,8 +1,8 @@
 import axios from "axios";
 import {getHeadersWithToken, removeToken} from "./util/AuthFunctions";
 
-const protocol = `http`
-const host = `localhost:8080`
+const protocol = `https`
+const host = `api.imhere.im`
 
 export const generateVerificationNumber = async email => {
     return await axios.post(`${protocol}://${host}/member/verification/${email}`)
@@ -44,7 +44,6 @@ export const signUpNewMember = async (univId, name, password) => {
 
     return await axios.post(`${protocol}://${host}/member/new`, payload, {headers: headers})
         .then(response => {
-            console.log('signUpNewMember : ' + response);
             if (response && response.status === 200) {
                 return true;
             }
@@ -85,7 +84,6 @@ export const logout = async () => {
 
     return axios.post(`${protocol}://${host}/logout`, {}, {headers})
         .finally(final => {
-            console.log(final);
             removeToken();
             alert('로그아웃 완료')
         });
@@ -170,7 +168,6 @@ export const requestEnrollment = async (lectureId) => {
 
     return await axios.post(`${protocol}://${host}/api/v1/students/enrollment/${lectureId}`, {}, {headers: headers})
         .then(response => {
-            console.log('requestEnrollment : ' + response);
             if (response && response.status === 200) {
                 return true;
             }
@@ -188,7 +185,6 @@ export const changeEnrollmentState = async (lectureId, studentId, enrollmentStat
     if (enrollmentState === 'APPROVAL') {
         approvalEnrollment(lectureId, studentId)
             .then(response => {
-                console.log(response);
                 if (response) {
                     return true;
                 } else {
@@ -201,7 +197,6 @@ export const changeEnrollmentState = async (lectureId, studentId, enrollmentStat
     } else if (enrollmentState === 'REJECTION') {
         rejectEnrollment(lectureId, studentId)
             .then(response => {
-                console.log(response);
                 if (response) {
                     return true;
                 } else {
@@ -222,7 +217,6 @@ const approvalEnrollment = async (lectureId, studentId) => {
 
     return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/approval`, {}, {headers: headers})
         .then(response => {
-            console.log('approvalEnrollment : ' + response);
             return response;
         }).catch(error => {
             console.error('approvalEnrollment error : ' + error)
@@ -236,7 +230,6 @@ const rejectEnrollment = async (lectureId, studentId) => {
 
     return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/rejection`, {}, {headers: headers})
         .then(response => {
-            console.log('rejectEnrollment : ' + response);
             return response;
         }).catch(error => {
             console.error('rejectEnrollment error : ' + error)
@@ -249,7 +242,6 @@ const rejectEnrollment = async (lectureId, studentId) => {
 // @PostMapping("/api/v1/lectures/{lecture_id}/close")
 
 export const changeLectureState = async (lectureId, lectureState) => {
-    console.log(lectureState);
     if (lectureState === 'OPEN') {
         return openLecture(lectureId)
             .then(response => {
@@ -281,7 +273,6 @@ const openLecture = async (lectureId) => {
 
     return await axios.post(`${protocol}://${host}/api/v1/lectures/${lectureId}/open`, {}, {headers: headers})
         .then(response => {
-            console.log('openLecture : ' + response);
             return response;
         }).catch(error => {
             console.error('openLecture error : ' + error)
@@ -294,7 +285,6 @@ const closeLecture = async (lectureId) => {
 
     return await axios.post(`${protocol}://${host}/api/v1/lectures/${lectureId}/close`, {}, {headers: headers})
         .then(response => {
-            console.log('closeLecture : ' + response);
             return response;
         }).catch(error => {
             console.error('closeLecture error : ' + error)
@@ -319,7 +309,6 @@ export const createLecture = async (lectureName) => {
 
     return await axios.post(`${protocol}://${host}/api/v1/lectures`, payload, {headers: headers})
         .then(response => {
-            console.log(response);
             return response;
         }).catch(error => {
             console.log('createLecture error : ' + error);
@@ -355,7 +344,6 @@ export const getAllStudentsOPENLectures = async () => {
 
     return await axios.get(`${protocol}://${host}/api/v1/students/open-lectures`, {headers})
         .then(response => {
-            // console.log(response?.data)
             if (response && response.data) {
                 return response.data
             }
@@ -372,7 +360,6 @@ export const requestAttendance = async (lectureId, payload) => {
 
     return await axios.post(`${protocol}://${host}/api/v1/students/attendance/${lectureId}`, payload, {headers: headers})
         .then(response => {
-            console.log('requestAttendance : ' + response);
             if (response && response.status === 200) {
                 return true;
             }
