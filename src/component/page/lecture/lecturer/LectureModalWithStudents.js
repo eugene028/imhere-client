@@ -227,7 +227,7 @@ function LectureModalWithStudents({isOpen, close, lecture}) {
                                 <ModalDescriptionRow><p>수강생 목록</p></ModalDescriptionRow>
 
                                 <StudentsArea>
-                                    {Object.values(lecture.studentInfos).map((student, index) => {
+                                    {lecture && lecture.studentInfos && Object.values(lecture.studentInfos).map((student, index) => {
                                         return (
                                             <StudentRow key={student.id} index={index} student={student}/>
                                         )

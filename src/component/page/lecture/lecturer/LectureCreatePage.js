@@ -28,15 +28,6 @@ const Button = styled.button`
   width: 100%;
 `
 
-const Title = styled.button`
-  font-size: 10px;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: whitesmoke;
-  color: black;
-`
-
 export const LectureCreatePage = () => {
     const [lectureName, setLectureName] = useState('');
     const navigate = useNavigate();

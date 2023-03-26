@@ -176,7 +176,7 @@ function EnrollmentManageModal({isOpen, close, lecture}) {
                                 <ModalDescriptionRow><p>{lecture.lectureName}</p></ModalDescriptionRow>
                                 <ModalDescriptionRow><p>수강생 목록</p></ModalDescriptionRow>
                                 <StudentsArea>
-                                    {enrollment && Object.values(enrollment.studentInfos).map((student, index) => {
+                                    {enrollment && enrollment.studentInfos && Object.values(enrollment.studentInfos).map((student, index) => {
                                         return (
                                             <StudentEnrollmentStateRow key={student.id} index={index} student={student}
                                                                        setStateChangeRequest={setStateChangeRequest}/>

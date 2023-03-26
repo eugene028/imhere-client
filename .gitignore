@@ -28,3 +28,6 @@ yarn-error.log*
 /./idea/
 
 /src/firebase.js
+
+.babelrc
+babel.config.js

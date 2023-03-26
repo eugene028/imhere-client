@@ -94,10 +94,11 @@ export const EnrollmentManagePage = () => {
                     {
                         Object.values(lectures).map((lecture, index) => {
                             return (
-                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
-                                    setCurrentLecture(lecture);
-                                    setModalOpen(true);
-                                }}/>
+                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture}
+                                    onClick={() => {
+                                        setCurrentLecture(lecture);
+                                        setModalOpen(true);
+                                    }}/>
                             )
                         })
                     }

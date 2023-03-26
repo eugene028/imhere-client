@@ -77,11 +77,10 @@ const CloseButton = styled.button`
 `;
 
 const EnrollmentArea = styled.div`
-  position: absolute;
-  bottom: 8%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 10px;
 `
 const EnrollmentButton = styled.button`
   font-size: 20px;
@@ -104,7 +103,7 @@ function EnrollmentModal({isOpen, close, lecture}) {
     return (
         <AnimatePresence>
             {
-                isOpen && (
+                isOpen && lecture && (
                     <Overlay initial="initial" animate="isOpen" exit="exit">
                         <ModalContainer variants={containerVariant}>
                             <ModalWrapper>

@@ -32,9 +32,9 @@ const LecturerLectureRow = ({index, lecture, onClick}) => {
         <LectureRowWrapper onClick={onClick}>
             <Lecture>
                 <div className="lecture-index">{index + 1}</div>
-                <div className="lecture-name">{lecture.lectureName}</div>
+                <div className="lecture-name">{lecture.lectureName || 'loading..'}</div>
                 {/*<div className="lecturer-name">{lecture.lecturerName} 강사</div>*/}
-                <div className="lecture-state">{lecture.lectureState}</div>
+                <div className="lecture-state">{lecture.lectureState || 'loading..'}</div>
             </Lecture>
         </LectureRowWrapper>
     );

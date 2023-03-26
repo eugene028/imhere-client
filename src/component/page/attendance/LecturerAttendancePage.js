@@ -130,7 +130,7 @@ export const LecturerAttendancePage = () => {
                         </TimeSetArea>
                         <StudentsArea>
                             <DescriptionRow/>
-                            {Object.values(studentInfos).map((student, index) => {
+                            {studentInfos && Object.values(studentInfos).map((student, index) => {
                                 return (
                                     <StudentAttendanceInfoRow key={student.id} index={index} student={student}/>
                                 )

@@ -139,7 +139,7 @@ function AttendanceModal({isOpen, close, lecture}) {
     return (
         <AnimatePresence>
             {
-                isOpen && (
+                isOpen && lecture && (
                     <Overlay initial="initial" animate="isOpen" exit="exit">
                         <ModalContainer variants={containerVariant}>
                             <ModalWrapper>

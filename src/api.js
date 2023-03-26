@@ -185,11 +185,7 @@ export const changeEnrollmentState = async (lectureId, studentId, enrollmentStat
     if (enrollmentState === 'APPROVAL') {
         approvalEnrollment(lectureId, studentId)
             .then(response => {
-                if (response) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return true;
             }).catch(error => {
             console.log('approvalEnrollment fail : ' + error)
             return false;
