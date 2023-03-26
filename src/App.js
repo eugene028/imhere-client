@@ -20,15 +20,15 @@ function makeSnow() {
     snow.style.width = size + "px";
     snow.style.height = size + "px";
     snow.style.left = Math.random() * window.innerWidth + "px";
-    snow.style.animationDuration = Math.random() * 3 + 1.5 + "s";
+    snow.style.animationDuration = Math.random() * 3 + 4.3 + "s";
     snow.style.zIndex = "-1";
     document.body.appendChild(snow);
-    setTimeout(() => snow.remove(), 5000);
+    setTimeout(() => snow.remove(), 8000);
 }
 
 function App () {
     useEffect(() => {
-        const interval = setInterval(makeSnow, 20);
+        const interval = setInterval(makeSnow, 50);
         return () => clearInterval(interval);
     }, []);
 
