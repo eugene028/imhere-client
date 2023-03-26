@@ -152,8 +152,8 @@ export const SignUpPage = () => {
             return false;
         }
 
-        if (password === passwordCheck) {
-            alert('비밀번호는 영문자와 숫자를 조합하여 8~20자 이내로 입력해주세요.');
+        if (password !== passwordCheck) {
+            alert('비밀번호와 비밀번호 확인 입력이 다릅니다.');
             return false;
         }
 
