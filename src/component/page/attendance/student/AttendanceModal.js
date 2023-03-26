@@ -102,7 +102,6 @@ function AttendanceModal({isOpen, close, lecture}) {
                 setDistance(calculateDistance(latitude, longitude));
             },
             error => {
-                console.log(error.message)
                 alert('위치 정보를 가져오는데 에러가 발생했습니다.')
             }
         );
@@ -120,8 +119,6 @@ function AttendanceModal({isOpen, close, lecture}) {
             accuracy: accuracy,
             milliseconds: (new Date()).getTime()
         }
-
-        console.log(payload);
 
         requestAttendance(lecture.lectureId, payload)
             .then(response => {

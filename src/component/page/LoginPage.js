@@ -61,7 +61,7 @@ export const LoginPage = () => {
     const signIn = () => {
         const {univId, password} = userData;
         if (!univId || !password) {
-            console.log("null")
+            alert('모든 칸을 채워 주세요')
             return null;
         }
 

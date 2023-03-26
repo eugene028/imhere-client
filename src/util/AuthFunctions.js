@@ -93,9 +93,9 @@ const parseToken = (token) => {
     const role = parseResult.role;
     const expirationTime = new Date(parseResult.exp * 1000).getTime();
 
-    console.log("univId : " + univId);
-    console.log("role : " + role);
-    console.log("expirationTime : " + expirationTime);
+    // console.log("univId : " + univId);
+    // console.log("role : " + role);
+    // console.log("expirationTime : " + expirationTime);
     return {univId, role, expirationTime};
 };
 

@@ -94,7 +94,6 @@ const EnrollmentButton = styled.button`
 function EnrollmentModal({isOpen, close, lecture}) {
 
     const requestCurrentLectureEnrollment = () => {
-        console.log(lecture.lectureId)
         requestEnrollment(lecture.lectureId)
             .then(response => {
                 alert('수강신청 성공')

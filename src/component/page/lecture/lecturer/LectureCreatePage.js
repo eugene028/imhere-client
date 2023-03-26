@@ -56,9 +56,8 @@ export const LectureCreatePage = () => {
 
     const requestCreateLecture = () => {
         if (lectureName) {
-            console.log(lectureName);
             createLecture(lectureName)
-                .then(reponse => {
+                .then(response => {
                     alert('강의 생성이 완료되었습니다.');
                     navigate(ROUTES.MAIN_PAGE);
                 })

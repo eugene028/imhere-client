@@ -148,10 +148,8 @@ function EnrollmentManageModal({isOpen, close, lecture}) {
         await requestMap.forEach((enrollmentState, studentId) => {
             changeEnrollmentState(lectureId, studentId, enrollmentState)
                 .then(response => {
-                    if (response) {
-                        console.log("change success " + lectureId + ', ' + studentId + ', ' + enrollmentState);
-                    } else {
-                        console.log("change fail " + lectureId + ', ' + studentId + ', ' + enrollmentState);
+                    if (!response) {
+                        alert('실패 인원 있음 ' + lectureId + "번 강좌 " + studentId + "번 학생 " + enrollmentState + "로 변화.")
                     }
                 })
                 .catch(error => {
@@ -179,7 +177,6 @@ function EnrollmentManageModal({isOpen, close, lecture}) {
                                 <ModalDescriptionRow><p>수강생 목록</p></ModalDescriptionRow>
                                 <StudentsArea>
                                     {enrollment && Object.values(enrollment.studentInfos).map((student, index) => {
-                                        console.log(student);
                                         return (
                                             <StudentEnrollmentStateRow key={student.id} index={index} student={student}
                                                                        setStateChangeRequest={setStateChangeRequest}/>

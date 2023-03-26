@@ -79,7 +79,6 @@ export const LecturerAttendancePage = () => {
 
     const requestGetAttendance = (requestTime) => {
         const {year, month, day} = requestTime;
-        console.log(requestTime)
         const milliseconds = (new Date(year, month -1, day)).getTime();
 
         if (!milliseconds) {
@@ -132,7 +131,6 @@ export const LecturerAttendancePage = () => {
                         <StudentsArea>
                             <DescriptionRow/>
                             {Object.values(studentInfos).map((student, index) => {
-                                console.log(student);
                                 return (
                                     <StudentAttendanceInfoRow key={student.id} index={index} student={student}/>
                                 )

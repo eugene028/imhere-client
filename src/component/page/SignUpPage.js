@@ -96,7 +96,6 @@ export const SignUpPage = () => {
 
     const handleCheckbox1Change = (e) => {
         setSignUpInputData({...signUpInputData, ['checkBox1']: e.target.checked});
-        console.log(signUpInputData.checkBox1);
     };
 
     const handleCheckbox2Change = (e) => {
@@ -147,7 +146,6 @@ export const SignUpPage = () => {
             const email = univId + domain;
             generateVerificationNumber(email)
                 .then(response => {
-                    console.log(response);
                     if (response) {
                         setInputValidate(true);
                     } else {
