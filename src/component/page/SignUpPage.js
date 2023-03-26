@@ -70,13 +70,44 @@ const EmailArea = styled.div`
   grid-template-columns: 60% minmax(0px, auto);
 `
 
+const PasswordInputContainer = styled.div`
+  position: relative;
+  width: 100%;
+  display: inline-block;
+`;
+
+const PasswordInput = styled.input`
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+`
+
+const ViewButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  border-radius: 5px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  
+  display: flex;
+  align-items: center;
+`;
+
 export const SignUpPage = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [contents, setContents] = useState(agreement1);
     const [isInputValidate, setInputValidate] = useState(false);
+    const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+    const [isPasswordCheckHidden, setIsPasswordCheckHidden] = useState(true);
     const [signUpInputData, setSignUpInputData] = useState({
         univId: '',
         password: '',
+        passwordCheck: '',
         name: '',
         validateCode: '',
         domain: '@gmail.com',
@@ -103,7 +134,7 @@ export const SignUpPage = () => {
     };
 
     const validateUserData = () => {
-        const {univId, password, name, checkBox1, checkBox2} = signUpInputData;
+        const {univId, password, passwordCheck, name, checkBox1, checkBox2} = signUpInputData;
         const nameRegex = /^[가-힣]{2,4}$/;
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,20}$/;
         const univIdRegex = /^[a-zA-Z0-9]+$/;
@@ -117,6 +148,11 @@ export const SignUpPage = () => {
         }
 
         if (!passwordRegex.test(password)) {
+            alert('비밀번호는 영문자와 숫자를 조합하여 8~20자 이내로 입력해주세요.');
+            return false;
+        }
+
+        if (password === passwordCheck) {
             alert('비밀번호는 영문자와 숫자를 조합하여 8~20자 이내로 입력해주세요.');
             return false;
         }
@@ -195,8 +231,20 @@ export const SignUpPage = () => {
                             </DomainSelect>
                         </EmailArea>
 
-                        <input type='text' className='input-password' name='password' placeholder='비밀번호'
-                               value={signUpInputData.password} onChange={handleValue}/>
+                        <PasswordInputContainer>
+                            <PasswordInput type={isPasswordHidden ? 'password' : 'text'} className='input-password' name='password' placeholder='비밀번호' value={signUpInputData.password} onChange={handleValue}/>
+                            <ViewButton onClick={() => setIsPasswordHidden(prevState => !prevState)}>
+                                {isPasswordHidden ? '👁️' : '🔒'}
+                            </ViewButton>
+                        </PasswordInputContainer>
+
+                        <PasswordInputContainer>
+                            <PasswordInput type={isPasswordCheckHidden ? 'password' : 'text'} className='input-password-check' name='passwordCheck' placeholder='비밀번호 확인' value={signUpInputData.passwordCheck} onChange={handleValue}/>
+                            <ViewButton onClick={() => setIsPasswordCheckHidden(prevState => !prevState)}>
+                                {isPasswordCheckHidden ? '👁️' : '🔒'}
+                            </ViewButton>
+                        </PasswordInputContainer>
+
                         <input type='text' className='input-name' name='name' placeholder='이름'
                                value={signUpInputData.name} onChange={handleValue}/>
                         <SignUpButtonBox>
@@ -218,7 +266,7 @@ export const SignUpPage = () => {
                                     <ReadButton onClick={() => {
                                         setModalOpen(true)
                                         setContents(agreement2)
-                                    }}> 개인정보수집/이용 동의 읽기 </ReadButton>
+                                    }}> 개인정보수집/이용약관 읽기 </ReadButton>
                                     <input type="checkbox" name='checkBox2' checked={signUpInputData.checkBox2}
                                            onChange={handleCheckbox2Change}/>
                                 </div>

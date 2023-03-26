@@ -82,11 +82,9 @@ function AgreementModal({isOpen, close, title, contents}) {
                 isOpen && (
                     <Overlay initial="initial" animate="isOpen" exit="exit">
                         <ModalContainer variants={containerVariant}>
-                            {/*<ModalWrapper>*/}
-                                <CloseButton onClick={() => close(false)}>닫기</CloseButton>
-                                <ModalTitleRow>{title}</ModalTitleRow>
-                                <ModalDescriptionRow> {contents} </ModalDescriptionRow>
-                            {/*</ModalWrapper>*/}
+                            <CloseButton onClick={() => close(false)}>닫기</CloseButton>
+                            <ModalTitleRow>{title}</ModalTitleRow>
+                            <ModalDescriptionRow> {contents} </ModalDescriptionRow>
                         </ModalContainer>
                     </Overlay>
                 )
