@@ -35,23 +35,23 @@ function App () {
     return (
         <div className="App">
             <Router>
-                <LogoutButton>
+                {/*<LogoutButton>*/}
                     <Routes>
                         {/*No Auth*/}
-                        <Route path={ROUTES.LOGIN} element={<LoginPage />}/>
+                        <Route path={ROUTES.LOGIN} element={<LoginPage /> }/>
                         <Route path={ROUTES.SIGN_UP} element={<SignUpPage />}/>
 
                         {/*Need Auth*/}
-                        <Route path={ROUTES.MAIN_PAGE} element={<MainPage />}/>
-                        <Route path={ROUTES.LECTURES} element={<LecturesPage />}/>
-                        <Route path={ROUTES.LECTURE_CREATE} element={<LectureCreatePage />}/>
+                        <Route path={ROUTES.MAIN_PAGE} element={<LogoutButton> <MainPage /> </LogoutButton>}/>
+                        <Route path={ROUTES.LECTURES} element={<LogoutButton> <LecturesPage /> </LogoutButton>}/>
+                        <Route path={ROUTES.LECTURE_CREATE} element={<LogoutButton> <LectureCreatePage /> </LogoutButton>}/>
 
-                        <Route path={ROUTES.ENROLLMENT} element={<EnrollmentPage />}/>
-                        <Route path={ROUTES.MANAGE_ENROLLMENT} element={<EnrollmentManagePage />}/>
+                        <Route path={ROUTES.ENROLLMENT} element={<LogoutButton> <EnrollmentPage /> </LogoutButton>}/>
+                        <Route path={ROUTES.MANAGE_ENROLLMENT} element={<LogoutButton> <EnrollmentManagePage /> </LogoutButton>}/>
 
-                        <Route path={ROUTES.ATTENDANCE} element={<AttendancePage />}/>
+                        <Route path={ROUTES.ATTENDANCE} element={<LogoutButton> <AttendancePage /> </LogoutButton>}/>
                     </Routes>
-                </LogoutButton>
+                {/*</LogoutButton>*/}
             </Router>
         </div>
     )
