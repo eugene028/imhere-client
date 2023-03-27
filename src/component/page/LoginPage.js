@@ -124,8 +124,8 @@ export const LoginPage = () => {
                     </ViewButton>
                 </PasswordInputContainer>
                 <LoginAndSignUpBox>
-                    <Button type='button' className='signin-button' onClick={signIn}> 로그인 </Button>
                     <Button type='button' className='signup-button' onClick={signUp}> 회원가입 </Button>
+                    <Button type='button' className='signin-button' onClick={signIn}> 로그인 </Button>
                 </LoginAndSignUpBox>
             </LoginArea>
         </>
