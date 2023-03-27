@@ -10,6 +10,7 @@ const Overlay = styled(motion.div)`
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 5;
 `;
 
 const ModalContainer = styled(motion.div)`
@@ -94,7 +95,7 @@ function AttendanceModal({isOpen, close, lecture}) {
     const [accuracy, setAccuracy] = useState(-1);
     const [distance, setDistance] = useState(-1);
 
-    useEffect(() => {
+    const calculateDistance = () => {
         navigator.geolocation.getCurrentPosition(
             position => {
                 const {latitude, longitude, accuracy} = position.coords;
@@ -105,11 +106,20 @@ function AttendanceModal({isOpen, close, lecture}) {
                 alert('위치 정보를 가져오는데 에러가 발생했습니다.')
             }
         );
+    }
+
+    useEffect(() => {
+        calculateDistance();
     }, []);
 
     const requestCurrentLectureAttendance = () => {
-        if (isNaN(attendanceNumber) || accuracy === -1 || distance === -1) {
-            alert('좌표 정보를 가져오는데 문제가 발생했습니다.');
+        if (isNaN(attendanceNumber)) {
+            alert('출석 번호가 숫자가 아닙니다.')
+            return;
+        }
+
+        if (distance === -1) {
+            alert('좌표 정보를 가져오는데 문제가 발생했습니다.\n 좌표 정보를 다시 수집하겠습니다. 다시 출석해주세요');
             return;
         }
 
