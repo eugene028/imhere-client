@@ -120,6 +120,7 @@ function AttendanceModal({isOpen, close, lecture}) {
 
         if (distance === -1) {
             alert('좌표 정보를 가져오는데 문제가 발생했습니다.\n 좌표 정보를 다시 수집하겠습니다. 다시 출석해주세요');
+            getDistance();
             return;
         }
 
