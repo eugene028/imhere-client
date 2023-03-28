@@ -20,10 +20,9 @@ const AttendanceAreaWrapper = styled.div`
 
 
   pointer-events: all;
-
-  overflow: visible;
-
-  overflow-y: scroll;
+  
+  overflow: hidden;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -56,8 +55,10 @@ const TimeSetArea = styled.div`
 
 const StudentsArea = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 `
 
 const YearSelect = styled.select``
