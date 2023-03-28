@@ -14,10 +14,35 @@ const AttendanceAreaWrapper = styled.div`
   border-radius: 10px;
   padding: 20px;
   background-color: whitesmoke;
-  overflow: visible;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+
+  pointer-events: all;
+
+  overflow: visible;
+
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+  }
 `
 
 const TimeSetArea = styled.div`
