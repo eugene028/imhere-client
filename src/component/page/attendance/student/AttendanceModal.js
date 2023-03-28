@@ -95,7 +95,7 @@ function AttendanceModal({isOpen, close, lecture}) {
     const [accuracy, setAccuracy] = useState(-1);
     const [distance, setDistance] = useState(-1);
 
-    const calculateDistance = () => {
+    const getDistance = () => {
         navigator.geolocation.getCurrentPosition(
             position => {
                 const {latitude, longitude, accuracy} = position.coords;
@@ -109,7 +109,7 @@ function AttendanceModal({isOpen, close, lecture}) {
     }
 
     useEffect(() => {
-        calculateDistance();
+        getDistance();
     }, []);
 
     const requestCurrentLectureAttendance = () => {
