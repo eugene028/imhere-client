@@ -66,16 +66,6 @@ const ModalWrapper = styled.div`
   pointer-events: all;
 `;
 
-const ModalTitleRow = styled.div`
-  padding: 10px;
-  font-weight: bold;
-  font-size: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  pointer-events: all;
-`;
-
 const ModalDescriptionRow = styled.div`
   padding: 5px;
   font-weight: bold;
@@ -150,7 +140,7 @@ function EnrollmentManageModal({isOpen, close, lecture}) {
             changeEnrollmentState(lectureId, studentId, enrollmentState)
                 .then(response => {
                     if (!response) {
-                        alert('실패 인원 있음 ' + lectureId + "번 강좌 " + studentId + "번 학생 " + enrollmentState + "로 변화.")
+                        console.log('실패 인원 있음 ' + lectureId + "번 강좌 " + studentId + "번 학생 " + enrollmentState + "로 변화.")
                     }
                 })
                 .catch(error => {
