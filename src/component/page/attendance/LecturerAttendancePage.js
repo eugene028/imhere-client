@@ -117,6 +117,7 @@ export const LecturerAttendancePage = () => {
             getTodayAttendance(lectureId, milliseconds)
                 .then(response => {
                     if (response && response.attendanceInfos) {
+                        console.log(response.attendanceInfos)
                         setStudentInfos(response.attendanceInfos);
                     }
                 })

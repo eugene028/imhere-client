@@ -29,29 +29,28 @@ function makeSnow() {
 function App () {
     useEffect(() => {
         const interval = setInterval(makeSnow, 50);
+        alert('출석 이전에 미리 인터넷과 디바이스의 위치 접근을 허용해주세요.\n현재 위치와 T동 까지의 거리만 측정되고 실제 위치는 저장되지 않습니다.')
         return () => clearInterval(interval);
     }, []);
 
     return (
         <div className="App">
             <Router>
-                {/*<LogoutButton>*/}
-                    <Routes>
-                        {/*No Auth*/}
-                        <Route path={ROUTES.LOGIN} element={<LoginPage /> }/>
-                        <Route path={ROUTES.SIGN_UP} element={<SignUpPage />}/>
+                <Routes>
+                    {/*No Auth*/}
+                    <Route path={ROUTES.LOGIN} element={<LoginPage /> }/>
+                    <Route path={ROUTES.SIGN_UP} element={<SignUpPage />}/>
 
-                        {/*Need Auth*/}
-                        <Route path={ROUTES.MAIN_PAGE} element={<LogoutButton> <MainPage /> </LogoutButton>}/>
-                        <Route path={ROUTES.LECTURES} element={<LogoutButton> <LecturesPage /> </LogoutButton>}/>
-                        <Route path={ROUTES.LECTURE_CREATE} element={<LogoutButton> <LectureCreatePage /> </LogoutButton>}/>
+                    {/*Need Auth*/}
+                    <Route path={ROUTES.MAIN_PAGE} element={<LogoutButton> <MainPage /> </LogoutButton>}/>
+                    <Route path={ROUTES.LECTURES} element={<LogoutButton> <LecturesPage /> </LogoutButton>}/>
+                    <Route path={ROUTES.LECTURE_CREATE} element={<LogoutButton> <LectureCreatePage /> </LogoutButton>}/>
 
-                        <Route path={ROUTES.ENROLLMENT} element={<LogoutButton> <EnrollmentPage /> </LogoutButton>}/>
-                        <Route path={ROUTES.MANAGE_ENROLLMENT} element={<LogoutButton> <EnrollmentManagePage /> </LogoutButton>}/>
+                    <Route path={ROUTES.ENROLLMENT} element={<LogoutButton> <EnrollmentPage /> </LogoutButton>}/>
+                    <Route path={ROUTES.MANAGE_ENROLLMENT} element={<LogoutButton> <EnrollmentManagePage /> </LogoutButton>}/>
 
-                        <Route path={ROUTES.ATTENDANCE} element={<LogoutButton> <AttendancePage /> </LogoutButton>}/>
-                    </Routes>
-                {/*</LogoutButton>*/}
+                    <Route path={ROUTES.ATTENDANCE} element={<LogoutButton> <AttendancePage /> </LogoutButton>}/>
+                </Routes>
             </Router>
         </div>
     )

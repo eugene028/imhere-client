@@ -247,17 +247,17 @@ export const changeLectureState = async (lectureId, lectureState) => {
                     return null;
                 }
             }).catch(error => {
-            console.log('openLecture fail : ' + lectureId + ", " + error)
-            return null;
-        })
+                console.log('openLecture fail : ' + lectureId + ", " + error)
+                return null;
+            })
     } else if (lectureState === 'CLOSED') {
         return closeLecture(lectureId)
             .then(response => {
                 return null;
             }).catch(error => {
-            console.log('closeLecture fail : ' + lectureId + ", " + error)
-            return null;
-        })
+                console.log('closeLecture fail : ' + lectureId + ", " + error)
+                return null;
+            })
     } else {
         console.log('changeLectureState error : ' + lectureId + ", " + lectureState);
         return null;

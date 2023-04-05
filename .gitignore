@@ -22,12 +22,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-./idea/
-
-/./idea
-/./idea/
+.idea/
 
 /src/firebase.js
 
 .babelrc
 babel.config.js
+
+dist/
+src/Dockerfile
+src/.dockerignore
