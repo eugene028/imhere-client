@@ -193,7 +193,7 @@ function LectureModalWithStudents({isOpen, close, lecture}) {
     }
 
     const navigateAttendancePage = () => {
-        navigate(ROUTES.ATTENDANCE, { state : { lectureId : lecture.lectureId } });
+        navigate(ROUTES.ATTENDANCE, { state : { lectureId : lecture.lectureId, lectureName : lecture.lectureName } });
     }
 
     return (

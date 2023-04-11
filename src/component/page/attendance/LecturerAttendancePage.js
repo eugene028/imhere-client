@@ -7,6 +7,7 @@ import LoadingSpinner from "../../spinner/LoadingSpinner";
 import {getTodayAttendance} from "../../../api";
 import {StudentAttendanceInfoRow} from "./StudentAttendanceInfoRow";
 import {DescriptionRow} from "./DescriptionRow";
+import {convertJsonToXlsx} from "../../../util/xlsxConverter";
 
 const AttendanceAreaWrapper = styled.div`
   min-width: 70vw;
@@ -48,9 +49,13 @@ const TimeSetArea = styled.div`
   position: relative;
   display: grid;
   width: 70%;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 25% 25% 25% 15% 10%;
   margin: 20px 15%;
   height: 5vh;
+  
+  button {
+    margin: 0 10px;
+  }
 `
 
 const StudentsArea = styled.div`
@@ -124,6 +129,12 @@ export const LecturerAttendancePage = () => {
         }
     }
 
+    const requestConvertJsonToXlsx = () => {
+        const lectureName = (location && location.state && location.state.lectureName)
+            ? location.state.lectureName : null;
+        convertJsonToXlsx(studentInfos, lectureName);
+    }
+
     return (
         <>
             {
@@ -153,6 +164,9 @@ export const LecturerAttendancePage = () => {
                             </DaySelect>
                             <button type='button' onClick={() => requestGetAttendance(time)}>
                                 search
+                            </button>
+                            <button type='button' onClick={() => requestConvertJsonToXlsx(time)}>
+                                다운로드
                             </button>
                         </TimeSetArea>
                         <StudentsArea>
