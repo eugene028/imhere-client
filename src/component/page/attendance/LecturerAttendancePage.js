@@ -48,13 +48,18 @@ const AttendanceAreaWrapper = styled.div`
 const TimeSetArea = styled.div`
   position: relative;
   display: grid;
-  width: 70%;
-  grid-template-columns: 25% 25% 25% 15% 10%;
-  margin: 20px 15%;
+  width: 90%;
+  grid-template-columns: 23% 23% 23% 16% 15%;
+  margin: 20px 5%;
   height: 5vh;
   
+  select {
+    margin: 0 3px;
+  }
+  
   button {
-    margin: 0 10px;
+    margin: 0 5px;
+    font-size: 10px;
   }
 `
 
@@ -166,7 +171,7 @@ export const LecturerAttendancePage = () => {
                                 search
                             </button>
                             <button type='button' onClick={() => requestConvertJsonToXlsx(time)}>
-                                다운로드
+                                download
                             </button>
                         </TimeSetArea>
                         <StudentsArea>

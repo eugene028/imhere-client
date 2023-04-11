@@ -13,7 +13,7 @@ export const convertJsonToXlsx = (data, lectureName) => {
     const studentData = [];
     for (let i in data) {
         const date = new Date(data[i].timestamp);
-        const timeString = date.getHours() + ':' + date.getMinutes();
+        const timeString = date.getHours() + ':' + (date.getMinutes() >= 10 ? date.getMinutes() : ('0' + date.getMinutes()));
 
         studentData.push({
             name: data[i].name,
