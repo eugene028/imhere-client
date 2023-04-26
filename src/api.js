@@ -1,9 +1,11 @@
 import axios from "axios";
 import {getHeadersWithToken, removeToken} from "./util/AuthFunctions";
 
-const protocol = `https`
-const host = `api.imhere.im`
+const protocol = `https`;
+const host = `api.imhere.im`;
+const statusString = `?status=`;
 
+// member
 export const generateVerificationNumber = async email => {
     return await axios.post(`${protocol}://${host}/member/verification/${email}`)
         .then(response => {
@@ -17,7 +19,6 @@ export const generateVerificationNumber = async email => {
         });
 }
 
-// TODO
 export const verifyValidateNumber = async (email, verificationCode) => {
     return await axios.get(`${protocol}://${host}/member/verification/${email}/${verificationCode}`)
         .then(response => {
@@ -89,46 +90,24 @@ export const logout = async () => {
         });
 }
 
-
-// lecturer
-// <Button type='button' className='own-lecture-button'> 내가 만든 강의 불러오기 </Button>
-// <Button type='button' className='enrollment-approve-button'> 수강 학생 승인하기 </Button>
-// <Button type='button' className='lecture-create-button'> 새 강의 만들기 </Button>
-
-export const getStudentsLectures = async () => {
+// lecture apis
+export const createLecture = async (lectureName) => {
     const headers = getHeadersWithToken();
 
-    return await axios.get(`${protocol}://${host}/api/v1/students/lectures`, {headers})
+    const payload = {
+        "lectureName": `${lectureName}`
+    }
+
+    return await axios.post(`${protocol}://${host}/api/v1/lectures`, payload, {headers: headers})
         .then(response => {
-            if (response && response.data) {
-                return response.data
-            }
-            return null;
-        })
-        .catch(error => {
-            console.log(error);
-            return null;
-        })
+            return response;
+        }).catch(error => {
+            console.log('createLecture error : ' + error);
+        });
 }
 
-export const getAllStudentsLectures = async () => {
-    const headers = getHeadersWithToken();
 
-    return await axios.get(`${protocol}://${host}/api/v1/students/all-lectures`, {headers})
-        .then(response => {
-            if (response && response.data) {
-                return response.data
-            }
-
-            return null;
-        })
-        .catch(error => {
-            console.log(error);
-            return null;
-        })
-}
-
-export const getLecturersLectures = async () => {
+export const getAllLectures = async () => {
     const headers = getHeadersWithToken();
 
     return await axios.get(`${protocol}://${host}/api/v1/lectures`, {headers})
@@ -136,7 +115,6 @@ export const getLecturersLectures = async () => {
             if (response && response.data) {
                 return response.data
             }
-
             return null;
         })
         .catch(error => {
@@ -145,10 +123,29 @@ export const getLecturersLectures = async () => {
         })
 }
 
-export const getLecturersEnrollment = async lectureId => {
+export const getStudentsEnrolledLectures = async () => {
     const headers = getHeadersWithToken();
+    const status = statusString + "enrolled";
 
-    return await axios.get(`${protocol}://${host}/api/v1/enrollment/${lectureId}`, {headers})
+    return await axios.get(
+        `${protocol}://${host}/api/v1/lectures` + status, {headers})
+        .then(response => {
+            if (response && response.data) {
+                return response.data
+            }
+            return null;
+        })
+        .catch(error => {
+            console.log(error);
+            return null;
+        })
+}
+
+export const getLecturersOwnedLectures = async () => {
+    const headers = getHeadersWithToken();
+    const status = statusString + "owned";
+
+    return await axios.get(`${protocol}://${host}/api/v1/lectures` + status, {headers})
         .then(response => {
             if (response && response.data) {
                 return response.data
@@ -162,80 +159,22 @@ export const getLecturersEnrollment = async lectureId => {
         })
 }
 
-
-export const requestEnrollment = async (lectureId) => {
+export const getStudentsOpenedLectures = async () => {
     const headers = getHeadersWithToken();
+    const status = statusString + "opened";
 
-    return await axios.post(`${protocol}://${host}/api/v1/students/enrollment/${lectureId}`, {}, {headers: headers})
+    return await axios.get(`${protocol}://${host}/api/v1/lectures` + status, {headers})
         .then(response => {
-            if (response && response.status === 200) {
-                return true;
+            if (response && response.data) {
+                return response.data
             }
-            return false;
-        }).catch(error => {
-            console.error('requestEnrollment error : ' + error)
-            return false;
-        });
-}
-
-// @PostMapping("/api/v1/enrollment/{lecture_id}/student/{student_id}/approval")
-// @PostMapping("/api/v1/enrollment/{lecture_id}/student/{student_id}/rejection")
-
-export const changeEnrollmentState = async (lectureId, studentId, enrollmentState) => {
-    if (enrollmentState === 'APPROVAL') {
-        approvalEnrollment(lectureId, studentId)
-            .then(response => {
-                return true;
-            }).catch(error => {
-            console.log('approvalEnrollment fail : ' + error)
-            return false;
-        })
-    } else if (enrollmentState === 'REJECTION') {
-        rejectEnrollment(lectureId, studentId)
-            .then(response => {
-                if (response) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }).catch(error => {
-            console.log('rejectEnrollment fail : ' + error)
-            return false;
-        })
-    } else {
-        console.log('changeEnrollmentState error : ' + enrollmentState + "(", lectureId + ", " + studentId + ")");
-    }
-}
-
-// APPROVAL
-const approvalEnrollment = async (lectureId, studentId) => {
-    const headers = getHeadersWithToken();
-
-    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/approval`, {}, {headers: headers})
-        .then(response => {
-            return response;
-        }).catch(error => {
-            console.error('approvalEnrollment error : ' + error)
             return null;
-        });
-}
-
-// REJECTION
-const rejectEnrollment = async (lectureId, studentId) => {
-    const headers = getHeadersWithToken();
-
-    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/rejection`, {}, {headers: headers})
-        .then(response => {
-            return response;
-        }).catch(error => {
-            console.error('rejectEnrollment error : ' + error)
+        })
+        .catch(error => {
+            console.log(error);
             return null;
-        });
+        })
 }
-
-// 강의 열고 닫기
-// @PostMapping("/api/v1/lectures/{lecture_id}/open")
-// @PostMapping("/api/v1/lectures/{lecture_id}/close")
 
 export const changeLectureState = async (lectureId, lectureState) => {
     if (lectureState === 'OPEN') {
@@ -288,73 +227,100 @@ const closeLecture = async (lectureId) => {
         });
 }
 
-// 출석 시퀀스
-// getStudentOpenLectures
-// @GetMapping("/api/v1/students/open-lectures")
-
-
-// 강의 생성
-// @PostMapping("/api/v1/lectures")
-// createLecture
-export const createLecture = async (lectureName) => {
+// enrollment apis
+export const getLectureEnrollmentInfo = async lectureId => {
     const headers = getHeadersWithToken();
 
-    const payload = {
-        "lectureName": `${lectureName}`
-    }
+    return await axios.get(`${protocol}://${host}/api/v1/enrollment/${lectureId}`, {headers})
+        .then(response => {
+            if (response && response.data) {
+                return response.data
+            }
 
-    return await axios.post(`${protocol}://${host}/api/v1/lectures`, payload, {headers: headers})
+            return null;
+        })
+        .catch(error => {
+            console.log(error);
+            return null;
+        })
+}
+
+export const changeStudentEnrollmentState = async (lectureId, studentId, enrollmentState) => {
+    if (enrollmentState === 'APPROVAL') {
+        approvalEnrollment(lectureId, studentId)
+            .then(response => {
+                return true;
+            }).catch(error => {
+            console.log('approvalEnrollment fail : ' + error)
+            return false;
+        })
+    } else if (enrollmentState === 'REJECTION') {
+        rejectEnrollment(lectureId, studentId)
+            .then(response => {
+                if (response) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }).catch(error => {
+            console.log('rejectEnrollment fail : ' + error)
+            return false;
+        })
+    } else {
+        console.log('changeEnrollmentState error : ' + enrollmentState + "(", lectureId + ", " + studentId + ")");
+    }
+}
+
+// APPROVAL
+const approvalEnrollment = async (lectureId, studentId) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/approval`, {}, {headers: headers})
         .then(response => {
             return response;
         }).catch(error => {
-            console.log('createLecture error : ' + error);
+            console.error('approvalEnrollment error : ' + error)
+            return null;
+        });
+}
+
+// REJECTION
+const rejectEnrollment = async (lectureId, studentId) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}/student/${studentId}/rejection`, {}, {headers: headers})
+        .then(response => {
+            return response;
+        }).catch(error => {
+            console.error('rejectEnrollment error : ' + error)
+            return null;
+        });
+}
+
+export const requestEnrollment = async (lectureId) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.post(`${protocol}://${host}/api/v1/enrollment/${lectureId}`, {}, {headers: headers})
+        .then(response => {
+            if (response && response.status === 200) {
+                return true;
+            }
+            return false;
+        }).catch(error => {
+            console.error('requestEnrollment error : ' + error)
+            return false;
         });
 }
 
 // Attendance
-// @GetMapping("/api/v1/lecturer/{lecture_id}/attendance/{day_milliseconds}")
-export const getTodayAttendance = async (lectureId, dayMilliseconds) => {
-    const headers = getHeadersWithToken();
-
-    return await axios.get(`${protocol}://${host}/api/v1/lecturer/${lectureId}/attendance/${dayMilliseconds}`, {headers})
-        .then(response => {
-            if (response && response.data) {
-                return response.data
-            }
-
-            return null;
-        })
-        .catch(error => {
-            console.log(error);
-            return null;
-        })
-}
-
-
 // 학생 Attendance 과정
 // 1. 열린 강의 전부 가져오기
 // 2. 출석 하기
 
-export const getAllStudentsOPENLectures = async () => {
-    const headers = getHeadersWithToken();
-
-    return await axios.get(`${protocol}://${host}/api/v1/students/open-lectures`, {headers})
-        .then(response => {
-            if (response && response.data) {
-                return response.data
-            }
-            return null;
-        })
-        .catch(error => {
-            console.log(error);
-            return null;
-        })
-}
-
 export const requestAttendance = async (lectureId, payload) => {
     const headers = getHeadersWithToken();
 
-    return await axios.post(`${protocol}://${host}/api/v1/students/attendance/${lectureId}`, payload, {headers: headers})
+    return await axios.post(`${protocol}://${host}/api/v1/attendance/${lectureId}`, payload, {headers: headers})
         .then(response => {
             if (response && response.status === 200) {
                 return true;
@@ -364,4 +330,21 @@ export const requestAttendance = async (lectureId, payload) => {
             console.error('signUpNewMember error : ' + error)
             return false;
         });
+}
+
+export const getTodayAttendance = async (lectureId, dayMilliseconds) => {
+    const headers = getHeadersWithToken();
+
+    return await axios.get(`${protocol}://${host}/api/v1/attendance/${lectureId}/${dayMilliseconds}`, {headers})
+        .then(response => {
+            if (response && response.data) {
+                return response.data
+            }
+
+            return null;
+        })
+        .catch(error => {
+            console.log(error);
+            return null;
+        })
 }
