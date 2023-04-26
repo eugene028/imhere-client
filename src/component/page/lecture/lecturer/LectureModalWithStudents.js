@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
 import StudentRow from "./StudentRow";
-import {changeLectureState, getLecturersLectures} from "../../../../api";
+import {changeLectureState, getLecturersOwnedLectures} from "../../../../api";
 import {useNavigate} from "react-router-dom";
 import * as ROUTES from "../../../../constants/routes";
 

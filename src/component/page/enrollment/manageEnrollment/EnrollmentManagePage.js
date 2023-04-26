@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getLecturersEnrollment, getLecturersLectures} from "../../../../api";
+import {getLectureEnrollmentInfo, getLecturersOwnedLectures} from "../../../../api";
 import LoadingSpinner from "../../../spinner/LoadingSpinner";
 import EnrollmentManageModal from "./EnrollmentManageModal";
 import LectureRow from "../../lecture/LectureRow";
@@ -73,7 +73,7 @@ export const EnrollmentManagePage = () => {
             return;
         }
 
-        getLecturersLectures()
+        getLecturersOwnedLectures()
             .then(lectureList => {
                 if (lectureList) {
                     setLectures(lectureList);

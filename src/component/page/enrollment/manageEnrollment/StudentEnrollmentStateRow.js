@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
-import {getLecturersEnrollment} from "../../../../api";
+import {getLectureEnrollmentInfo} from "../../../../api";
 import * as ROUTES from "../../../../constants/routes";
 
 const Student = styled.div`

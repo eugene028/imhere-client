@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import * as ROUTES from "../../../../constants/routes"
 import {useNavigate} from "react-router-dom";
-import {getAllStudentsOPENLectures} from "../../../../api";
+import {getStudentsOpenedLectures} from "../../../../api";
 import {checkUserHasRole} from "../../../../util/AuthFunctions";
 import LoadingSpinner from "../../../spinner/LoadingSpinner";
 import LectureRow from "../../lecture/LectureRow";
@@ -74,7 +74,7 @@ export const OpenLecturesPage = () => {
             return;
         }
 
-        getAllStudentsOPENLectures()
+        getStudentsOpenedLectures()
             .then(lectureList => {
                 if (lectureList) {
                     setLectures((prevLectures) => {

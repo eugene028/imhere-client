@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getLecturersLectures} from "../../../../api";
+import {getLecturersOwnedLectures} from "../../../../api";
 import LoadingSpinner from "../../../spinner/LoadingSpinner";
 import LectureRow from "../LectureRow";
 import LectureModalWithStudents from "./LectureModalWithStudents";
@@ -67,7 +67,7 @@ export const LecturerLecturesPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getLecturersLectures()
+        getLecturersOwnedLectures()
             .then(lectureList => {
                 if (lectureList) {
                     setLectures(lectureList);
