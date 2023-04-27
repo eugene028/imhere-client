@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
 import StudentEnrollmentStateRow from "./StudentEnrollmentStateRow";
 import {useNavigate} from "react-router-dom";
-import {changeEnrollmentState, getLecturersEnrollment} from "../../../../api";
+import {changeStudentEnrollmentState, getLectureEnrollmentInfo} from "../../../../api";
 import * as ROUTES from "../../../../constants/routes";
 
 const Overlay = styled(motion.div)`
@@ -117,7 +117,7 @@ function EnrollmentManageModal({isOpen, close, lecture}) {
 
     useEffect(() => {
         if (lecture) {
-            getLecturersEnrollment(lecture.lectureId)
+            getLectureEnrollmentInfo(lecture.lectureId)
                 .then(response => {
                     if (response) {
                         setEnrollment(response);
@@ -137,7 +137,7 @@ function EnrollmentManageModal({isOpen, close, lecture}) {
     const requestStateChange = async () => {
         const lectureId = enrollment.lectureId;
         await requestMap.forEach((enrollmentState, studentId) => {
-            changeEnrollmentState(lectureId, studentId, enrollmentState)
+            changeStudentEnrollmentState(lectureId, studentId, enrollmentState)
                 .then(response => {
                     if (!response) {
                         console.log('실패 인원 있음 ' + lectureId + "번 강좌 " + studentId + "번 학생 " + enrollmentState + "로 변화.")

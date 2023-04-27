@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getStudentsLectures} from "../../../../api";
+import {getStudentsEnrolledLectures} from "../../../../api";
 import LoadingSpinner from "../../../spinner/LoadingSpinner";
 import LectureRow from "../LectureRow";
 import * as ROUTES from "../../../../constants/routes";
@@ -65,7 +65,7 @@ export const StudentsLecturesPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getStudentsLectures()
+        getStudentsEnrolledLectures()
             .then(lectureList => {
                 if (lectureList) {
                     setLectures(lectureList);

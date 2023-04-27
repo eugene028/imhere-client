@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getAllStudentsLectures} from "../../../api";
+import {getAllLectures} from "../../../api";
 import LoadingSpinner from "../../spinner/LoadingSpinner";
 import LectureRow from "../lecture/LectureRow";
 import {checkUserHasRole} from "../../../util/AuthFunctions";
@@ -73,7 +73,7 @@ export const EnrollmentPage = () => {
             return;
         }
 
-        getAllStudentsLectures()
+        getAllLectures()
             .then(lectureList => {
                 if (lectureList) {
                     setLectures((prevLectures) => {
