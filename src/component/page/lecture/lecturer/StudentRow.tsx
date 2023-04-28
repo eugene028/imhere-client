@@ -23,7 +23,12 @@ const StudentRowWrapper = styled.div`
   border-radius: 10px;
 `
 
-const StudentRow = ({index, student}) => {
+interface StudentRowProps {
+  index: number,
+  student: StudentInfo
+}
+
+const StudentRow = ({index, student}: StudentRowProps) => {
     return (
         <StudentRowWrapper>
             <Student>

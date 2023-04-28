@@ -7,7 +7,7 @@ import {OpenLecturesPage} from "./student/OpenLecturesPage";
 import {LecturerAttendancePage} from "./LecturerAttendancePage";
 
 export const AttendancePage = () => {
-    const [role, setRole] = useState(null);
+    const [role, setRole] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {

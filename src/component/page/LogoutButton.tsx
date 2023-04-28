@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type ReactNode } from "react";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
@@ -15,8 +15,11 @@ const Button = styled.button`
   background-color: transparent;
 `
 
+interface LogoutButtonProps {
+    children?: ReactNode
+}
 
-export function LogoutButton({ children }) {
+export function LogoutButton({ children }: LogoutButtonProps) {
     const navigate = useNavigate();
     const clickLogoutButton = () => {
         logout()

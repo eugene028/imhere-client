@@ -60,7 +60,7 @@ const Title = styled.button`
 `
 
 export const StudentsLecturesPage = () => {
-    const [lectures, setLectures] = useState(null);
+    const [lectures, setLectures] = useState<Lecture[] | null>(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -79,7 +79,7 @@ export const StudentsLecturesPage = () => {
 
     return (
         loading ?
-            lectures.length !== 0 ?
+        lectures && lectures.length !== 0 ?
                 <LecturesContainer>
                     <Title> 내 강의 </Title>
                     <LectureTable>

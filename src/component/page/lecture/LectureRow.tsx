@@ -23,7 +23,13 @@ const LectureRowWrapper = styled.div`
   border-radius: 10px;
 `
 
-const LectureRow = ({index, lecture, onClick}) => {
+interface LectureRowProps {
+  index: number,
+  lecture: Lecture,
+  onClick?: React.MouseEventHandler<HTMLDivElement>
+}
+
+const LectureRow = ({index, lecture, onClick}: LectureRowProps) => {
     return (
         <LectureRowWrapper onClick={onClick}>
             <Lecture>

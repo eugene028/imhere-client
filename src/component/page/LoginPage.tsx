@@ -79,7 +79,7 @@ export const LoginPage = () => {
 
     const navigate = useNavigate();
 
-    const handleValue = (event) => {
+    const handleValue: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement> = (event) => {
         const {value, name} = event.target;
         setUserData({...userData, [name]: value});
     }

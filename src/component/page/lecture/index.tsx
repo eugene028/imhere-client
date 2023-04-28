@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {LecturerLecturesPage} from "./lecturer/LecturerLecturesPage";
 
 export const LecturesPage = () => {
-    const [role, setRole] = useState(null);
+    const [role, setRole] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {

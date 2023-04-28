@@ -91,14 +91,21 @@ const EnrollmentButton = styled.button`
   border-radius: 10px;
 `
 
-function EnrollmentModal({isOpen, close, lecture}) {
+interface EnrollmentModalProps {
+  isOpen: boolean,
+  close: React.Dispatch<React.SetStateAction<boolean>>,
+  lecture: Lecture | null
+}
+
+function EnrollmentModal({isOpen, close, lecture}: EnrollmentModalProps) {
 
     const requestCurrentLectureEnrollment = () => {
+        if (!lecture) throw "lecture = null"
         requestEnrollment(lecture.lectureId)
             .then(response => {
                 alert('수강신청 성공')
             })
-            .finally(close(false));
+            .finally(() => close(false));
     }
 
     return (

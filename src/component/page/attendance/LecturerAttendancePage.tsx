@@ -9,6 +9,12 @@ import {StudentAttendanceInfoRow} from "./StudentAttendanceInfoRow";
 import {DescriptionRow} from "./DescriptionRow";
 import {convertJsonToXlsx} from "../../../util/xlsxConverter";
 
+interface Time {
+    year: number,
+    month: number,
+    day: number,
+}
+
 const AttendanceAreaWrapper = styled.div`
   min-width: 70vw;
   max-height: 70vh;
@@ -77,8 +83,8 @@ const DaySelect = styled.select``
 
 export const LecturerAttendancePage = () => {
     const [loading, setLoading] = useState(false);
-    const [studentInfos, setStudentInfos] = useState([]);
-    const [time, setTime] = useState({
+    const [studentInfos, setStudentInfos] = useState<AttendanceInfo[]>([]);
+    const [time, setTime] = useState<Time>({
         year: 2023,
         month: 1,
         day: 1,
@@ -108,12 +114,12 @@ export const LecturerAttendancePage = () => {
         setLoading(true)
     }, []);
 
-    const handleValue = (event) => {
+    const handleValue = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const {value, name} = event.target;
         setTime({...time, [name]: value});
     }
 
-    const requestGetAttendance = (requestTime) => {
+    const requestGetAttendance = (requestTime: Time) => {
         const {year, month, day} = requestTime;
         const milliseconds = (new Date(year, month -1, day)).getTime();
 
@@ -136,7 +142,7 @@ export const LecturerAttendancePage = () => {
 
     const requestConvertJsonToXlsx = () => {
         const lectureName = (location && location.state && location.state.lectureName)
-            ? location.state.lectureName : null;
+            ? location.state.lectureName as string : null;
         convertJsonToXlsx(studentInfos, lectureName);
     }
 
@@ -170,7 +176,7 @@ export const LecturerAttendancePage = () => {
                             <button type='button' onClick={() => requestGetAttendance(time)}>
                                 search
                             </button>
-                            <button type='button' onClick={() => requestConvertJsonToXlsx(time)}>
+                            <button type='button' onClick={() => requestConvertJsonToXlsx()}>
                                 download
                             </button>
                         </TimeSetArea>
@@ -178,7 +184,7 @@ export const LecturerAttendancePage = () => {
                             <DescriptionRow/>
                             {studentInfos && Object.values(studentInfos).map((student, index) => {
                                 return (
-                                    <StudentAttendanceInfoRow key={student.id} index={index} student={student}/>
+                                    <StudentAttendanceInfoRow index={index} student={student}/>
                                 )
                             })}
                         </StudentsArea>

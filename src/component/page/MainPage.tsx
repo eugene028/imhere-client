@@ -26,7 +26,7 @@ const Button = styled.button`
 `
 
 export const MainPage = () => {
-    const [role, setRole] = useState(null);
+    const [role, setRole] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {

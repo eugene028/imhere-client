@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {type ReactNode, useEffect} from "react";
 import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
 
@@ -75,7 +75,14 @@ const CloseButton = styled.button`
   z-index: 10;
 `;
 
-function AgreementModal({isOpen, close, title, contents}) {
+interface AgreementModelProps {
+  isOpen: boolean,
+  close: React.Dispatch<React.SetStateAction<boolean>>,
+  title?: ReactNode,
+  contents: ReactNode
+}
+
+function AgreementModal({isOpen, close, title, contents}: AgreementModelProps) {
 
     return (
         <AnimatePresence>

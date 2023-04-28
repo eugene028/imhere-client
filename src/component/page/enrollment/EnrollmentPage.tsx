@@ -62,8 +62,8 @@ const Title = styled.button`
 `
 
 export const EnrollmentPage = () => {
-    const [lectures, setLectures] = useState(null);
-    const [currentLecture, setCurrentLecture] = useState(null);
+    const [lectures, setLectures] = useState<Lecture[] | null>(null);
+    const [currentLecture, setCurrentLecture] = useState<Lecture | null>(null);
     const [isModalOpen, setModalOpen] = useState(false);
     const navigate = useNavigate();
 

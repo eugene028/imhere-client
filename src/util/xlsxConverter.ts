@@ -2,8 +2,8 @@ import XLSX from 'xlsx';
 import moment from 'moment';
 const { utils, writeFile } = XLSX;
 
-export const convertJsonToXlsx = (data, lectureName) => {
-    if (!data && data.length > 1) {
+export const convertJsonToXlsx = (data: AttendanceInfo[], lectureName: string | null) => {
+    if (!data || data.length < 1) {
         alert('출석 인원이 없습니다.');
         return;
     }

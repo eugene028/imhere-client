@@ -6,11 +6,11 @@ const referenceLongitude = 126.92463;
 
 const earthRadius = 6371;
 
-function degToRad(deg) {
+function degToRad(deg: number) {
     return deg * (Math.PI/180);
 }
 
-export function calculateDistance(targetLatitude, targetLongitude) {
+export function calculateDistance(targetLatitude: number, targetLongitude: number) {
     const dLat = degToRad(referenceLatitude-targetLatitude);
     const dLon = degToRad(referenceLongitude-targetLongitude);
 
