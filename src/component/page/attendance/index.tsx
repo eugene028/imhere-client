@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import LoadingSpinner from "../../spinner/LoadingSpinner";
-import {StudentsLecturesPage} from "./student/StudentsLecturesPage";
 import {checkAndGetUserRole} from "../../../util/AuthFunctions";
 import * as ROUTES from "../../../constants/routes";
 import {useNavigate} from "react-router-dom";
-import {LecturerLecturesPage} from "./lecturer/LecturerLecturesPage";
+import {OpenLecturesPage} from "./student/OpenLecturesPage";
+import {LecturerAttendancePage} from "./LecturerAttendancePage";
 
-export const LecturesPage = () => {
-    const [role, setRole] = useState(null);
+export const AttendancePage = () => {
+    const [role, setRole] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,10 +23,10 @@ export const LecturesPage = () => {
         role ?
             role === 'ROLE_STUDENT'
                 ?
-                <StudentsLecturesPage />
+                <OpenLecturesPage/>
                 :
-                <LecturerLecturesPage />
+                <LecturerAttendancePage/>
             :
-            <LoadingSpinner />
+            <LoadingSpinner/>
     );
 }

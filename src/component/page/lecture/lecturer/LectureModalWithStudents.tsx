@@ -144,16 +144,27 @@ const AttendancePageButton = styled.button`
   z-index: 10;
 `
 
-function LectureModalWithStudents({isOpen, close, lecture}) {
-    const [openButtonColor, setOpenButtonColor] = useState(green);
-    const [closeButtonColor, setCloseButtonColor] = useState(green);
-    const [lectureStateRequest, setLectureStateRequest] = useState(null);
+const open = 'OPEN';
+const closed = 'CLOSED';
+const red = 'red';
+const green = 'green';
+
+type LectureState = typeof open | typeof closed
+type Color = typeof red | typeof green
+
+interface LectureModalWithStudentsProps {
+    isOpen: boolean,
+    close: React.Dispatch<React.SetStateAction<boolean>>,
+    lecture: Lecture | null
+}
+
+function LectureModalWithStudents({isOpen, close, lecture}: LectureModalWithStudentsProps) {
+    const [openButtonColor, setOpenButtonColor] = useState<Color>(green);
+    const [closeButtonColor, setCloseButtonColor] = useState<Color>(green);
+    const [lectureStateRequest, setLectureStateRequest] = useState<LectureState|null>(null);
     const navigate = useNavigate();
 
-    const open = 'OPEN';
-    const closed = 'CLOSED';
-    const red = 'red';
-    const green = 'green';
+    if (!lecture) throw "lecture = null"
 
     const requestLectureStateChange = async () => {
         if (lectureStateRequest && lectureStateRequest !== lecture.lectureState) {
@@ -170,7 +181,7 @@ function LectureModalWithStudents({isOpen, close, lecture}) {
         }
     }
 
-    const handleButtonClick = (button) => {
+    const handleButtonClick = (button: LectureState) => {
         if (button === open) {
             if (lectureStateRequest === open) {
                 setOpenButtonColor(green);
@@ -193,6 +204,7 @@ function LectureModalWithStudents({isOpen, close, lecture}) {
     }
 
     const navigateAttendancePage = () => {
+        if (!lecture) return
         navigate(ROUTES.ATTENDANCE, { state : { lectureId : lecture.lectureId, lectureName : lecture.lectureName } });
     }
 

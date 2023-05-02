@@ -40,7 +40,7 @@ export const LectureCreatePage = () => {
         }
     }, []);
 
-    const handleValue = (event) => {
+    const handleValue: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         const {value} = event.target;
         setLectureName(value);
     }

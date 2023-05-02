@@ -1,7 +1,6 @@
-import React, {useEffect} from "react";
+import React, {type ReactNode, useEffect} from "react";
 import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
-import {requestEnrollment} from "../../../api";
 
 const Overlay = styled(motion.div)`
   position: fixed;
@@ -14,7 +13,7 @@ const Overlay = styled(motion.div)`
 
 const ModalContainer = styled(motion.div)`
   background-color: white;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -25,17 +24,17 @@ const ModalContainer = styled(motion.div)`
   -moz-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.75);
   box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.75);
   
-  min-width: 30vw;
-  min-height: 30vh;
+  //min-width: 60vw;
+  max-width: 60vw;
+  max-height: 60vh;
+  
+  overflow: scroll;
   pointer-events: all;
-`;
 
-const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  pointer-events: all;
 `;
 
 const ModalTitleRow = styled.div`
@@ -56,7 +55,6 @@ const ModalDescriptionRow = styled.div`
   flex-direction: row;
   justify-content: center;
   pointer-events: all;
-  color: red;
 `;
 
 const containerVariant = {
@@ -66,55 +64,35 @@ const containerVariant = {
 };
 
 const CloseButton = styled.button`
-  position: absolute;
-  right: 2%;
+  position: sticky;
   top: 3%;
+  margin-left: 90%;
   border-radius: 10px;
   cursor: pointer;
-  background-color: white;
+  background-color: transparent;
   border: black 1px solid;
   color: black;
-  z-index: 1000;
+  z-index: 10;
 `;
 
-const EnrollmentArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 10px;
-`
-const EnrollmentButton = styled.button`
-  font-size: 20px;
-  min-width: 9.8vw;
-  min-height: 6vh;
-  margin: 10px;
-  border-radius: 10px;
-`
+interface AgreementModelProps {
+  isOpen: boolean,
+  close: React.Dispatch<React.SetStateAction<boolean>>,
+  title?: ReactNode,
+  contents: ReactNode
+}
 
-function EnrollmentModal({isOpen, close, lecture}) {
-
-    const requestCurrentLectureEnrollment = () => {
-        requestEnrollment(lecture.lectureId)
-            .then(response => {
-                alert('수강신청 성공')
-            })
-            .finally(close(false));
-    }
+function AgreementModal({isOpen, close, title, contents}: AgreementModelProps) {
 
     return (
         <AnimatePresence>
             {
-                isOpen && lecture && (
+                isOpen && (
                     <Overlay initial="initial" animate="isOpen" exit="exit">
                         <ModalContainer variants={containerVariant}>
-                            <ModalWrapper>
-                                <CloseButton onClick={() => close(false)}>닫기</CloseButton>
-                                <ModalTitleRow><p>{lecture.lectureName}</p></ModalTitleRow>
-                                <EnrollmentArea>
-                                    <ModalDescriptionRow> 실제로 수강중인 강좌만 수강신청 해주세요 </ModalDescriptionRow>
-                                    <EnrollmentButton onClick={() => requestCurrentLectureEnrollment()}>수강 신청하기</EnrollmentButton>
-                                </EnrollmentArea>
-                            </ModalWrapper>
+                            <CloseButton onClick={() => close(false)}>닫기</CloseButton>
+                            <ModalTitleRow>{title}</ModalTitleRow>
+                            <ModalDescriptionRow> {contents} </ModalDescriptionRow>
                         </ModalContainer>
                     </Overlay>
                 )
@@ -123,4 +101,4 @@ function EnrollmentModal({isOpen, close, lecture}) {
     );
 }
 
-export default EnrollmentModal;
+export default AgreementModal;

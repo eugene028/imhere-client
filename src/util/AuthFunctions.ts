@@ -9,9 +9,9 @@ import React from "react";
 //     return token;
 // }
 
-const checkTokenExpirationTime = () => {
-    const expirationTime = localStorage.getItem('expirationTime');
-    if (!expirationTime || expirationTime < new Date()) {
+const checkTokenExpirationTime = (): boolean => {
+    const expirationTime = Number(localStorage.getItem('expirationTime'));
+    if (!expirationTime || new Date(expirationTime) < new Date()) {
         removeToken();
         alert('로그인 하세요');
 
@@ -20,20 +20,21 @@ const checkTokenExpirationTime = () => {
     return true;
 }
 
-export const setAccessToken = (accessToken) => {
+export const setAccessToken = (accessToken: string) => {
     const parsedToken = parseToken(accessToken);
     localStorage.setItem('univId', parsedToken.univId);
     localStorage.setItem('role', parsedToken.role);
-    localStorage.setItem('expirationTime', parsedToken.expirationTime);
+    localStorage.setItem('expirationTime', String(parsedToken.expirationTime));
     localStorage.setItem('accessToken', accessToken);
 }
 
-export const checkUserHasRole = (roles) => {
+export const checkUserHasRole = (roles?: string[]) => {
     if (!checkTokenExpirationTime()) {
         return false;
     }
 
     const role = localStorage.getItem('role');
+    if (!role) return false;
 
     if (roles && !roles.includes(role)) {
         removeToken();
@@ -44,14 +45,14 @@ export const checkUserHasRole = (roles) => {
     return true;
 }
 
-export const checkAndGetUserRole = (roles) => {
+export const checkAndGetUserRole = (roles?: string[]): string | null => {
     if (!checkTokenExpirationTime()) {
         return null;
     }
 
     const role = localStorage.getItem('role');
 
-    if (roles && !roles.includes(role)) {
+    if (!role || !roles || !roles.includes(role)) {
         removeToken();
         alert('잘못된 접근입니다.');
         return null;
@@ -60,7 +61,7 @@ export const checkAndGetUserRole = (roles) => {
     return role;
 }
 
-export const getToken = () => {
+export const getToken = (): string | null => {
     if(!checkTokenExpirationTime()) {
         return null;
     }
@@ -68,7 +69,7 @@ export const getToken = () => {
     return localStorage.getItem('accessToken');
 }
 
-export const getHeadersWithToken = () => {
+export const getHeadersWithToken = ():  { Authorization: string } | null => {
     if(!checkTokenExpirationTime()) {
         return null;
     }
@@ -76,7 +77,7 @@ export const getHeadersWithToken = () => {
     return { Authorization: `${accessToken}` };
 }
 
-const parseToken = (token) => {
+const parseToken = (token: string) : { univId: any, role: any, expirationTime: number }=> {
     if (!token.startsWith('Token ')) {
         throw new Error('Token Error');
     }

@@ -109,8 +109,16 @@ const StudentsArea = styled.div`
   }
 `
 
-function EnrollmentManageModal({isOpen, close, lecture}) {
-    const [enrollment, setEnrollment] = useState(null);
+interface EnrollmentManageModalProps {
+    isOpen: boolean,
+    close: React.Dispatch<React.SetStateAction<boolean>>,
+    lecture: Lecture | null
+}
+
+function EnrollmentManageModal({isOpen, close, lecture}: EnrollmentManageModalProps) {
+    if (!lecture) throw "lecture = null"
+
+    const [enrollment, setEnrollment] = useState<EnrollmentInfo | null>(null);
     const [toggle, setToggle] = useState(0);
     const navigate = useNavigate();
     const requestMap = new Map();
@@ -130,11 +138,13 @@ function EnrollmentManageModal({isOpen, close, lecture}) {
 
     }, [lecture, toggle]);
 
-    const setStateChangeRequest = (studentId, enrollmentState) => {
+    const setStateChangeRequest = (studentId: number, enrollmentState: EnrollmentState): void => {
         requestMap.set(studentId, enrollmentState);
     }
 
     const requestStateChange = async () => {
+        if (!enrollment) throw "enrollment = null"
+
         const lectureId = enrollment.lectureId;
         await requestMap.forEach((enrollmentState, studentId) => {
             changeStudentEnrollmentState(lectureId, studentId, enrollmentState)

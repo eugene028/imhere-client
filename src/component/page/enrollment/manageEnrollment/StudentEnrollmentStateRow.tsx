@@ -29,12 +29,18 @@ const Button = styled.button`
   margin : 0px 10px;
 `
 
+interface StudentEnrollmentStateRowProps {
+  index: number,
+  student: StudentInfo,
+  setStateChangeRequest: (studentId: number, enrollmentState: EnrollmentState) => void
+}
+
 // 버튼이 있어야 합니다
-const StudentEnrollmentStateRow = ({index, student, setStateChangeRequest}) => {
+const StudentEnrollmentStateRow = ({index, student, setStateChangeRequest}: StudentEnrollmentStateRowProps) => {
     const [approveButtonColor, setApproveButtonColor] = useState('green');
     const [rejectButtonColor, setRejectButtonColor] = useState('green');
 
-    const request = (enrollmentState) => {
+    const request = (enrollmentState: EnrollmentState) => {
         setStateChangeRequest(student.id, enrollmentState);
     }
 

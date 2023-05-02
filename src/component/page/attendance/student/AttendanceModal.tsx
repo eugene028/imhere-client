@@ -90,7 +90,13 @@ const AttendanceNumberInput = styled.input`
   }
 `
 
-function AttendanceModal({isOpen, close, lecture}) {
+interface AttendanceModalProps {
+    isOpen: boolean,
+    close: React.Dispatch<React.SetStateAction<boolean>>,
+    lecture: Lecture | null
+}
+
+function AttendanceModal({isOpen, close, lecture}: AttendanceModalProps) {
     const [attendanceNumber, setAttendanceNumber] = useState(0);
     const [accuracy, setAccuracy] = useState(-1);
     const [distance, setDistance] = useState(-1);
@@ -113,6 +119,8 @@ function AttendanceModal({isOpen, close, lecture}) {
     }, []);
 
     const requestCurrentLectureAttendance = () => {
+        if (!lecture) throw "lecture = null"
+
         if (isNaN(attendanceNumber)) {
             alert('출석 번호가 숫자가 아닙니다.')
             return;
@@ -124,10 +132,10 @@ function AttendanceModal({isOpen, close, lecture}) {
             return;
         }
 
-        const payload = {
+        const payload: AttendanceRequest = {
             attendanceNumber: attendanceNumber,
-            distance: distance,
-            accuracy: accuracy,
+            distance: String(distance),
+            accuracy: String(accuracy),
             milliseconds: (new Date()).getTime()
         }
 
@@ -142,9 +150,9 @@ function AttendanceModal({isOpen, close, lecture}) {
             });
     }
 
-    const handleValue = (event) => {
+    const handleValue: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         const {value} = event.target;
-        setAttendanceNumber(value);
+        setAttendanceNumber(Number(value));
     }
 
     return (

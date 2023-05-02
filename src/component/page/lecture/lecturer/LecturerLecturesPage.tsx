@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getAllLectures} from "../../../api";
-import LoadingSpinner from "../../spinner/LoadingSpinner";
-import LectureRow from "../lecture/LectureRow";
-import {checkUserHasRole} from "../../../util/AuthFunctions";
-import * as ROUTES from "../../../constants/routes";
+import {getLecturersOwnedLectures} from "../../../../api";
+import LoadingSpinner from "../../../spinner/LoadingSpinner";
+import LectureRow from "../LectureRow";
+import LectureModalWithStudents from "./LectureModalWithStudents";
+import * as ROUTES from "../../../../constants/routes";
 import {useNavigate} from "react-router-dom";
-import EnrollmentModal from "./EnrollmentModal";
+import LecturerLectureRow from "./LecturerLectureRow";
 
 const LecturesContainer = styled.div`
-  min-width: 40vw;
+  min-width: 70vw;
   max-height: 70vh;
   border-radius: 10px;
   margin: 0 auto;
@@ -17,7 +17,6 @@ const LecturesContainer = styled.div`
   overflow: visible;
   display: flex;
   flex-direction: column;
-
 `;
 
 const LectureTable = styled.div`
@@ -61,53 +60,41 @@ const Title = styled.button`
   color : black;
 `
 
-export const EnrollmentPage = () => {
-    const [lectures, setLectures] = useState(null);
-    const [currentLecture, setCurrentLecture] = useState(null);
+export const LecturerLecturesPage = () => {
+    const [lectures, setLectures] = useState<Lecture[]|null>(null);
+    const [currentLecture, setCurrentLecture] = useState<Lecture|null>(null);
     const [isModalOpen, setModalOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!checkUserHasRole()) {
-            navigate(ROUTES.LOGIN);
-            return;
-        }
-
-        getAllLectures()
+        getLecturersOwnedLectures()
             .then(lectureList => {
                 if (lectureList) {
-                    setLectures((prevLectures) => {
-                        if (prevLectures !== lectureList) {
-                            return lectureList;
-                        }
-                        return prevLectures;
-                    });
+                    setLectures(lectureList);
                 } else {
                     alert('에러 발생! 관리자에게 문의하세요');
                     navigate(ROUTES.MAIN_PAGE);
                 }
             })
-    }, []);
+    }, [isModalOpen]);
 
     return (
         lectures ?
             <LecturesContainer>
-                <Title>개설 강의 목록</Title>
-                <EnrollmentModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
+                <Title>강사 개설 강의 목록</Title>
+                <LectureModalWithStudents isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
                 <LectureTable>
-                    {
-                        Object.values(lectures).map((lecture, index) => {
-                            return (
-                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
-                                    setCurrentLecture(lecture);
-                                    setModalOpen(true);
-                                }}/>
-                            )
-                        })
-                    }
+                    {Object.values(lectures).map((lecture, index) => {
+                        return (
+                            <LecturerLectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
+                                setCurrentLecture(lecture);
+                                setModalOpen(true);
+                            }}/>
+                        )
+                    })}
                 </LectureTable>
             </LecturesContainer>
             :
             <LoadingSpinner/>
-    )
+    );
 }

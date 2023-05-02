@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getLectureEnrollmentInfo, getLecturersOwnedLectures} from "../../../../api";
+import {getStudentsEnrolledLectures} from "../../../../api";
 import LoadingSpinner from "../../../spinner/LoadingSpinner";
-import EnrollmentManageModal from "./EnrollmentManageModal";
-import LectureRow from "../../lecture/LectureRow";
+import LectureRow from "../LectureRow";
 import * as ROUTES from "../../../../constants/routes";
 import {useNavigate} from "react-router-dom";
-import {checkUserHasRole} from "../../../../util/AuthFunctions";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;
@@ -61,19 +59,13 @@ const Title = styled.button`
   color: black;
 `
 
-export const EnrollmentManagePage = () => {
-    const [lectures, setLectures] = useState(null);
-    const [currentLecture, setCurrentLecture] = useState(null);
-    const [isModalOpen, setModalOpen] = useState(false);
+export const StudentsLecturesPage = () => {
+    const [lectures, setLectures] = useState<Lecture[] | null>(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!checkUserHasRole(['ROLE_ADMIN', 'ROLE_LECTURER'])) {
-            navigate(ROUTES.LOGIN);
-            return;
-        }
-
-        getLecturersOwnedLectures()
+        getStudentsEnrolledLectures()
             .then(lectureList => {
                 if (lectureList) {
                     setLectures(lectureList);
@@ -81,29 +73,27 @@ export const EnrollmentManagePage = () => {
                     alert('에러 발생! 관리자에게 문의하세요');
                     navigate(ROUTES.MAIN_PAGE);
                 }
+                setLoading(true);
             })
     }, []);
 
     return (
-        lectures ?
-            <LecturesContainer>
-                <Title>강사 개설 강의 목록</Title>
-                <EnrollmentManageModal isOpen={isModalOpen} close={setModalOpen}
-                                       lecture={currentLecture ? currentLecture : null}/>
-                <LectureTable>
-                    {
-                        Object.values(lectures).map((lecture, index) => {
+        loading ?
+        lectures && lectures.length !== 0 ?
+                <LecturesContainer>
+                    <Title> 내 강의 </Title>
+                    <LectureTable>
+                        {Object.values(lectures).map((lecture, index) => {
                             return (
-                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture}
-                                    onClick={() => {
-                                        setCurrentLecture(lecture);
-                                        setModalOpen(true);
-                                    }}/>
+                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture}/>
                             )
-                        })
-                    }
-                </LectureTable>
-            </LecturesContainer>
+                        })}
+                    </LectureTable>
+                </LecturesContainer>
+                :
+                <LecturesContainer>
+                    <Title> 수강중인 강의가 없습니다. </Title>
+                </LecturesContainer>
             :
             <LoadingSpinner/>
     );

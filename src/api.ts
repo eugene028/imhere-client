@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 import {getHeadersWithToken, removeToken} from "./util/AuthFunctions";
 
 const protocol = `https`;
@@ -6,8 +6,8 @@ const host = `api.imhere.im`;
 const statusString = `?status=`;
 
 // member
-export const generateVerificationNumber = async email => {
-    return await axios.post(`${protocol}://${host}/member/verification/${email}`)
+export const generateVerificationNumber = async (email: string): Promise<boolean> => {
+    return await axios.post<string>(`${protocol}://${host}/member/verification/${email}`)
         .then(response => {
             if (response && response.status === 200) {
                 return true;
@@ -19,8 +19,8 @@ export const generateVerificationNumber = async email => {
         });
 }
 
-export const verifyValidateNumber = async (email, verificationCode) => {
-    return await axios.get(`${protocol}://${host}/member/verification/${email}/${verificationCode}`)
+export const verifyValidateNumber = async (email: string, verificationCode: string): Promise<boolean> => {
+    return await axios.get<boolean>(`${protocol}://${host}/member/verification/${email}/${verificationCode}`)
         .then(response => {
             if (response && response.data && response.data === true) {
                 return true;
@@ -32,7 +32,7 @@ export const verifyValidateNumber = async (email, verificationCode) => {
         });
 }
 
-export const signUpNewMember = async (univId, name, password) => {
+export const signUpNewMember = async (univId: string, name: string, password: string): Promise<boolean> => {
     const payload = {
         "univId": `${univId}`,
         "name": `${name}`,
@@ -43,7 +43,7 @@ export const signUpNewMember = async (univId, name, password) => {
         'Content-Type': 'application/json'
     }
 
-    return await axios.post(`${protocol}://${host}/member/new`, payload, {headers: headers})
+    return await axios.post<string>(`${protocol}://${host}/member/new`, payload, {headers: headers})
         .then(response => {
             if (response && response.status === 200) {
                 return true;
@@ -55,7 +55,7 @@ export const signUpNewMember = async (univId, name, password) => {
         });
 }
 
-export const requestSignIn = async (univId, password) => {
+export const requestSignIn = async (univId: string, password: string): Promise<string | null> => {
     const payload = {
         "univId": univId,
         "password": password
@@ -76,7 +76,7 @@ export const requestSignIn = async (univId, password) => {
         });
 }
 
-export const logout = async () => {
+export const logout = async (): Promise<AxiosResponse | undefined> => {
     const headers = getHeadersWithToken();
 
     if (!headers) {
@@ -84,21 +84,21 @@ export const logout = async () => {
     }
 
     return axios.post(`${protocol}://${host}/logout`, {}, {headers})
-        .finally(final => {
+        .finally(() => {
             removeToken();
             alert('로그아웃 완료')
         });
 }
 
 // lecture apis
-export const createLecture = async (lectureName) => {
-    const headers = getHeadersWithToken();
+export const createLecture = async (lectureName: string): Promise<void | AxiosResponse> => {
+    const headers = getHeadersWithToken() || undefined;
 
     const payload = {
         "lectureName": `${lectureName}`
     }
 
-    return await axios.post(`${protocol}://${host}/api/v1/lectures`, payload, {headers: headers})
+    return await axios.post<string>(`${protocol}://${host}/api/v1/lectures`, payload, {headers: headers})
         .then(response => {
             return response;
         }).catch(error => {
@@ -107,10 +107,10 @@ export const createLecture = async (lectureName) => {
 }
 
 
-export const getAllLectures = async () => {
-    const headers = getHeadersWithToken();
+export const getAllLectures = async (): Promise<Lecture[]|null> => {
+    const headers = getHeadersWithToken() || undefined;
 
-    return await axios.get(`${protocol}://${host}/api/lectures`, {headers})
+    return await axios.get<Lecture[]>(`${protocol}://${host}/api/lectures`, {headers})
         .then(response => {
             if (response && response.data) {
                 return response.data
@@ -123,11 +123,11 @@ export const getAllLectures = async () => {
         })
 }
 
-export const getStudentsEnrolledLectures = async () => {
-    const headers = getHeadersWithToken();
+export const getStudentsEnrolledLectures = async (): Promise<Lecture[] | null> => {
+    const headers = getHeadersWithToken() || undefined;
     const status = statusString + "enrolled";
 
-    return await axios.get(
+    return await axios.get<Lecture[]>(
         `${protocol}://${host}/api/lectures` + status, {headers})
         .then(response => {
             if (response && response.data) {
@@ -141,11 +141,11 @@ export const getStudentsEnrolledLectures = async () => {
         })
 }
 
-export const getLecturersOwnedLectures = async () => {
-    const headers = getHeadersWithToken();
+export const getLecturersOwnedLectures = async (): Promise<Lecture[] | null> => {
+    const headers = getHeadersWithToken() || undefined;
     const status = statusString + "owned";
 
-    return await axios.get(`${protocol}://${host}/api/lectures` + status, {headers})
+    return await axios.get<Lecture[]>(`${protocol}://${host}/api/lectures` + status, {headers})
         .then(response => {
             if (response && response.data) {
                 return response.data
@@ -159,11 +159,11 @@ export const getLecturersOwnedLectures = async () => {
         })
 }
 
-export const getStudentsOpenedLectures = async () => {
-    const headers = getHeadersWithToken();
+export const getStudentsOpenedLectures = async (): Promise<Lecture[] | null> => {
+    const headers = getHeadersWithToken()  || undefined;
     const status = statusString + "opened";
 
-    return await axios.get(`${protocol}://${host}/api/lectures` + status, {headers})
+    return await axios.get<Lecture[]>(`${protocol}://${host}/api/lectures` + status, {headers})
         .then(response => {
             if (response && response.data) {
                 return response.data
@@ -176,7 +176,7 @@ export const getStudentsOpenedLectures = async () => {
         })
 }
 
-export const changeLectureState = async (lectureId, lectureState) => {
+export const changeLectureState = async (lectureId: number, lectureState: LectureState): Promise<number | null> => {
     if (lectureState === 'OPEN') {
         return openLecture(lectureId)
             .then(response => {
@@ -203,10 +203,10 @@ export const changeLectureState = async (lectureId, lectureState) => {
     }
 }
 
-const openLecture = async (lectureId) => {
-    const headers = getHeadersWithToken();
+const openLecture = async (lectureId: number): Promise<AxiosResponse<AttendanceNumber> | null> => {
+    const headers = getHeadersWithToken() || undefined;
 
-    return await axios.post(`${protocol}://${host}/api/lectures/${lectureId}/open`, {}, {headers: headers})
+    return await axios.post<AttendanceNumber>(`${protocol}://${host}/api/lectures/${lectureId}/open`, {}, {headers: headers})
         .then(response => {
             return response;
         }).catch(error => {
@@ -215,10 +215,10 @@ const openLecture = async (lectureId) => {
         });
 }
 
-const closeLecture = async (lectureId) => {
-    const headers = getHeadersWithToken();
+const closeLecture = async (lectureId: number): Promise<AxiosResponse<string> | null> => {
+    const headers = getHeadersWithToken() || undefined;
 
-    return await axios.post(`${protocol}://${host}/api/lectures/${lectureId}/close`, {}, {headers: headers})
+    return await axios.post<string>(`${protocol}://${host}/api/lectures/${lectureId}/close`, {}, {headers: headers})
         .then(response => {
             return response;
         }).catch(error => {
@@ -228,10 +228,10 @@ const closeLecture = async (lectureId) => {
 }
 
 // enrollment apis
-export const getLectureEnrollmentInfo = async lectureId => {
-    const headers = getHeadersWithToken();
+export const getLectureEnrollmentInfo = async (lectureId: number): Promise<EnrollmentInfo | null> => {
+    const headers = getHeadersWithToken() || undefined;
 
-    return await axios.get(`${protocol}://${host}/api/enrollment/${lectureId}`, {headers})
+    return await axios.get<EnrollmentInfo>(`${protocol}://${host}/api/enrollment/${lectureId}`, {headers})
         .then(response => {
             if (response && response.data) {
                 return response.data
@@ -245,9 +245,9 @@ export const getLectureEnrollmentInfo = async lectureId => {
         })
 }
 
-export const changeStudentEnrollmentState = async (lectureId, studentId, enrollmentState) => {
+export const changeStudentEnrollmentState = async (lectureId: number, studentId: number, enrollmentState: EnrollmentState): Promise<boolean> => {
     if (enrollmentState === 'APPROVAL') {
-        approvalEnrollment(lectureId, studentId)
+        return approvalEnrollment(lectureId, studentId)
             .then(response => {
                 return true;
             }).catch(error => {
@@ -255,7 +255,7 @@ export const changeStudentEnrollmentState = async (lectureId, studentId, enrollm
             return false;
         })
     } else if (enrollmentState === 'REJECTION') {
-        rejectEnrollment(lectureId, studentId)
+        return rejectEnrollment(lectureId, studentId)
             .then(response => {
                 if (response) {
                     return true;
@@ -269,13 +269,15 @@ export const changeStudentEnrollmentState = async (lectureId, studentId, enrollm
     } else {
         console.log('changeEnrollmentState error : ' + enrollmentState + "(", lectureId + ", " + studentId + ")");
     }
+
+    return false;
 }
 
 // APPROVAL
-const approvalEnrollment = async (lectureId, studentId) => {
-    const headers = getHeadersWithToken();
+const approvalEnrollment = async (lectureId: number, studentId: number): Promise<AxiosResponse<string> | null> => {
+    const headers = getHeadersWithToken() || undefined;
 
-    return await axios.post(`${protocol}://${host}/api/enrollment/${lectureId}/student/${studentId}/approval`, {}, {headers: headers})
+    return await axios.post<string>(`${protocol}://${host}/api/enrollment/${lectureId}/student/${studentId}/approval`, {}, {headers: headers})
         .then(response => {
             return response;
         }).catch(error => {
@@ -285,10 +287,10 @@ const approvalEnrollment = async (lectureId, studentId) => {
 }
 
 // REJECTION
-const rejectEnrollment = async (lectureId, studentId) => {
-    const headers = getHeadersWithToken();
+const rejectEnrollment = async (lectureId: number, studentId: number) => {
+    const headers = getHeadersWithToken() || undefined;
 
-    return await axios.post(`${protocol}://${host}/api/enrollment/${lectureId}/student/${studentId}/rejection`, {}, {headers: headers})
+    return await axios.post<string>(`${protocol}://${host}/api/enrollment/${lectureId}/student/${studentId}/rejection`, {}, {headers: headers})
         .then(response => {
             return response;
         }).catch(error => {
@@ -297,10 +299,10 @@ const rejectEnrollment = async (lectureId, studentId) => {
         });
 }
 
-export const requestEnrollment = async (lectureId) => {
-    const headers = getHeadersWithToken();
+export const requestEnrollment = async (lectureId: number) => {
+    const headers = getHeadersWithToken() || undefined;
 
-    return await axios.post(`${protocol}://${host}/api/enrollment/${lectureId}`, {}, {headers: headers})
+    return await axios.post<string>(`${protocol}://${host}/api/enrollment/${lectureId}`, {}, {headers: headers})
         .then(response => {
             if (response && response.status === 200) {
                 return true;
@@ -317,10 +319,10 @@ export const requestEnrollment = async (lectureId) => {
 // 1. 열린 강의 전부 가져오기
 // 2. 출석 하기
 
-export const requestAttendance = async (lectureId, payload) => {
-    const headers = getHeadersWithToken();
+export const requestAttendance = async (lectureId: number, payload: AttendanceRequest): Promise<boolean> => {
+    const headers = getHeadersWithToken() || undefined;
 
-    return await axios.post(`${protocol}://${host}/api/attendance/${lectureId}`, payload, {headers: headers})
+    return await axios.post<string>(`${protocol}://${host}/api/attendance/${lectureId}`, payload, {headers: headers})
         .then(response => {
             if (response && response.status === 200) {
                 return true;
@@ -332,10 +334,10 @@ export const requestAttendance = async (lectureId, payload) => {
         });
 }
 
-export const getTodayAttendance = async (lectureId, dayMilliseconds) => {
-    const headers = getHeadersWithToken();
+export const getTodayAttendance = async (lectureId: number, dayMilliseconds: number): Promise<Attendance | null> => {
+    const headers = getHeadersWithToken() || undefined;
 
-    return await axios.get(`${protocol}://${host}/api/attendance/${lectureId}/${dayMilliseconds}`, {headers})
+    return await axios.get<Attendance>(`${protocol}://${host}/api/attendance/${lectureId}/${dayMilliseconds}`, {headers})
         .then(response => {
             if (response && response.data) {
                 return response.data
