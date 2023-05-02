@@ -12,24 +12,9 @@ import {LectureCreatePage} from "./component/page/lecture/lecturer/LectureCreate
 import {LogoutButton} from "./component/page/LogoutButton";
 import {AttendancePage} from "./component/page/attendance";
 
-function makeSnow() {
-    const snow = document.createElement("div");
-    const size = Math.random() * 4.5 + 3.5;
-    snow.className = "snow";
-    snow.style.width = size + "px";
-    snow.style.height = size + "px";
-    snow.style.left = Math.random() * window.innerWidth + "px";
-    snow.style.animationDuration = Math.random() * 3 + 4.3 + "s";
-    snow.style.zIndex = "-1";
-    document.body.appendChild(snow);
-    setTimeout(() => snow.remove(), 8000);
-}
-
 function App () {
     useEffect(() => {
-        const interval = setInterval(makeSnow, 50);
         alert('출석 이전에 미리 인터넷과 디바이스의 위치 접근을 허용해주세요.\n현재 위치와 T동 까지의 거리만 측정되고 실제 위치는 저장되지 않습니다.')
-        return () => clearInterval(interval);
     }, []);
 
 const Layout = () => {
