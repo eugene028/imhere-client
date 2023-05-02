@@ -12,7 +12,6 @@ import {LectureCreatePage} from "./component/page/lecture/lecturer/LectureCreate
 import {LogoutButton} from "./component/page/LogoutButton";
 import {AttendancePage} from "./component/page/attendance";
 
-
 function makeSnow() {
     const snow = document.createElement("div");
     const size = Math.random() * 4.5 + 3.5;

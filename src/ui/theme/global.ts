@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
-export const globalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
     ${reset}
     @font-face {
         font-family: 'Pretendard';
