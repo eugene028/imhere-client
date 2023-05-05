@@ -1,6 +1,6 @@
-
+import { css } from "styled-components";
 import { HTMLAttributes, ReactNode } from "react";
-import styled from "styled-components";
+import {} from 'styled-components/cssprop';
 
 interface PaddingProps extends HTMLAttributes<HTMLDivElement>{
     children: ReactNode;
@@ -8,28 +8,39 @@ interface PaddingProps extends HTMLAttributes<HTMLDivElement>{
     fill?: boolean;
 }
 
-export type PaddingSize = 
- | number
- | [number, number]
- | [number, number, number, number];
+export type PaddingSize =
+  | number
+  | [number, number]
+  | [number, number, number, number];
 
- export const Padding = ({
+/**
+ * @param size
+ * number : 상하좌우 패딩
+ * [number,number] : 상하, 좌우
+ * [number,number,number,number] : 상, 우, 하, 좌
+ * @param fill true: width100%
+ */
+
+export const Padding = ({
     children,
     size = [0, 24],
     fill = false,
     ...props
- }: PaddingProps) => {
+  }: PaddingProps) => {
     return (
-        <PaddingBox size = {size} fill ={fill}>
-            {children}
-        </PaddingBox>
-    )
- }
-
- const PaddingBox = styled.div<PaddingProps>`
-    padding: ${(props) => {
-        typeof props.size === 'number' ? `${props.size}px` :
-        props.length === 2 ? `${props.size[0]}px ${props.size[1]}px` :
-        `${props.size[0]}px ${props.size[1]}px ${props.size[2]}px ${props.size[3]}px`}};
-    box-sizing: border-box;
- `
+      <div
+        css={css`
+          padding: ${typeof size === 'number'
+            ? `${size}px`
+            : size.length === 2
+            ? `${size[0]}px ${size[1]}px`
+            : `${size[0]}px ${size[1]}px ${size[2]}px ${size[3]}px`};
+          ${fill && 'width : 100%;'}
+          box-sizing:border-box;
+        `}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  };

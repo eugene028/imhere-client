@@ -1,0 +1,41 @@
+import styled from "styled-components";
+import { ComponentProps } from "react";
+import { PaddingSize } from "./Padding";
+import { Padding } from "./Padding";
+import {} from 'styled-components/cssprop';
+import { css } from "styled-components";
+
+
+interface BorderBoxProps extends ComponentProps<'div'>{
+    fullWidth: boolean;
+    padding: PaddingSize;
+    shadow: boolean;
+}
+
+type Props = Partial<BorderBoxProps>;
+
+interface WrapperProps extends BorderBoxProps{
+    [x: string]: any;
+}
+export const BorderBox = ({
+    fullWidth = true,
+    children,
+    padding,
+    shadow = false,
+    ...props
+}: Props) => {
+    return (
+        <Wrapper {...props}>
+            <Padding fill={fullWidth} size ={padding}>
+                {children}
+            </Padding>
+        </Wrapper>
+    )
+
+}
+
+const Wrapper = styled.div<WrapperProps>`
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.palette.white};
+`;
+
