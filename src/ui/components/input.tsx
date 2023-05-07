@@ -5,6 +5,7 @@ import { KeyOfColor } from "..";
 import { FlexBox } from "@ui/layout";
 import { calcRem } from "@ui/theme/typo";
 import { Text } from "@ui/components";
+import { css } from "styled-components";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     value?: string;
@@ -15,6 +16,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     rightImage?: ReactNode;
     errorMessage?:string;
     innershadow?: boolean;
+    big?: boolean;
 }
 
 /**
@@ -25,7 +27,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
  */
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-    ({ value, width, height, color = 'white', styles, ...props }: InputProps, ref) => {
+    ({ value, width, height, innershadow=true, color = 'white', styles, big = false, ...props }: InputProps, ref) => {
     
     return (
         <FlexBox
@@ -34,8 +36,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             direction={'column'}
             gap ={10}
         >
-            <InputWrapper width ={width} height={height} color ={color}>
-                <StyledInput value = {value} ref= {ref} onClick={props.onClick} autoComplete="off" {...props}/>
+            <InputWrapper innershadow = {innershadow} width ={width} height={height} color ={color}>
+                <StyledInput big = {big} value = {value} ref= {ref} onClick={props.onClick} autoComplete="off" {...props}/>
                 {props.rightImage}
             </InputWrapper>
             {props.errorMessage && (
@@ -54,27 +56,32 @@ const InputWrapper = styled.div<{
     width?: number;
     height?: number;
     color: KeyOfColor;
+    innershadow: boolean;
 }>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px;
+    padding: 5px;
     gap: 10px;
     flex-direction: row;
     box-sizing: border-box;
     background: ${({color, theme}) => theme.palette[color]};
-    height: ${({ height }) => (height ? `${height}px` : `63px`)};
+    height: ${({ height }) => (height ? `${height}px` : `51px`)};
     width: ${({ width }) => (width ? `${width}px` : '388px')};
+    box-shadow: ${({innershadow}) => 
+        (innershadow ? `inset 0 7px 7px -7px #333, inset 7px 0 7px -7px #333;` : 0)};
 
 `;
-const StyledInput = styled.input`
+const StyledInput = styled.input<{
+    big: Boolean;
+}>`
     box-sizing: border-box;
     border: none;
     background-color: transparent;
     width: 100%;
     line-height: 100%;
-    ${({ theme}) => theme.typo.Text_20};
-    color: ${({theme}) => theme.palette.main_blue};
+    ${({ big, theme }) => (big ? theme.typo.Text_20 : theme.typo.Text_15)};
+    color: ${({theme}) => theme.palette.black_300};
     ::placeholder{
         color: ${({ theme}) => theme.palette.black_200};
     }

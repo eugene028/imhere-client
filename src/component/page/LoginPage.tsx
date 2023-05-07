@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
 import {requestSignIn} from "../../api";
 import {setAccessToken} from "../../util/AuthFunctions";
-import { Button, StatusIcon, Text } from '@ui/components';
+import { Button, StatusIcon, Text, Input } from '@ui/components';
 
 const LoginArea = styled.div`
   display: flex;
@@ -127,6 +127,7 @@ export const LoginPage = () => {
                 <LoginAndSignUpBox>
                     <ButtonCustom type='button' className='signup-button' onClick={signUp}> 회원가입 </ButtonCustom>
                     <ButtonCustom type='button' className='signin-button' onClick={signIn}> 로그인 </ButtonCustom>
+                    
                 </LoginAndSignUpBox>
             </LoginArea>
         </>
