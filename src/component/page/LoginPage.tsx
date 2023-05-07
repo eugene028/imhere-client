@@ -125,9 +125,8 @@ export const LoginPage = () => {
                     </ViewButton>
                 </PasswordInputContainer>
                 <LoginAndSignUpBox>
-                    
-                    {/* <ButtonCustom type='button' className='signup-button' onClick={signUp}> 회원가입 </ButtonCustom>
-                    <ButtonCustom type='button' className='signin-button' onClick={signIn}> 로그인 </ButtonCustom> */}
+                    <ButtonCustom type='button' className='signup-button' onClick={signUp}> 회원가입 </ButtonCustom>
+                    <ButtonCustom type='button' className='signin-button' onClick={signIn}> 로그인 </ButtonCustom>
                 </LoginAndSignUpBox>
             </LoginArea>
         </>
