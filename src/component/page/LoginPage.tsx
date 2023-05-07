@@ -5,7 +5,8 @@ import {useNavigate} from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
 import {requestSignIn} from "../../api";
 import {setAccessToken} from "../../util/AuthFunctions";
-
+import { Button } from '@ui/components';
+import { Text } from "@ui/components";
 const LoginArea = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,7 +25,7 @@ const LoginAndSignUpBox = styled.div`
   min-width: 60vw;
 `
 
-const Button = styled.button`
+const ButtonCustom = styled.button`
   font-size: 10px;
   min-width: 49%;
 `
@@ -124,8 +125,11 @@ export const LoginPage = () => {
                     </ViewButton>
                 </PasswordInputContainer>
                 <LoginAndSignUpBox>
-                    <Button type='button' className='signup-button' onClick={signUp}> 회원가입 </Button>
-                    <Button type='button' className='signin-button' onClick={signIn}> 로그인 </Button>
+                    <Button varient="mini">
+                      오마이갓
+                    </Button>
+                    {/* <ButtonCustom type='button' className='signup-button' onClick={signUp}> 회원가입 </ButtonCustom>
+                    <ButtonCustom type='button' className='signin-button' onClick={signIn}> 로그인 </ButtonCustom> */}
                 </LoginAndSignUpBox>
             </LoginArea>
         </>

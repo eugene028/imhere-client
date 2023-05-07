@@ -5,32 +5,29 @@ export const GlobalStyle = createGlobalStyle`
     ${reset}
     @font-face {
         font-family: 'Pretendard';
-        font-style: normal;
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
         font-weight: 700;
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff')
-            format('woff');
+        font-style: normal;
     }
     @font-face {
         font-family: 'Pretendard';
-        font-style: normal;
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
         font-weight: 600;
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff')
-            format('woff');
+        font-style: normal;
     }
     @font-face {
         font-family: 'Pretendard';
-        font-style: normal;
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
         font-weight: 500;
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff')
-            format('woff');
+        font-style: normal;
     }
     @font-face {
         font-family: 'Pretendard';
-        font-style: normal;
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
         font-weight: 400;
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff')
-            format('woff');
+        font-style: normal;
     }
+    
     body{
         font-family: 'Pretendard', Pretendard BlinkMacSystemFont,
       system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',

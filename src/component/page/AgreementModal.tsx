@@ -1,6 +1,6 @@
 import React, {type ReactNode, useEffect} from "react";
 import styled from "styled-components";
-import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Overlay = styled(motion.div)`
   position: fixed;

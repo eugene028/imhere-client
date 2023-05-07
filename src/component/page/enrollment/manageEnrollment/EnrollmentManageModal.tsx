@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import StudentEnrollmentStateRow from "./StudentEnrollmentStateRow";
 import {useNavigate} from "react-router-dom";
 import {changeStudentEnrollmentState, getLectureEnrollmentInfo} from "../../../../api";
