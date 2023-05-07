@@ -1,6 +1,7 @@
 import { css } from "styled-components";
 import { HTMLAttributes, ReactNode } from "react";
-import {} from 'styled-components/cssprop';
+import * as types from 'styled-components/cssprop';
+//import {} from 'styled-components/cssprop';
 
 interface PaddingProps extends HTMLAttributes<HTMLDivElement>{
     children: ReactNode;

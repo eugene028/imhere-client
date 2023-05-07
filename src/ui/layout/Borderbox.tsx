@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { ComponentProps } from "react";
 import { PaddingSize } from "./Padding";
 import { Padding } from "./Padding";
-import {} from 'styled-components/cssprop';
-import { css } from "styled-components";
+
 
 
 interface BorderBoxProps extends ComponentProps<'div'>{
