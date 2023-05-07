@@ -6,6 +6,8 @@ import * as ROUTES from "../../constants/routes";
 import {requestSignIn} from "../../api";
 import {setAccessToken} from "../../util/AuthFunctions";
 import { Button, StatusIcon, Text, Input } from '@ui/components';
+import { ListElement } from "@ui/components/ListElement";
+import { BorderBox } from "@ui/layout";
 
 const LoginArea = styled.div`
   display: flex;
@@ -126,8 +128,7 @@ export const LoginPage = () => {
                 </PasswordInputContainer>
                 <LoginAndSignUpBox>
                     <ButtonCustom type='button' className='signup-button' onClick={signUp}> 회원가입 </ButtonCustom>
-                    <ButtonCustom type='button' className='signin-button' onClick={signIn}> 로그인 </ButtonCustom>
-                    
+                    <ButtonCustom type='button' className='signin-button' onClick={signIn}> 로그인 </ButtonCustom>       
                 </LoginAndSignUpBox>
             </LoginArea>
         </>

@@ -7,8 +7,9 @@ import { Padding } from "./Padding";
 
 interface BorderBoxProps extends ComponentProps<'div'>{
     fullWidth: boolean;
-    padding: PaddingSize;
-    shadow: boolean;
+    padding?: PaddingSize;
+    shadow?: boolean;
+    height?: number;
 }
 
 type Props = Partial<BorderBoxProps>;
@@ -36,5 +37,6 @@ export const BorderBox = ({
 const Wrapper = styled.div<WrapperProps>`
   border-radius: 12px;
   background-color: ${({ theme }) => theme.palette.white};
+  height: ${(props) => props.height}px;
 `;
 
