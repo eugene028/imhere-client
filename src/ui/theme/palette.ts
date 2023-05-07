@@ -1,5 +1,8 @@
 export const palette= {
     main_blue:'#3B82F6',
+    sub_blue: '#CADEFF',
+    main_red: '#FF0000',
+    sub_red: '#FFE7E7',
     main_black:'#000000',
     background_200:'#E5E7EB',
     bacground_100:'#F8F8FA',
