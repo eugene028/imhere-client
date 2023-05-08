@@ -1,16 +1,15 @@
 import React, {useEffect} from "react";
 import {Outlet, BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import * as ROUTES from "./constants/routes";
-import './App.css';
-import {LoginPage} from "./component/page/LoginPage";
-import {SignUpPage} from "./component/page/SignUpPage";
-import {MainPage} from "./component/page/MainPage";
-import {LecturesPage} from "./component/page/lecture";
-import {EnrollmentPage} from "./component/page/enrollment/EnrollmentPage";
-import {EnrollmentManagePage} from "./component/page/enrollment/manageEnrollment/EnrollmentManagePage";
-import {LectureCreatePage} from "./component/page/lecture/lecturer/LectureCreatePage";
-import {LogoutButton} from "./component/page/LogoutButton";
-import {AttendancePage} from "./component/page/attendance";
+import * as ROUTES from "@lib/routes";
+import { LoginPage } from "@page/LoginPage";
+import { SignUpPage } from "@page/SignUpPage";
+import { MainPage } from "@page/MainPage";
+import { LecturesPage } from "@page/lecture";
+import { EnrollmentPage} from "@page/enrollment/EnrollmentPage";
+import { EnrollmentManagePage } from "@page/enrollment/manageEnrollment/EnrollmentManagePage";
+import { LectureCreatePage } from "@page/lecture/lecturer/LectureCreatePage";
+import { LogoutButton } from "@page/LogoutButton";
+import { AttendancePage } from "@page/attendance/AttendancePage";
 
 function App () {
     useEffect(() => {
@@ -25,7 +24,6 @@ const Layout = () => {
         </>
     )
 }
-
     return (
         <div className="App">
             <Router>

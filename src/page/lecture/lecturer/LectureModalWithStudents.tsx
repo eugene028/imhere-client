@@ -2,9 +2,9 @@ import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion";
 import StudentRow from "./StudentRow";
-import {changeLectureState, getLecturersOwnedLectures} from "../../../../api";
+import {changeLectureState, getLecturersOwnedLectures} from "../../../api";
 import {useNavigate} from "react-router-dom";
-import * as ROUTES from "../../../../constants/routes";
+import * as ROUTES from "../../../lib/routes";
 
 const Overlay = styled(motion.div)`
   position: fixed;

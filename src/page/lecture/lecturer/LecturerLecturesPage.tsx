@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getLecturersOwnedLectures} from "../../../../api";
-import LoadingSpinner from "../../../spinner/LoadingSpinner";
+import {getLecturersOwnedLectures} from "../../../api";
+import LoadingSpinner from "../../../component/spinner/LoadingSpinner";
 import LectureRow from "../LectureRow";
 import LectureModalWithStudents from "./LectureModalWithStudents";
-import * as ROUTES from "../../../../constants/routes";
+import * as ROUTES from "../../../lib/routes";
 import {useNavigate} from "react-router-dom";
 import LecturerLectureRow from "./LecturerLectureRow";
 

@@ -30,10 +30,17 @@ export const GlobalStyle = createGlobalStyle`
     
     body{
         font-family: 'Pretendard', Pretendard BlinkMacSystemFont,
-      system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
-      'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
-      'Segoe UI Symbol', sans-serif !important;
-      box-sizing: border-box;
+        system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+        'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', sans-serif !important;
+        box-sizing: border-box;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        overflow: hidden;
+        height: 100vh;
     }
     button {
         background: inherit;

@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
-import {checkUserHasRole} from "../../../../util/AuthFunctions";
-import * as ROUTES from "../../../../constants/routes";
-import {createLecture} from "../../../../api";
+import {checkUserHasRole} from "../../../util/AuthFunctions";
+import * as ROUTES from "../../../lib/routes";
+import {createLecture} from "../../../api";
 
 const CreateLectureArea = styled.div`
   display: flex;

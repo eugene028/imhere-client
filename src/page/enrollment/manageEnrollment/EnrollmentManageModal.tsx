@@ -3,8 +3,8 @@ import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion";
 import StudentEnrollmentStateRow from "./StudentEnrollmentStateRow";
 import {useNavigate} from "react-router-dom";
-import {changeStudentEnrollmentState, getLectureEnrollmentInfo} from "../../../../api";
-import * as ROUTES from "../../../../constants/routes";
+import {changeStudentEnrollmentState, getLectureEnrollmentInfo} from "../../../api";
+import * as ROUTES from "../../../lib/routes";
 
 const Overlay = styled(motion.div)`
   position: fixed;

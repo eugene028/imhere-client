@@ -2,9 +2,9 @@ import React, {useContext, useEffect} from "react";
 import {useState} from "react";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
-import {checkAndGetUserRole, checkUserHasRole} from "../../util/AuthFunctions";
-import * as ROUTES from "../../constants/routes";
-import LoadingSpinner from "../spinner/LoadingSpinner";
+import {checkAndGetUserRole, checkUserHasRole} from "../util/AuthFunctions";
+import * as ROUTES from "../lib/routes";
+import LoadingSpinner from "../component/spinner/LoadingSpinner";
 import {AttendancePage} from "./attendance";
 
 const ButtonArea = styled.div`

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import LoadingSpinner from "../../spinner/LoadingSpinner";
-import {checkAndGetUserRole} from "../../../util/AuthFunctions";
-import * as ROUTES from "../../../constants/routes";
+import LoadingSpinner from "../../component/spinner/LoadingSpinner";
+import {checkAndGetUserRole} from "../../util/AuthFunctions";
+import * as ROUTES from "../../lib/routes";
 import {useNavigate} from "react-router-dom";
 import {OpenLecturesPage} from "./student/OpenLecturesPage";
 import {LecturerAttendancePage} from "./LecturerAttendancePage";

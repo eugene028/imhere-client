@@ -20,11 +20,12 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
+      "@components/*": ["src/component/*"],
       "@lib/*": ["src/lib/*"],
       "@store/*": ["src/store/*"],
       "@assets/*": ["src/assets/*"],
       "@ui/*" : ["src/ui/*"],
+      "@page/*" : ["src/page/*"],
     }
   },
   

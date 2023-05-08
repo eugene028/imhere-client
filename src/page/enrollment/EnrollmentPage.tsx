@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import * as ROUTES from "../../../../constants/routes"
+import {getAllLectures} from "../../api";
+import LoadingSpinner from "../../component/spinner/LoadingSpinner";
+import LectureRow from "../lecture/LectureRow";
+import {checkUserHasRole} from "../../util/AuthFunctions";
+import * as ROUTES from "../../lib/routes";
 import {useNavigate} from "react-router-dom";
-import {getStudentsOpenedLectures} from "../../../../api";
-import {checkUserHasRole} from "../../../../util/AuthFunctions";
-import LoadingSpinner from "../../../spinner/LoadingSpinner";
-import LectureRow from "../../lecture/LectureRow";
-import AttendanceModal from "./AttendanceModal";
+import EnrollmentModal from "./EnrollmentModal";
 
 const LecturesContainer = styled.div`
   min-width: 40vw;
@@ -58,14 +58,13 @@ const Title = styled.button`
   margin: 10px;
   border-radius: 10px;
   background-color: whitesmoke;
-  color: black;
+  color : black;
 `
 
-export const OpenLecturesPage = () => {
-    const [lectures, setLectures] = useState<Lecture[]>([]);
-    const [currentLecture, setCurrentLecture] = useState<Lecture|null>(null);
+export const EnrollmentPage = () => {
+    const [lectures, setLectures] = useState<Lecture[] | null>(null);
+    const [currentLecture, setCurrentLecture] = useState<Lecture | null>(null);
     const [isModalOpen, setModalOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -74,7 +73,7 @@ export const OpenLecturesPage = () => {
             return;
         }
 
-        getStudentsOpenedLectures()
+        getAllLectures()
             .then(lectureList => {
                 if (lectureList) {
                     setLectures((prevLectures) => {
@@ -87,37 +86,28 @@ export const OpenLecturesPage = () => {
                     alert('에러 발생! 관리자에게 문의하세요');
                     navigate(ROUTES.MAIN_PAGE);
                 }
-                setLoading(true);
             })
     }, []);
 
     return (
-        loading ?
-            lectures.length !== 0 ?
-                <LecturesContainer>
-                    <Title>출석 체크 가능 강좌 목록</Title>
-                    <AttendanceModal isOpen={isModalOpen} close={setModalOpen}
-                                     lecture={currentLecture ? currentLecture : null}/>
-                    <LectureTable>
-                        {
-                            Object.values(lectures).map((lecture, index) => {
-                                return (
-                                    <LectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
-                                        setCurrentLecture(lecture);
-                                        setModalOpen(true);
-                                    }}/>
-                                )
-                            })
-                        }
-                    </LectureTable>
-                </LecturesContainer>
-                :
-                <LecturesContainer>
-                    <Title>현재 출석 가능한 수업이 없습니다.</Title>
-                </LecturesContainer>
-
+        lectures ?
+            <LecturesContainer>
+                <Title>개설 강의 목록</Title>
+                <EnrollmentModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
+                <LectureTable>
+                    {
+                        Object.values(lectures).map((lecture, index) => {
+                            return (
+                                <LectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
+                                    setCurrentLecture(lecture);
+                                    setModalOpen(true);
+                                }}/>
+                            )
+                        })
+                    }
+                </LectureTable>
+            </LecturesContainer>
             :
-
             <LoadingSpinner/>
     )
 }

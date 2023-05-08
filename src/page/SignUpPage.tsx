@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
-import {generateVerificationNumber, signUpNewMember, verifyValidateNumber} from "../../api";
+import {generateVerificationNumber, signUpNewMember, verifyValidateNumber} from "../api";
 import {useNavigate} from 'react-router-dom';
-import * as ROUTES from "../../constants/routes";
-import {checkAndGetUserRole} from "../../util/AuthFunctions";
+import * as ROUTES from "../lib/routes";
+import {checkAndGetUserRole} from "../util/AuthFunctions";
 import EnrollmentManageModal from "./enrollment/manageEnrollment/EnrollmentManageModal";
 import AgreementModal from "./AgreementModal";
-import {agreement1, agreement2} from "../../util/agreement";
+import {agreement1, agreement2} from "../util/agreement";
 
 const SignUpArea = styled.div`
   display: flex;

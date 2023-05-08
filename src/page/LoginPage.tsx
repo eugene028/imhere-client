@@ -2,12 +2,9 @@ import React from "react";
 import {useState} from "react";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
-import * as ROUTES from "../../constants/routes";
-import {requestSignIn} from "../../api";
-import {setAccessToken} from "../../util/AuthFunctions";
-import { Button, StatusIcon, Text, Input } from '@ui/components';
-import { ListElement } from "@ui/components/ListElement";
-import { BorderBox } from "@ui/layout";
+import * as ROUTES from "../lib/routes";
+import {requestSignIn} from "../api";
+import {setAccessToken} from "../util/AuthFunctions";
 
 const LoginArea = styled.div`
   display: flex;

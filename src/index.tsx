@@ -5,6 +5,7 @@ import App from './App';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './ui/theme';
 import { GlobalStyle } from './ui/theme';
+import { css } from 'styled-components';
 
 ReactDOM.render(
   <ThemeProvider theme= {theme}>

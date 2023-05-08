@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {AnimatePresence, motion} from "framer-motion";
-import {calculateDistance} from "../../../../util/DistanceCalculator";
-import {requestAttendance} from "../../../../api";
+import {calculateDistance} from "../../../util/DistanceCalculator";
+import {requestAttendance} from "../../../api";
 
 const Overlay = styled(motion.div)`
   position: fixed;

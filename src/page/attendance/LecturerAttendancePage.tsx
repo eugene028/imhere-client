@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import {useLocation, useNavigate} from 'react-router-dom';
-import * as ROUTES from "../../../constants/routes";
-import {checkUserHasRole} from "../../../util/AuthFunctions";
-import LoadingSpinner from "../../spinner/LoadingSpinner";
-import {getTodayAttendance} from "../../../api";
+import * as ROUTES from "../../lib/routes";
+import {checkUserHasRole} from "../../util/AuthFunctions";
+import LoadingSpinner from "../../component/spinner/LoadingSpinner";
+import {getTodayAttendance} from "../../api";
 import {StudentAttendanceInfoRow} from "./StudentAttendanceInfoRow";
 import {DescriptionRow} from "./DescriptionRow";
-import {convertJsonToXlsx} from "../../../util/xlsxConverter";
+import {convertJsonToXlsx} from "../../util/xlsxConverter";
 
 interface Time {
     year: number,
