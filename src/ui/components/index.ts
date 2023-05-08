@@ -5,3 +5,4 @@ export * from './ButtonSet';
 export * from './StatusIcon';
 export * from './Input';
 export * from './SpecialButton';
+export * from './Spacing';

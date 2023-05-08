@@ -6,8 +6,9 @@ import * as ROUTES from "../lib/routes";
 import AgreementModal from "./AgreementModal";
 import {agreement1, agreement2} from "../util/agreement";
 import { FlexBox, Padding } from "@ui/layout";
-import { Input, Text, Button } from "@ui/components";
+import { Input, Text, Button, Spacing } from "@ui/components";
 import { theme } from "@ui/theme";
+
 
 export const SignUpPage = () => {
     const [isModalOpen, setModalOpen] = useState(false);
@@ -150,6 +151,7 @@ export const SignUpPage = () => {
                                         {isPasswordHidden ? '👁️' : '🔒'}
                                         </ViewButton>}
                             />
+                        <Spacing size={2}/>
                         <Input color={'background_100'} 
                             type={isPasswordHidden ? 'password' : 'text'} innershadow={false} 
                             height = {35} placeholder="비밀번호 확인"
@@ -159,6 +161,7 @@ export const SignUpPage = () => {
                                         {isPasswordHidden ? '👁️' : '🔒'}
                                         </ViewButton>}
                             />
+                        <Spacing size={2}/>
                         <Input color={'background_100'} 
                                 innershadow={false} height = {35}
                                 placeholder="이름" value={signUpInputData.name} onChange={handleValue}
@@ -197,7 +200,9 @@ export const SignUpPage = () => {
                                 placeholder='메일로 온 인증 코드를 입력하세요' value={signUpInputData.validateCode} 
                                 onChange={handleValue} name='validateCode' big={false}
                             />
-                        <Button  onClick={handleSignUpButton}> 회원가입 </Button>
+                            <Padding size={[10, 0]}>
+                                <Button  onClick={handleSignUpButton}> 회원가입 </Button>
+                            </Padding>
                     </FlexBox>
             }
         </>
