@@ -1,13 +1,12 @@
-import React from "react";
-import {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import {useNavigate} from 'react-router-dom';
-import * as ROUTES from "../lib/routes";
+import { useNavigate } from 'react-router-dom';
+import * as ROUTES from "@lib/routes";
 import {requestSignIn} from "../api";
-import {setAccessToken} from "../util/AuthFunctions";
+import { setAccessToken } from "@util/AuthFunctions";
 import { Button, ButtonSet, Input, Text } from "@ui/components";
 import { theme } from "@ui/theme";
-import { FlexBox, Padding } from "@ui/layout";
+import { FlexBox} from "@ui/layout";
 
 
 export const LoginPage = () => {

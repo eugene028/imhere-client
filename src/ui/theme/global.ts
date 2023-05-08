@@ -8,25 +8,7 @@ export const GlobalStyle = createGlobalStyle`
         src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard.woff') format('woff');
         font-style: normal;
     }
-    /* @font-face {
-        font-family: 'Pretendard';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 600;
-        font-style: normal;
-    }
-    @font-face {
-        font-family: 'Pretendard';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 500;
-        font-style: normal;
-    }
-    @font-face {
-        font-family: 'Pretendard';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 400;
-        font-style: normal;
-    } */
-    
+   
     body{
         font-family: 'Pretendard', Pretendard BlinkMacSystemFont,
         system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
@@ -37,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0;
+        margin: 0 15px;
         overflow: hidden;
         height: 100vh;
     }

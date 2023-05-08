@@ -6,7 +6,6 @@ import { Text } from "./Text";
 
 
 export type ButtonVarient = 
-    | 'larger'
     | 'main'
     | 'regular'
     | 'mini';
@@ -30,11 +29,6 @@ type ButtonSizeType = {
 }
 
 const BUTTON_SIZE : ButtonSizeType = {
-    larger :{
-        typo: 'Text_SB_30',
-        height: 61,
-        width: 388
-    },
     main: {
         typo:'Text_SB_30',
         height: 61,
@@ -54,7 +48,7 @@ const BUTTON_SIZE : ButtonSizeType = {
 
 export const Button =({
     children,
-    varient = 'main',
+    varient = 'mini',
     denial = false,
     fullWidth = true,
     ...props

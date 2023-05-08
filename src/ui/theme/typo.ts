@@ -68,5 +68,11 @@ export const typo = {
         font-size: ${calcRem(15)};
         line-height: 150%;
         font-weight: 400;
-        `
+    `,
+    Text_10: css`
+        font-family: 'Pretendard';
+        font-size: ${calcRem(10)};
+        line-height: 150%;
+        font-weight: 400;
+    `
 }
