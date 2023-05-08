@@ -1,37 +1,37 @@
 import { css } from "styled-components";
 
-export const calcRem = (px: number) => `${px / 16}rem`;
+export const calcRem = (px: number) => `${px / 18}rem`;
 
 export const typo = {
     Header_40 : css`
         font-family: 'Pretendard';
         font-size: ${calcRem(40)};
         line-height: 150%;
-        font-weight: 700;
+        font-weight: 800;
     `,
     Header_35 : css`
         font-family: 'Pretendard';
         font-size: ${calcRem(35)};
         line-height: 150%;
-        font-weight: 700;
+        font-weight: 800;
     `,
     Header_30 : css`
         font-family: 'Pretendard';
         font-size: ${calcRem(30)};
         line-height: 150%;
-        font-weight: 700;
+        font-weight: 800;
     `,
     Header_25 : css`
         font-family: 'Pretendard';
         font-size: ${calcRem(25)};
         line-height: 150%;
-        font-weight: 700;
+        font-weight: 800;
     `,
     Header_20 : css`
         font-family: 'Pretendard';
         font-size: ${calcRem(20)};
         line-height: 150%;
-        font-weight: 700;
+        font-weight: 800;
     `,
     Text_SB_30 : css`
         font-family: 'Pretendard';

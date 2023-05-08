@@ -5,69 +5,10 @@ import {useNavigate} from 'react-router-dom';
 import * as ROUTES from "../lib/routes";
 import {requestSignIn} from "../api";
 import {setAccessToken} from "../util/AuthFunctions";
+import { Button, ButtonSet, Input, Text } from "@ui/components";
+import { theme } from "@ui/theme";
+import { FlexBox, Padding } from "@ui/layout";
 
-const LoginArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 10px;
-  margin-top: 10px;
-  min-width: 60vw;
-  position: relative;
-`
-
-const LoginAndSignUpBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 10px;
-  margin-top: 10px;
-  min-width: 60vw;
-`
-
-const ButtonCustom = styled.button`
-  font-size: 10px;
-  min-width: 49%;
-`
-
-const UnivIdInput = styled.input`
-  box-sizing: border-box;
-`
-
-const DomainSelect = styled.select`
-`
-
-const EmailArea = styled.div`
-  display: grid;
-  grid-template-columns: 60% minmax(0px, auto);
-`
-
-const PasswordInputContainer = styled.div`
-  position: relative;
-  width: 100%;
-  display: inline-block;
-`;
-
-const PasswordInput = styled.input`
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
-`
-
-const ViewButton = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 100%;
-  border-radius: 5px;
-  border: none;
-  background-color: transparent;
-  color: white;
-  font-size: 16px;
-  
-  display: flex;
-  align-items: center;
-`;
 
 export const LoginPage = () => {
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
@@ -106,30 +47,70 @@ export const LoginPage = () => {
 
     return (
         <>
-            <LoginArea>
+            <FlexBox direction="column" align="unset" style ={{minWidth: '60vw'}}>
+              <Text typo = {'Header_35'} style ={{marginBottom: '24px'}}>Imhere!</Text>
                 <EmailArea>
-                    <UnivIdInput type='text' className='input-univId' name='univId' placeholder='이메일'
-                                 value={userData.univId} onChange={handleValue}/>
-                    <DomainSelect className='select-domain' name='domain' placeholder='도메인 선택' value={userData.domain}
-                                  onChange={handleValue}>
-                        <option>@gmail.com</option>
-                        <option>@g.hongik.ac.kr</option>
+                    <Input color={'background_100'} 
+                      innershadow={false} 
+                      height = {40}
+                      placeholder="이메일"
+                      value={userData.univId} onChange={handleValue}
+                      name = 'univId'
+                      big={false}
+                     />
+                    <DomainSelect className='select-domain' 
+                      name='domain' 
+                      placeholder='도메인 선택' 
+                      value={userData.domain}
+                      onChange={handleValue}>
+                        <option><Text typo ={'Text_15'} color ={'black_200'}>@gmail.com</Text></option>
+                        <option><Text typo ={'Text_15'} color ={'black_200'}>@g.hongik.ac.kr</Text></option>
                     </DomainSelect>
                 </EmailArea>
-                <PasswordInputContainer>
-                    <PasswordInput type={isPasswordHidden ? 'password' : 'text'} className='input-password' name='password' placeholder='비밀번호'
-                                   value={userData.password} onChange={handleValue}/>
-                    <ViewButton onClick={() => setIsPasswordHidden(prevState => !prevState)}>
-                        {isPasswordHidden ? '👁️' : '🔒'}
-                    </ViewButton>
-                </PasswordInputContainer>
-                <LoginAndSignUpBox>
-                    <ButtonCustom type='button' className='signup-button' onClick={signUp}> 회원가입 </ButtonCustom>
-                    <ButtonCustom type='button' className='signin-button' onClick={signIn}> 로그인 </ButtonCustom>       
-                </LoginAndSignUpBox>
-            </LoginArea>
+                  <Input color={'background_100'} 
+                        type={isPasswordHidden ? 'password' : 'text'}
+                        innershadow={false} 
+                        height = {40}
+                        placeholder="비밀번호"
+                        value={userData.password} onChange={handleValue}
+                        name='password'
+                        big={false}
+                        rightImage = { <ViewButton onClick={() => setIsPasswordHidden(prevState => !prevState)}>
+                                        {isPasswordHidden ? '👁️' : '🔒'}
+                                        </ViewButton>}
+                  />
+                    <ButtonSet variant="horizontal" padding = {[10, 0]}>
+                      <Button varient={'mini'} fullWidth = {true} onClick ={signUp}>회원가입</Button>
+                      <Button varient="mini" fullWidth = {true} onClick ={signIn}>로그인</Button>
+                    </ButtonSet>
+              </FlexBox>
         </>
     )
 }
+
+
+const DomainSelect = styled.select`
+  background-color: ${theme.palette.background_100};
+  border: 1px solid transparent;
+`
+
+const EmailArea = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 60% minmax(0px, auto);
+  grid-gap: 2px;
+  margin-bottom : 2px;
+`
+
+const ViewButton = styled.button`
+  width: 40px;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+`;
 
 

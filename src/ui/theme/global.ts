@@ -5,11 +5,10 @@ export const GlobalStyle = createGlobalStyle`
     ${reset}
     @font-face {
         font-family: 'Pretendard';
-        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-        font-weight: 700;
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard.woff') format('woff');
         font-style: normal;
     }
-    @font-face {
+    /* @font-face {
         font-family: 'Pretendard';
         src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
         font-weight: 600;
@@ -26,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
         src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
         font-weight: 400;
         font-style: normal;
-    }
+    } */
     
     body{
         font-family: 'Pretendard', Pretendard BlinkMacSystemFont,

@@ -30,7 +30,7 @@ const BUTTON_SET_VARIANT: buttonSetVariantType = {
         align : 'center',
         justify: 'center',
         direction: 'row',
-        gap: '12',
+        gap: '10',
     },
     vertical: {
         align : 'center',
@@ -58,7 +58,7 @@ export const ButtonSet = ({
     ...props
 }: ButtonSetProps) => {
     return (
-        <Padding size ={padding}>
+        <Padding size ={padding} >
             <FlexBox
                 align={BUTTON_SET_VARIANT[variant].align}
                 gap={BUTTON_SET_VARIANT[variant].gap}

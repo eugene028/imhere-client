@@ -1,21 +1,3 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-input {
-  padding: 10px;
-  font-size: 1.2em;
-}
 
 button {
   border: none;
@@ -231,25 +213,4 @@ ul {
 .avatar.self {
   color: #000;
   background-color: lightblue;
-}
-
-.message {
-  padding: 8px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-  margin: 6px;
-  border-radius: 10px;
-  clear: both;
-  float: left;
-}
-
-.message-data {
-  padding: 5px;
-}
-
-.message.self {
-  justify-content: end;
 }

@@ -19,6 +19,7 @@ export type flexboxPropKey = keyof FlexBoxProps;
  * @param jusitfy : justify-content 속성 (기본값 : center)
  * @param direction : direction 속성 (기본값 : row)
  * @param gap : gap 속성
+ * @param number : 가로길이가 필요하면 넣기.
  */
 
 export const FlexBox = ({
@@ -31,8 +32,8 @@ export const FlexBox = ({
     ...props
 }: FlexBoxProps) => {
     return (
-            <FlexDiv align={align} justify={justify} direction={direction} gap={gap} fullWidth={fullWidth}
-            {...props}>
+            <FlexDiv align={align} justify={justify} direction={direction} gap={gap}
+                {...props}>
                 {children}
             </FlexDiv>
     )
@@ -44,5 +45,4 @@ const FlexDiv = styled.div<FlexBoxProps>`
     justify-content: ${props => props.justify};
     flex-direction: ${props => props.direction};
     gap: ${props => props.gap}px;
-    width: ${(props) => (props.fullWidth ? '100%' : 'auto')};
 `

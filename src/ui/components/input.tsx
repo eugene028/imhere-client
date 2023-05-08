@@ -5,7 +5,6 @@ import { KeyOfColor } from "..";
 import { FlexBox } from "@ui/layout";
 import { calcRem } from "@ui/theme/typo";
 import { Text } from "@ui/components";
-import { css } from "styled-components";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     value?: string;
@@ -67,7 +66,7 @@ const InputWrapper = styled.div<{
     box-sizing: border-box;
     background: ${({color, theme}) => theme.palette[color]};
     height: ${({ height }) => (height ? `${height}px` : `51px`)};
-    width: ${({ width }) => (width ? `${width}px` : '388px')};
+    width: ${({ width }) => (width ? `${width}px` : '100%')};
     box-shadow: ${({innershadow}) => 
         (innershadow ? `inset 0 7px 7px -7px #333, inset 7px 0 7px -7px #333;` : 0)};
 
@@ -75,6 +74,7 @@ const InputWrapper = styled.div<{
 const StyledInput = styled.input<{
     big: Boolean;
 }>`
+    padding: 0px 5px;
     box-sizing: border-box;
     border: none;
     background-color: transparent;

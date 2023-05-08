@@ -5,7 +5,7 @@ import { LoginPage } from "@page/LoginPage";
 import { SignUpPage } from "@page/SignUpPage";
 import { MainPage } from "@page/MainPage";
 import { LecturesPage } from "@page/lecture";
-import { EnrollmentPage} from "@page/enrollment/EnrollmentPage";
+import { EnrollmentPage } from "@page/enrollment/EnrollmentPage";
 import { EnrollmentManagePage } from "@page/enrollment/manageEnrollment/EnrollmentManagePage";
 import { LectureCreatePage } from "@page/lecture/lecturer/LectureCreatePage";
 import { LogoutButton } from "@page/LogoutButton";

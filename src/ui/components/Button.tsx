@@ -3,7 +3,6 @@ import { ButtonHTMLAttributes } from "react";
 import { KeyOfTypo, theme } from "../theme";
 import styled from "styled-components";
 import { Text } from "./Text";
-import { palette } from "../theme/palette";
 
 
 export type ButtonVarient = 
@@ -19,6 +18,7 @@ export type ButtonVarient =
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     varient: ButtonVarient;
     denial: Boolean;
+    fullWidth: boolean;
 }
 type Props = Partial<ButtonProps>;
 type ButtonSizeType = {
@@ -56,10 +56,11 @@ export const Button =({
     children,
     varient = 'main',
     denial = false,
+    fullWidth = true,
     ...props
 }: Props) =>{
     return (
-        <StyledButton varient={varient} denial={denial} {...props}>
+        <StyledButton varient={varient} denial={denial} fullWidth={fullWidth} {...props}>
             <Text typo = {BUTTON_SIZE[varient].typo} color ={(denial ? 'main_black' : 'white')}>
                 {children}
             </Text>
@@ -69,10 +70,11 @@ export const Button =({
 
 const StyledButton = styled.button<{
     varient: ButtonVarient,
-    denial: Boolean
+    denial: Boolean,
+    fullWidth: Boolean,
 }>`
     height: ${({varient}) => BUTTON_SIZE[varient].height}px;
-    min-width: ${({varient}) => BUTTON_SIZE[varient].width}px;
+    width: ${({fullWidth, varient}) => fullWidth ? '100%' : `${BUTTON_SIZE[varient].width}px`}; 
     background-color: ${({denial, theme}) => {
         return (denial ? theme.palette.black_100 : theme.palette.main_blue
     )}};
