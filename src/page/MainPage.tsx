@@ -1,32 +1,17 @@
-import React, {useContext, useEffect} from "react";
-import {useState} from "react";
-import styled from "styled-components";
-import {useNavigate} from 'react-router-dom';
-import {checkAndGetUserRole, checkUserHasRole} from "../util/AuthFunctions";
-import * as ROUTES from "../lib/routes";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { checkAndGetUserRole } from "@util/AuthFunctions";
+import * as ROUTES from "@lib/routes";
 import LoadingSpinner from "../component/spinner/LoadingSpinner";
-import {AttendancePage} from "./attendance";
-
-const ButtonArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 10px;
-  min-width: 30vw;
-  max-width: 50vw;
-`
-
-const Button = styled.button`
-  font-size: 20px;
-  //min-width: 9.8vw;
-  width: 100%;
-  min-height: 6vh;
-  margin: 10px;
-  border-radius: 10px;
-`
+import { Button, Text  } from "@ui/components";
+import { FlexBox } from "@ui/layout";
+import styled from "styled-components";
+import { media } from "@ui/theme";
+import { useResponsive } from "@lib/useResponsive";
 
 export const MainPage = () => {
     const [role, setRole] = useState<string | null>(null);
+    const { isPC } = useResponsive();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -45,22 +30,40 @@ export const MainPage = () => {
                     role === 'ROLE_STUDENT'
                         ?
                         // 학생
-                        <ButtonArea>
-                            <Button type='button' className='lecture-button' onClick={() => navigate(ROUTES.LECTURES)}> 내 강의 </Button>
-                            <Button type='button' className='attendance-button' onClick={() => navigate(ROUTES.ATTENDANCE)}> 출석하기 </Button>
-                            <Button type='button' className='enrollment-button' onClick={() => navigate(ROUTES.ENROLLMENT)}> 강의 수강 신청 </Button>
-                        </ButtonArea>
+                        <Wrapper>
+                            {isPC ? <Text typo = {'Header_30'}>오늘도 열공하세요 :)</Text> : <Text typo = {'Header_25'}>오늘도 열공하세요 :)</Text>}
+                            <FlexBox direction={'column'} gap = {24} >
+                                <Button varient="main" onClick={() => navigate(ROUTES.LECTURES)}> 내 강의 </Button>
+                                <Button varient="main" onClick={() => navigate(ROUTES.ATTENDANCE)}> 출석하기 </Button>
+                                <Button varient="main" onClick={() => navigate(ROUTES.ENROLLMENT)}> 강의 수강 신청 </Button>
+                            </FlexBox>
+                        </Wrapper>
+                            :
+                            // 강사
+                        <Wrapper>
+                            
+                            <FlexBox direction={'column'} gap = {24} >
+                                <Button type='button' className='lecture-button' onClick={() => navigate(ROUTES.LECTURES)}> 내 강의 </Button>
+                                <Button type='button' className='lecture-create-button' onClick={() => navigate(ROUTES.LECTURE_CREATE)}> 새 강의 만들기 </Button>
+                                <Button type='button' className='enrollment-approve-button' onClick={() => navigate(ROUTES.MANAGE_ENROLLMENT)}> 수강 학생 승인하기 </Button>
+                            </FlexBox>
+                        </Wrapper>
                         :
-
-                        // 강사
-                        <ButtonArea>
-                            <Button type='button' className='lecture-button' onClick={() => navigate(ROUTES.LECTURES)}> 내 강의 </Button>
-                            <Button type='button' className='lecture-create-button' onClick={() => navigate(ROUTES.LECTURE_CREATE)}> 새 강의 만들기 </Button>
-                            <Button type='button' className='enrollment-approve-button' onClick={() => navigate(ROUTES.MANAGE_ENROLLMENT)}> 수강 학생 승인하기 </Button>
-                        </ButtonArea>
-                    :
                     <LoadingSpinner />
             }
         </>
     )
 }
+
+const Wrapper = styled.div`
+    width: 388px;
+    div {
+        margin-top: 38px;
+    }
+    ${media.mobile} {
+        width: 60vw;
+        div{
+            margin-top: 15px;
+        }
+    }
+`
