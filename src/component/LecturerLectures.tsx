@@ -3,28 +3,41 @@ import LoadingSpinner from "@components/LoadingSpinner";
 import { BorderBox, FlexBox } from '@ui/layout';
 import { ListElement, Text } from '@ui/components';
 import { media } from '@ui/theme';
+import { useState } from "react";
 import { useResponsive } from '@lib/useResponsive';
+import LectureModalWithStudents from "@page/lecture/lecturer/LectureModalWithStudents";
 
 type StudentLecturesProp = Lecture[] | null
 
-export const StudentsLectures = ({lecturelist, title, load, onClick} : {
+export const LecturerLectures = ({lecturelist, title, load} : {
   lecturelist : StudentLecturesProp;
   load : Boolean;
   title: String;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }) => {
     const { isPC } = useResponsive();
+    const [currentLecture, setCurrentLecture] = useState<Lecture|null>(null);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const onClickLecture = (lecture : any) => {
+        setCurrentLecture(lecture);
+        setModalOpen(true);
+    }
     return (
         load ?
         lecturelist && lecturelist.length !== 0 ?
-          <Wrapper onClick = {onClick}>
+          <Wrapper>
+            <LectureModalWithStudents isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture} />
             <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
               <FlexBox direction={'column'}>
                 <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>{title}</Text>
                 <LectureContainer >
                   {Object.values(lecturelist).map((lecture, index) => {
                     return (
-                      <ListElement  count = {3} key = {index} variant={isPC ? 'PC' : 'mobile'} elements = {lecture}/>
+                      <ListElement  
+                        count = {3} 
+                        key = {index} 
+                        variant={isPC ? 'PC' : 'mobile'} 
+                        elements = {lecture}
+                        onClick={() => onClickLecture(lecture)}/>
                     )
                   })}
                 </LectureContainer >
@@ -32,7 +45,7 @@ export const StudentsLectures = ({lecturelist, title, load, onClick} : {
             </BorderBox>
             </Wrapper>
             :
-                 <Text typo = {'Text_SB_20'}>수강중인 강의가 없습니다.</Text>
+                 <Text typo = {'Text_SB_20'}>강의중인 강의가 없습니다.</Text>
             :
             <LoadingSpinner/>
     );

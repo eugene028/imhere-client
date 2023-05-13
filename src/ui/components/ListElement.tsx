@@ -46,7 +46,7 @@ export const ListElement = ({
         values.splice(values.length - 1);
     }
     return (
-            <ListWrapper count = {count}>
+            <ListWrapper count = {count} {...props}>
                 {values.map((value, index) => (
                     <ElementWrapper key = {index}>
                         {lastcolor && index === values.length - 1?

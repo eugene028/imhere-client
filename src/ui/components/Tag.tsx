@@ -85,4 +85,5 @@ const Wrapper = styled.div<WrapperProps>`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 `;

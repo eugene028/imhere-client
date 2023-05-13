@@ -3,28 +3,42 @@ import LoadingSpinner from "@components/LoadingSpinner";
 import { BorderBox, FlexBox } from '@ui/layout';
 import { ListElement, Text } from '@ui/components';
 import { media } from '@ui/theme';
+import { useState } from "react";
 import { useResponsive } from '@lib/useResponsive';
+import AttendanceModal from "@page/attendance/student/AttendanceModal";
+import LectureModalWithStudents from "@page/lecture/lecturer/LectureModalWithStudents";
 
 type StudentLecturesProp = Lecture[] | null
 
-export const StudentsLectures = ({lecturelist, title, load, onClick} : {
+export const StudentAttendance = ({lecturelist, load} : {
   lecturelist : StudentLecturesProp;
   load : Boolean;
-  title: String;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }) => {
     const { isPC } = useResponsive();
+    const [currentLecture, setCurrentLecture] = useState<Lecture|null>(null);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const onClickLecture = (lecture : any) => {
+        setCurrentLecture(lecture);
+        setModalOpen(true);
+    }
     return (
         load ?
         lecturelist && lecturelist.length !== 0 ?
-          <Wrapper onClick = {onClick}>
+          <Wrapper>
+            <AttendanceModal isOpen={isModalOpen} close={setModalOpen}
+                                     lecture={currentLecture ? currentLecture : null}/>
             <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
               <FlexBox direction={'column'}>
-                <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>{title}</Text>
+                <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>출석 체크 가능 강좌 목록</Text>
                 <LectureContainer >
                   {Object.values(lecturelist).map((lecture, index) => {
                     return (
-                      <ListElement  count = {3} key = {index} variant={isPC ? 'PC' : 'mobile'} elements = {lecture}/>
+                      <ListElement  
+                        count = {3} 
+                        key = {index} 
+                        variant={isPC ? 'PC' : 'mobile'} 
+                        elements = {lecture}
+                        onClick={() => onClickLecture(lecture)}/>
                     )
                   })}
                 </LectureContainer >
@@ -32,7 +46,7 @@ export const StudentsLectures = ({lecturelist, title, load, onClick} : {
             </BorderBox>
             </Wrapper>
             :
-                 <Text typo = {'Text_SB_20'}>수강중인 강의가 없습니다.</Text>
+                 <Text typo = {'Text_SB_20'}>현재 출석 가능한 수업이 없습니다.</Text>
             :
             <LoadingSpinner/>
     );

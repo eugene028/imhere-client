@@ -7,6 +7,9 @@ import LectureModalWithStudents from "./LectureModalWithStudents";
 import * as ROUTES from "../../../lib/routes";
 import {useNavigate} from "react-router-dom";
 import LecturerLectureRow from "./LecturerLectureRow";
+import { media } from '@ui/theme';
+import { FlexBox } from '@ui/layout';
+import { LecturerLectures } from '@components/LecturerLectures';
 
 const LecturesContainer = styled.div`
   min-width: 70vw;
@@ -65,6 +68,7 @@ export const LecturerLecturesPage = () => {
     const [currentLecture, setCurrentLecture] = useState<Lecture|null>(null);
     const [isModalOpen, setModalOpen] = useState(false);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getLecturersOwnedLectures()
@@ -75,26 +79,23 @@ export const LecturerLecturesPage = () => {
                     alert('에러 발생! 관리자에게 문의하세요');
                     navigate(ROUTES.MAIN_PAGE);
                 }
+                setLoading(true);
             })
-    }, [isModalOpen]);
+    }, []);
 
     return (
-        lectures ?
-            <LecturesContainer>
-                <Title>강사 개설 강의 목록</Title>
-                <LectureModalWithStudents isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
-                <LectureTable>
-                    {Object.values(lectures).map((lecture, index) => {
-                        return (
-                            <LecturerLectureRow key={lecture.lectureId} index={index} lecture={lecture} onClick={() => {
-                                setCurrentLecture(lecture);
-                                setModalOpen(true);
-                            }}/>
-                        )
-                    })}
-                </LectureTable>
-            </LecturesContainer>
-            :
-            <LoadingSpinner/>
+          <Wrapper>
+            <FlexBox direction ={'column'}>
+              <LecturerLectures title = {"강사 개설 강의 목록"} 
+                lecturelist = {lectures} load ={loading} 
+              />
+            </FlexBox>
+          </Wrapper>
     );
 }
+const Wrapper = styled.div`
+   width: 990px;
+   ${media.mobile} {
+        width: 90vw;
+    }
+`
