@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {useLocation, useNavigate} from 'react-router-dom';
 import * as ROUTES from "../../lib/routes";
 import {checkUserHasRole} from "../../util/AuthFunctions";
-import LoadingSpinner from "../../component/spinner/LoadingSpinner";
+import LoadingSpinner from "../../component/LoadingSpinner";
 import {getTodayAttendance} from "../../lib/api";
 import {StudentAttendanceInfoRow} from "./StudentAttendanceInfoRow";
 import {DescriptionRow} from "./DescriptionRow";

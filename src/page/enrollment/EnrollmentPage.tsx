@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import {getAllLectures} from "../../lib/api";
-import LoadingSpinner from "../../component/spinner/LoadingSpinner";
+import LoadingSpinner from "../../component/LoadingSpinner";
 import LectureRow from "../lecture/LectureRow";
 import {checkUserHasRole} from "../../util/AuthFunctions";
 import * as ROUTES from "../../lib/routes";

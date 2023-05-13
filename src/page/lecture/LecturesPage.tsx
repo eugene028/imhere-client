@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import LoadingSpinner from "../../component/spinner/LoadingSpinner";
+import LoadingSpinner from "../../component/LoadingSpinner";
 import {StudentsLecturesPage} from "./student/StudentsLecturesPage";
 import {checkAndGetUserRole} from "../../util/AuthFunctions";
 import * as ROUTES from "../../lib/routes";

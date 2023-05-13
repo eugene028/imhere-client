@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { checkAndGetUserRole } from "@util/AuthFunctions";
 import * as ROUTES from "@lib/routes";
-import LoadingSpinner from "../component/spinner/LoadingSpinner";
+import LoadingSpinner from "../component/LoadingSpinner";
 import { Button, Text  } from "@ui/components";
 import { FlexBox } from "@ui/layout";
 import styled from "styled-components";

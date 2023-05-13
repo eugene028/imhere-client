@@ -32,7 +32,7 @@ export const FlexBox = ({
     ...props
 }: FlexBoxProps) => {
     return (
-            <FlexDiv align={align} justify={justify} direction={direction} gap={gap}
+            <FlexDiv align={align} justify={justify} direction={direction} gap={gap} fullWidth={fullWidth} 
                 {...props}>
                 {children}
             </FlexDiv>
@@ -41,6 +41,7 @@ export const FlexBox = ({
 
 const FlexDiv = styled.div<FlexBoxProps>`
     display: flex;
+    width : ${props => props.fullWidth ? '100%' : 'auto'};
     align-items: ${props => props.align};
     justify-content: ${props => props.justify};
     flex-direction: ${props => props.direction};
