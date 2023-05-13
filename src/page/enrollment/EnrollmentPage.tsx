@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getAllLectures} from "../../api";
+import {getAllLectures} from "../../lib/api";
 import LoadingSpinner from "../../component/spinner/LoadingSpinner";
 import LectureRow from "../lecture/LectureRow";
 import {checkUserHasRole} from "../../util/AuthFunctions";

@@ -2,7 +2,7 @@ import React, { type ReactNode } from "react";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
 import * as ROUTES from "../lib/routes";
-import {logout} from "../api";
+import {logout} from "../lib/api";
 import {removeToken} from "../util/AuthFunctions";
 
 const Button = styled.button`

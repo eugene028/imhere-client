@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { KeyOfColor, KeyOfTypo } from "..";
 import { css } from "styled-components";
 import { Text } from "@ui/components"
+import { HTMLAttributes } from "react";
 
-interface ListElementProps {
-    elements: Array<string>;
+export interface ListElementProps extends HTMLAttributes<HTMLDivElement> {
+    elements: Object;
+    count: number;
     padding?: PaddingSize;
     variant: ListElementVariant;
     lastcolor?: KeyOfColor;
@@ -21,54 +23,48 @@ type ListElementType = {
 const LIST_ELEMENT : ListElementType ={
     PC :{
         width: 562,
-        typo: 'Text_M_20',
+        typo: 'Text_SB_20',
     },
     mobile: {
         width: 295,
-        typo: 'Text_15',
+        typo: 'Text_20',
     }
 }
 
 export const ListElement = ({
-    elements = ['안녕', '바부야!', '으하하'],
+    elements,
     variant = 'mobile',
-    lastcolor='main_black',
+    lastcolor,
+    count = 3,
+    ...props
 }:ListElementProps) => {
+    const values = Object.values(elements) as string[];
+    if (count === 3){
+        values.splice(values.length - 2);
+    }
+    else {
+        values.splice(values.length - 1);
+    }
     return (
-        elements.length === 3 ? 
-            <ListWrapper variant = {variant}>
-                <ElementWrapper>
-                    <Text typo ={LIST_ELEMENT[variant].typo}>{elements[0]}</Text>
-                </ElementWrapper>
-                <ElementWrapper>
-                    <Text typo ={LIST_ELEMENT[variant].typo}>{elements[1]}</Text>
-                </ElementWrapper>
-                <ElementWrapper>
-                    <Text typo ={LIST_ELEMENT[variant].typo} color = {lastcolor}>{elements[2]}</Text>
-                </ElementWrapper>
+            <ListWrapper count = {count}>
+                {values.map((value, index) => (
+                    <ElementWrapper key = {index}>
+                        {lastcolor && index === values.length - 1?
+                            <Text typo = {LIST_ELEMENT[variant].typo} color ={lastcolor}>{value || 'loading...'}</Text> 
+                            : 
+                            <Text typo = {LIST_ELEMENT[variant].typo}>{value || 'loading...'}</Text>
+                        }
+                    </ElementWrapper>
+                ))}
             </ListWrapper>
-        : <ListWrapper variant = {variant}>
-                <ElementWrapper>
-                    <Text typo ={LIST_ELEMENT[variant].typo}>{elements[0]}</Text>
-                </ElementWrapper>
-                <ElementWrapper>
-                    <Text typo ={LIST_ELEMENT[variant].typo}>{elements[1]}</Text>
-                </ElementWrapper>
-                <ElementWrapper>
-                    <Text typo ={LIST_ELEMENT[variant].typo}>{elements[2]}</Text>
-                </ElementWrapper>
-                <ElementWrapper>
-                    <Text typo ={LIST_ELEMENT[variant].typo} color = {lastcolor}>{elements[3]}</Text>
-                </ElementWrapper>
-        </ListWrapper>
     )
 }
 
-const ListWrapper = styled.div<{variant: ListElementVariant}>`
+const ListWrapper = styled.div<{count: Number}>`
     display: flex;
     flex-direction: row;
     width: 100%;
-    ${({variant}) => (variant === 'mobile' ? css`
+    ${({count}) => (count === 3 ? css`
         div{
             &:nth-child(1){
                 flex-grow: 1;

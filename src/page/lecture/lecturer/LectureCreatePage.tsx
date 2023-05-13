@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
 import {checkUserHasRole} from "../../../util/AuthFunctions";
 import * as ROUTES from "../../../lib/routes";
-import {createLecture} from "../../../api";
+import {createLecture} from "../../../lib/api";
 
 const CreateLectureArea = styled.div`
   display: flex;

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import * as ROUTES from "../../../lib/routes"
 import {useNavigate} from "react-router-dom";
-import {getStudentsOpenedLectures} from "../../../api";
+import {getStudentsOpenedLectures} from "../../../lib/api";
 import {checkUserHasRole} from "../../../util/AuthFunctions";
 import LoadingSpinner from "../../../component/spinner/LoadingSpinner";
 import LectureRow from "../../lecture/LectureRow";

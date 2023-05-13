@@ -4,7 +4,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import * as ROUTES from "../../lib/routes";
 import {checkUserHasRole} from "../../util/AuthFunctions";
 import LoadingSpinner from "../../component/spinner/LoadingSpinner";
-import {getTodayAttendance} from "../../api";
+import {getTodayAttendance} from "../../lib/api";
 import {StudentAttendanceInfoRow} from "./StudentAttendanceInfoRow";
 import {DescriptionRow} from "./DescriptionRow";
 import {convertJsonToXlsx} from "../../util/xlsxConverter";

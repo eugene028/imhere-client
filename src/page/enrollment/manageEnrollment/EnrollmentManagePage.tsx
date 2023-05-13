@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
-import {getLectureEnrollmentInfo, getLecturersOwnedLectures} from "../../../api";
+import {getLectureEnrollmentInfo, getLecturersOwnedLectures} from "../../../lib/api";
 import LoadingSpinner from "../../../component/spinner/LoadingSpinner";
 import EnrollmentManageModal from "./EnrollmentManageModal";
 import LectureRow from "../../lecture/LectureRow";

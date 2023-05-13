@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import * as ROUTES from "@lib/routes";
-import {requestSignIn} from "../api";
+import {requestSignIn} from "../lib/api";
 import { setAccessToken } from "@util/AuthFunctions";
 import { Button, ButtonSet, Input, Text } from "@ui/components";
 import { theme } from "@ui/theme";
@@ -49,7 +49,7 @@ export const LoginPage = () => {
             <FlexBox direction="column" align="unset" style ={{minWidth: '60vw'}}>
               <Text typo = {'Header_35'} style ={{marginBottom: '24px'}}>Imhere!</Text>
                 <EmailArea>
-                    <Input color={'background_100'} 
+                    <Input color={'background_200'} 
                       innershadow={false} 
                       height = {40}
                       placeholder="이메일"
@@ -66,7 +66,7 @@ export const LoginPage = () => {
                         <option><Text typo ={'Text_15'} color ={'black_200'}>@g.hongik.ac.kr</Text></option>
                     </DomainSelect>
                 </EmailArea>
-                  <Input color={'background_100'} 
+                  <Input color={'background_200'} 
                         type={isPasswordHidden ? 'password' : 'text'}
                         innershadow={false} 
                         height = {40}
@@ -89,7 +89,7 @@ export const LoginPage = () => {
 
 
 const DomainSelect = styled.select`
-  background-color: ${theme.palette.background_100};
+  background-color: ${theme.palette.background_200};
   border: 1px solid transparent;
 `
 

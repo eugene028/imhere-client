@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
-import {generateVerificationNumber, signUpNewMember, verifyValidateNumber} from "../api";
+import {generateVerificationNumber, signUpNewMember, verifyValidateNumber} from "../lib/api";
 import {useNavigate} from 'react-router-dom';
 import * as ROUTES from "../lib/routes";
 import AgreementModal from "./AgreementModal";

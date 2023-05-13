@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import { theme } from "./theme";
 
 export const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -15,13 +16,13 @@ export const GlobalStyle = createGlobalStyle`
         'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', sans-serif !important;
         box-sizing: border-box;
-        background-color: white;
+        background-color: ${({ theme }) => theme.palette.background_100};
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0 15px;
         overflow: hidden;
         height: 100vh;
+
     }
     button {
         background: inherit;
