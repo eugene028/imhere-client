@@ -20,6 +20,7 @@ export type flexboxPropKey = keyof FlexBoxProps;
  * @param direction : direction 속성 (기본값 : row)
  * @param gap : gap 속성
  * @param number : 가로길이가 필요하면 넣기.
+ * @param fullWidth: 꽉 채울거니?
  */
 
 export const FlexBox = ({

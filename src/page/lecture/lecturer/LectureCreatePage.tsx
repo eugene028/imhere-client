@@ -1,33 +1,10 @@
-import React, {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
-import {checkUserHasRole} from "../../../util/AuthFunctions";
-import * as ROUTES from "../../../lib/routes";
-import {createLecture} from "../../../lib/api";
-
-
-const CreateLectureArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 10px;
-  margin-top: 10px;
-  min-width: 30vw;
-  position: relative;
-`
-
-const CreateButton = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 10px;
-  margin-top: 10px;
-  width: 100%;
-`
-
-const Button = styled.button`
-  font-size: 10px;
-  width: 100%;
-`
+import {checkUserHasRole} from "@util/AuthFunctions";
+import * as ROUTES from "@lib/routes";
+import {createLecture} from "@lib/api";
+import { Input, Button, Spacing } from "@ui/components";
 
 export const LectureCreatePage = () => {
     const [lectureName, setLectureName] = useState('');
@@ -64,12 +41,19 @@ export const LectureCreatePage = () => {
     return (
         <>
             <CreateLectureArea>
-                <input type='text' className='input-lectureName' name='lectureName' placeholder='강의 이름을 입력하세요'
-                       value={lectureName} onChange={handleValue}/>
-                <CreateButton>
-                    <Button type='button' className='create-button' onClick={() => requestCreateLecture()}> 강의 만들기 </Button>
-                </CreateButton>
+                <Input placeholder="강의 이름을 입력하세요" value = {lectureName} onChange={handleValue} big={true}/>
+                <Spacing size = {20}/>
+                <Button type='button' varient = {'regular'} onClick={() => requestCreateLecture()}> 강의 만들기 </Button>
             </CreateLectureArea>
         </>
     )
 }
+
+const CreateLectureArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  margin-top: 10px;
+  min-width: 30vw;
+  position: relative;
+`

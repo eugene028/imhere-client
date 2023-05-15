@@ -1,6 +1,9 @@
 import { ButtonHTMLAttributes } from "react";
-import { ButtonVarient, KeyOfColor } from "..";
+import { KeyOfColor } from "..";
+
 import styled from "styled-components";
+import { theme } from '@ui/theme';
+import { palette } from '../theme/palette';
 
 interface SpecialButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     variant: SpecialButtonVariant;
@@ -17,14 +20,14 @@ type SpecialButtonColor = {
     }
 }
 
-const SPECIAL_BUTTON_VARIANT: SpecialButtonColor = {
+const SPECIAL_BUTTON_VARIANT = {
     inform: {
-        backgroundColor: 'sub_blue',
-        color: 'main_blue'
+        backgroundColor: `${theme.palette.sub_blue}`,
+        color: `${theme.palette.main_blue}`
     },
     delete: {
-        backgroundColor: 'sub_red',
-        color : 'main_red'
+        backgroundColor: `${theme.palette.sub_red}`,
+        color : `${theme.palette.main_red}`
     }
 } 
 
@@ -44,7 +47,7 @@ const StyledSpecialButton = styled.button<{
     variant: SpecialButtonVariant,
 }>`
     height: 45px;
-    min-width: 185px;
+    min-width: 140px;
     background-color: ${({variant}) => SPECIAL_BUTTON_VARIANT[variant].backgroundColor};
     color : ${({variant}) => SPECIAL_BUTTON_VARIANT[variant].color};
     border-radius: 10px;

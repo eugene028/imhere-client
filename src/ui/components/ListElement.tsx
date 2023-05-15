@@ -70,10 +70,10 @@ const ListWrapper = styled.div<{count: Number}>`
                 flex-grow: 1;
             }
             &:nth-child(2){
-                flex-grow: 3;
+                flex-grow: 2;
             }
             &:nth-child(3){
-                flex-grow : 2;
+                flex-grow : 1;
                 border-right: 0px solid !important;
             }
         }

@@ -23,6 +23,10 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
  * @param height: number(기본값 63px)
  * @param rightImage: Input창 오른쪽에 들어갈 수 있는 element
  * @param errorMessage: string
+ * @param styles: 스타일적용
+ * @param rightImage: 오른쪽에 들어갈 요소
+ * @param innershadow : 안에 그림자효과(boolean)
+ * @param big : pc버전 모바일 버전
  */
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
