@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import {getStudentsEnrolledLectures} from "@lib/api";
 import * as ROUTES from "@lib/routes";
 import {useNavigate} from "react-router-dom";
-import { StudentsLectures } from '@components/StudentsLectures';
+import { StudentsLectures } from '@components/LectureLists';
 import { FlexBox } from '@ui/layout';
 import { StudentsTags } from '@components/Tags';
 import styled from 'styled-components';
@@ -30,7 +30,10 @@ export const StudentsLecturesPage = () => {
       <Wrapper>
         <FlexBox direction ={'column'}>
           <StudentsTags/>
-          <StudentsLectures title ={"내 강의"} lecturelist = {lectures} load ={loading}/>
+          <StudentsLectures title ={"내 강의"} 
+            lecturelist = {lectures} 
+            load ={loading}
+          />
         </FlexBox>
       </Wrapper>
     );

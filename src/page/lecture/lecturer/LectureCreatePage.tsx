@@ -5,6 +5,7 @@ import {checkUserHasRole} from "../../../util/AuthFunctions";
 import * as ROUTES from "../../../lib/routes";
 import {createLecture} from "../../../lib/api";
 
+
 const CreateLectureArea = styled.div`
   display: flex;
   flex-direction: column;

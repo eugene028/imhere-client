@@ -6,7 +6,6 @@ import { media } from '@ui/theme';
 import { useState } from "react";
 import { useResponsive } from '@lib/useResponsive';
 import AttendanceModal from "@page/attendance/student/AttendanceModal";
-import LectureModalWithStudents from "@page/lecture/lecturer/LectureModalWithStudents";
 
 type StudentLecturesProp = Lecture[] | null
 

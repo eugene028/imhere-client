@@ -164,7 +164,7 @@ function LectureModalWithStudents({isOpen, close, lecture}: LectureModalWithStud
     const [lectureStateRequest, setLectureStateRequest] = useState<LectureState|null>(null);
     const navigate = useNavigate();
 
-    if (!lecture) throw "lecture = null"
+    if (!lecture) return null;
 
     const requestLectureStateChange = async () => {
         if (lectureStateRequest && lectureStateRequest !== lecture.lectureState) {

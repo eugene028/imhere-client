@@ -2,11 +2,11 @@ import {useState, useEffect} from 'react';
 import styled from "styled-components";
 import * as ROUTES from "@lib/routes"
 import {useNavigate} from "react-router-dom";
-import {getStudentsOpenedLectures} from "../../../lib/api";
+import {getStudentsOpenedLectures} from "@lib/api";
 import {checkUserHasRole} from "@util/AuthFunctions";
 import { media } from '@ui/theme';
 import { FlexBox } from '@ui/layout';
-import { StudentAttendance } from '@components/StudentAttendance';
+import { StudentAttendance } from '@components/LectureLists';
 
 export const OpenLecturesPage = () => {
     const [lectures, setLectures] = useState<Lecture[]>([]);

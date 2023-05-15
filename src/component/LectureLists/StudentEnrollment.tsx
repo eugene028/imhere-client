@@ -3,41 +3,39 @@ import LoadingSpinner from "@components/LoadingSpinner";
 import { BorderBox, FlexBox } from '@ui/layout';
 import { ListElement, Text } from '@ui/components';
 import { media } from '@ui/theme';
-import { useState } from "react";
 import { useResponsive } from '@lib/useResponsive';
-import LectureModalWithStudents from "@page/lecture/lecturer/LectureModalWithStudents";
+import EnrollmentModal from "@page/enrollment/EnrollmentModal";
+import { useState } from "react";
 
 type StudentLecturesProp = Lecture[] | null
 
-export const LecturerLectures = ({lecturelist, title, load} : {
+export const StudentsEnrollment = ({lecturelist, load} : {
   lecturelist : StudentLecturesProp;
   load : Boolean;
-  title: String;
 }) => {
     const { isPC } = useResponsive();
-    const [currentLecture, setCurrentLecture] = useState<Lecture|null>(null);
+    const [currentLecture, setCurrentLecture] = useState<Lecture | null>(null);
     const [isModalOpen, setModalOpen] = useState(false);
-    const onClickLecture = (lecture : any) => {
-        setCurrentLecture(lecture);
-        setModalOpen(true);
+    const onClickEnrollment = (lecture : any) => {
+      setCurrentLecture(lecture);
+      setModalOpen(true);
     }
     return (
         load ?
         lecturelist && lecturelist.length !== 0 ?
           <Wrapper>
-            <LectureModalWithStudents isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture} />
+            <EnrollmentModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
             <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
               <FlexBox direction={'column'}>
-                <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>{title}</Text>
+                <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>개설 강의 목록</Text>
                 <LectureContainer >
                   {Object.values(lecturelist).map((lecture, index) => {
                     return (
-                      <ListElement  
-                        count = {3} 
-                        key = {index} 
-                        variant={isPC ? 'PC' : 'mobile'} 
-                        elements = {lecture}
-                        onClick={() => onClickLecture(lecture)}/>
+                      <ListElement  count = {3} 
+                      key = {index} 
+                      variant={isPC ? 'PC' : 'mobile'} 
+                      elements = {lecture}
+                      onClick={() => onClickEnrollment(lecture)}/>
                     )
                   })}
                 </LectureContainer >
@@ -45,7 +43,7 @@ export const LecturerLectures = ({lecturelist, title, load} : {
             </BorderBox>
             </Wrapper>
             :
-                 <Text typo = {'Text_SB_20'}>강의중인 강의가 없습니다.</Text>
+                 <Text typo = {'Text_SB_20'}>개설된 강의가 없습니다.</Text>
             :
             <LoadingSpinner/>
     );

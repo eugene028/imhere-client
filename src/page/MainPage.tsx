@@ -43,9 +43,9 @@ export const MainPage = () => {
                         <Wrapper>
                             
                             <FlexBox direction={'column'} gap = {24} >
-                                <Button type='button' className='lecture-button' onClick={() => navigate(ROUTES.LECTURES)}> 내 강의 </Button>
-                                <Button type='button' className='lecture-create-button' onClick={() => navigate(ROUTES.LECTURE_CREATE)}> 새 강의 만들기 </Button>
-                                <Button type='button' className='enrollment-approve-button' onClick={() => navigate(ROUTES.MANAGE_ENROLLMENT)}> 수강 학생 승인하기 </Button>
+                                <Button varient="main" onClick={() => navigate(ROUTES.LECTURES)}> 내 강의 </Button>
+                                <Button varient="main" onClick={() => navigate(ROUTES.LECTURE_CREATE)}> 새 강의 만들기 </Button>
+                                <Button varient="main" onClick={() => navigate(ROUTES.MANAGE_ENROLLMENT)}> 수강 학생 승인하기 </Button>
                             </FlexBox>
                         </Wrapper>
                         :
