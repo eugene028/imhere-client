@@ -7,6 +7,7 @@ import { FlexBox } from '@ui/layout';
 import { StudentsTags } from '@components/Tags';
 import styled from 'styled-components';
 import { media } from '@ui/theme';
+import { BottomSheet } from '@ui/components';
 
 export const StudentsLecturesPage = () => {
     const [lectures, setLectures] = useState<Lecture[] | null>(null);
@@ -28,6 +29,7 @@ export const StudentsLecturesPage = () => {
 
     return (
       <Wrapper>
+        <BottomSheet/>
         <FlexBox direction ={'column'}>
           <StudentsTags/>
           <StudentsLectures title ={"내 강의"} 

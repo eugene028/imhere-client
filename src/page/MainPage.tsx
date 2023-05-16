@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { media } from "@ui/theme";
 import { useResponsive } from "@lib/useResponsive";
 
+
 export const MainPage = () => {
     const [role, setRole] = useState<string | null>(null);
     const { isPC } = useResponsive();
@@ -31,6 +32,7 @@ export const MainPage = () => {
                         ?
                         // 학생
                         <Wrapper>
+                            
                             {isPC ? <Text typo = {'Header_30'}>오늘도 열공하세요 :)</Text> : <Text typo = {'Header_25'}>오늘도 열공하세요 :)</Text>}
                             <FlexBox direction={'column'} gap = {24} >
                                 <Button varient="main" onClick={() => navigate(ROUTES.LECTURES)}> 내 강의 </Button>
@@ -66,4 +68,7 @@ const Wrapper = styled.div`
             margin-top: 15px;
         }
     }
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 `

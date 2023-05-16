@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
         align-items: center;
         overflow: hidden;
         height: 100vh;
-
+        width : 100%;
     }
     button {
         background: inherit;

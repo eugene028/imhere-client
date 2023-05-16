@@ -7,3 +7,5 @@ export * from './Input';
 export * from './SpecialButton';
 export * from './Spacing';
 export * from './ListElement';
+export * from './Toast';
+export * from './BottomSheet';

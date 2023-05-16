@@ -1,19 +1,12 @@
 import React, { type ReactNode } from "react";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
-import * as ROUTES from "../lib/routes";
-import {logout} from "../lib/api";
-import {removeToken} from "../util/AuthFunctions";
+import * as ROUTES from "@lib/routes";
+import {logout} from "@lib/api";
+import { Text } from "@ui/components";
+import { FlexBox } from "@ui/layout";
+import { BackButton } from "@components/Button";
 
-const Button = styled.button`
-  position: fixed;
-  top: 5%;
-  right: 5%;
-  font-size: 15px;
-  border: 3px solid;
-  border-radius: 10px;
-  background-color: transparent;
-`
 
 interface LogoutButtonProps {
     children?: ReactNode
@@ -21,6 +14,8 @@ interface LogoutButtonProps {
 
 export function LogoutButton({ children }: LogoutButtonProps) {
     const navigate = useNavigate();
+    const params = window.location.pathname.replace('/', '');
+
     const clickLogoutButton = () => {
         logout()
             .finally(() => {
@@ -31,12 +26,27 @@ export function LogoutButton({ children }: LogoutButtonProps) {
 
     return (
         <div>
-            <header>
-                <nav>
-                    <Button onClick={() => clickLogoutButton()} >Logout</Button>
-                </nav>
-            </header>
+            <NavBar>
+                <FlexBox >
+                    {params === 'main'?  null : <BackButton/>}
+                    <LogoutBox onClick={() => clickLogoutButton()}>             
+                        <Text typo ={'Header_25'}>Logout</Text>
+                    </LogoutBox>
+                </FlexBox>
+            </NavBar>
             <main>{children}</main>
         </div>
     );
 }
+
+const NavBar = styled.div`
+    position : absolute;
+    top: 20px;
+    left: 40px;
+    width: 100vw;
+`;
+const LogoutBox = styled.div`
+    margin-left: auto;
+    padding-right: 80px;
+    cursor: pointer;
+`

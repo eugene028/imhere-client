@@ -116,8 +116,7 @@ interface EnrollmentManageModalProps {
 }
 
 function EnrollmentManageModal({isOpen, close, lecture}: EnrollmentManageModalProps) {
-    if (!lecture) throw "lecture = null"
-
+    
     const [enrollment, setEnrollment] = useState<EnrollmentInfo | null>(null);
     const [toggle, setToggle] = useState(0);
     const navigate = useNavigate();
@@ -137,6 +136,8 @@ function EnrollmentManageModal({isOpen, close, lecture}: EnrollmentManageModalPr
         }
 
     }, [lecture, toggle]);
+
+    if (!lecture) return null;
 
     const setStateChangeRequest = (studentId: number, enrollmentState: EnrollmentState): void => {
         requestMap.set(studentId, enrollmentState);
