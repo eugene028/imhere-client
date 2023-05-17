@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { theme } from "./theme";
+import { media } from "./theme";
 
 export const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -9,7 +10,6 @@ export const GlobalStyle = createGlobalStyle`
         src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard.woff') format('woff');
         font-style: normal;
     }
-   
     body{
         font-family: 'Pretendard', Pretendard BlinkMacSystemFont,
         system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
@@ -22,7 +22,10 @@ export const GlobalStyle = createGlobalStyle`
         align-items: center;
         overflow: hidden;
         height: 100vh;
-        width : 100%;
+  
+        ${media.mobile} {
+            -ms-overflow-style: none;
+        }
     }
     button {
         background: inherit;
@@ -41,4 +44,9 @@ export const GlobalStyle = createGlobalStyle`
         color: inherit;
         text-decoration: none;
     }
+    &::-webkit-scrollbar {
+    ${media.mobile} {
+      display: none;
+    }
+  }
 `;

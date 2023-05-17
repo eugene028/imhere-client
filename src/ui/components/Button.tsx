@@ -55,7 +55,7 @@ export const Button =({
 }: Props) =>{
     return (
         <StyledButton varient={varient} denial={denial} fullWidth={fullWidth} {...props}>
-            <Text typo = {BUTTON_SIZE[varient].typo} color ={(denial ? 'main_black' : 'white')}>
+            <Text typo = {BUTTON_SIZE[varient].typo} color ={('white')}>
                 {children}
             </Text>
         </StyledButton>

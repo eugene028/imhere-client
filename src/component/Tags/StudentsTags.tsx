@@ -1,6 +1,6 @@
 import { FlexBox } from "@ui/layout"
 import { Tag } from "@ui/components";
-import { useResponsive } from "@lib/useResponsive";
+import { useResponsive } from "@lib/hooks/useResponsive";
 import { Spacing } from "@ui/components";
 
 export const StudentsTags = () => {

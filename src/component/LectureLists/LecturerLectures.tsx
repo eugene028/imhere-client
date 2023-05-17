@@ -4,7 +4,7 @@ import { BorderBox, FlexBox } from '@ui/layout';
 import { ListElement, Text, SpecialButton } from '@ui/components';
 import { media } from '@ui/theme';
 import { useState } from "react";
-import { useResponsive } from '@lib/useResponsive';
+import { useResponsive } from '@lib/hooks/useResponsive';
 import LectureModalWithStudents from "@page/lecture/lecturer/LectureModalWithStudents";
 import { BsCheckCircleFill} from 'react-icons/bs';
 import { LectureStatus } from "@components/LectureStatus";

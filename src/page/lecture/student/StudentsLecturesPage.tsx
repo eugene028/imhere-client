@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {  useState, useEffect, useCallback} from 'react';
 import {getStudentsEnrolledLectures} from "@lib/api";
 import * as ROUTES from "@lib/routes";
 import {useNavigate} from "react-router-dom";
@@ -11,8 +11,9 @@ import { BottomSheet } from '@ui/components';
 
 export const StudentsLecturesPage = () => {
     const [lectures, setLectures] = useState<Lecture[] | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
+
 
     useEffect(() => {
         getStudentsEnrolledLectures()
@@ -29,7 +30,6 @@ export const StudentsLecturesPage = () => {
 
     return (
       <Wrapper>
-        <BottomSheet/>
         <FlexBox direction ={'column'}>
           <StudentsTags/>
           <StudentsLectures title ={"내 강의"} 

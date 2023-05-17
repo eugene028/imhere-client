@@ -7,7 +7,7 @@ import { Button, Text  } from "@ui/components";
 import { FlexBox } from "@ui/layout";
 import styled from "styled-components";
 import { media } from "@ui/theme";
-import { useResponsive } from "@lib/useResponsive";
+import { useResponsive } from "@lib/hooks/useResponsive";
 
 
 export const MainPage = () => {

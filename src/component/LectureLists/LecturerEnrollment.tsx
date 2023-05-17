@@ -3,7 +3,7 @@ import LoadingSpinner from "@components/LoadingSpinner";
 import { BorderBox, FlexBox } from '@ui/layout';
 import { ListElement, Text } from '@ui/components';
 import { media } from '@ui/theme';
-import { useResponsive } from '@lib/useResponsive';
+import { useResponsive } from '@lib/hooks/useResponsive';
 import EnrollmentManageModal from "@page/enrollment/manageEnrollment/EnrollmentManageModal";
 import { useState } from "react";
 

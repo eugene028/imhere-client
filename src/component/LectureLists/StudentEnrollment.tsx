@@ -3,9 +3,10 @@ import LoadingSpinner from "@components/LoadingSpinner";
 import { BorderBox, FlexBox } from '@ui/layout';
 import { ListElement, Text } from '@ui/components';
 import { media } from '@ui/theme';
-import { useResponsive } from '@lib/useResponsive';
+import { useResponsive } from '@lib/hooks/useResponsive';
 import EnrollmentModal from "@page/enrollment/EnrollmentModal";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { BottomSheet } from "@ui/components";
 
 type StudentLecturesProp = Lecture[] | null
 
@@ -15,16 +16,21 @@ export const StudentsEnrollment = ({lecturelist, load} : {
 }) => {
     const { isPC } = useResponsive();
     const [currentLecture, setCurrentLecture] = useState<Lecture | null>(null);
-    const [isModalOpen, setModalOpen] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
     const onClickEnrollment = (lecture : any) => {
       setCurrentLecture(lecture);
-      setModalOpen(true);
     }
+
+    const onClickToggleBottom = useCallback(() => {
+      setOpen(!open);
+    },[open]) 
+
     return (
         load ?
         lecturelist && lecturelist.length !== 0 ?
           <Wrapper>
-            <EnrollmentModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
+            {open && (<BottomSheet setBottomOpen={onClickToggleBottom} lecture={currentLecture? currentLecture : null}/>)}
+            {/* <EnrollmentModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} /> */}
             <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
               <FlexBox direction={'column'}>
                 <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>개설 강의 목록</Text>
@@ -35,7 +41,10 @@ export const StudentsEnrollment = ({lecturelist, load} : {
                       key = {index} 
                       variant={isPC ? 'PC' : 'mobile'} 
                       elements = {lecture}
-                      onClick={() => onClickEnrollment(lecture)}/>
+                      onClick={() => {
+                        onClickEnrollment(lecture);
+                        onClickToggleBottom();
+                      }}/>
                     )
                   })}
                 </LectureContainer >

@@ -4,7 +4,7 @@ import { BorderBox, FlexBox } from '@ui/layout';
 import { ListElement, Text } from '@ui/components';
 import { media } from '@ui/theme';
 import { useState } from "react";
-import { useResponsive } from '@lib/useResponsive';
+import { useResponsive } from '@lib/hooks/useResponsive';
 import AttendanceModal from "@page/attendance/student/AttendanceModal";
 
 type StudentLecturesProp = Lecture[] | null
