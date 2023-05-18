@@ -6,6 +6,8 @@ import { media } from '@ui/theme';
 import { useResponsive } from '@lib/hooks/useResponsive';
 import EnrollmentManageModal from "@page/enrollment/manageEnrollment/EnrollmentManageModal";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import * as ROUTES from "@lib/routes";
 
 type LecturerLecturesProp = Lecture[] | null
 
@@ -13,6 +15,7 @@ export const LecturerEnrollment = ({lecturelist, load} : {
   lecturelist : LecturerLecturesProp;
   load : Boolean;
 }) => {
+    const navigate = useNavigate();
     const { isPC } = useResponsive();
     const [currentLecture, setCurrentLecture] = useState<Lecture | null>(null);
     const [isModalOpen, setModalOpen] = useState(false);
@@ -24,8 +27,8 @@ export const LecturerEnrollment = ({lecturelist, load} : {
         load ?
         lecturelist && lecturelist.length !== 0 ?
           <Wrapper>
-            <EnrollmentManageModal isOpen={isModalOpen} close={setModalOpen}
-                                       lecture={currentLecture ? currentLecture : null}/>
+            {/* <EnrollmentManageModal isOpen={isModalOpen} close={setModalOpen}
+                                       lecture={currentLecture ? currentLecture : null}/> */}
             <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
               <FlexBox direction={'column'}>
                 <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>강사 개설 강의 목록</Text>
@@ -36,7 +39,10 @@ export const LecturerEnrollment = ({lecturelist, load} : {
                       key = {index} 
                       variant={isPC ? 'PC' : 'mobile'} 
                       elements = {lecture}
-                      onClick={() => onClickEnrollment(lecture)}/>
+                      onClick={() => {
+                        onClickEnrollment(lecture);
+                        navigate(`/enrollment/manage/${lecture.lectureId}`, {state: {lectureId : lecture.lectureId}})
+                      }}/>
                     )
                   })}
                 </LectureContainer >

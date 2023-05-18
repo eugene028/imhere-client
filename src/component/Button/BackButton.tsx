@@ -15,4 +15,5 @@ export const BackButton = () => {
 const Wrapper = styled.div`
     margin-right: auto;
     width: 20px;
+    cursor:pointer;
 `

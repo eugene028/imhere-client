@@ -18,6 +18,9 @@ export const OpenLecturesPage = () => {
             navigate(ROUTES.LOGIN);
             return;
         }
+        
+        alert('출석 이전에 미리 인터넷과 디바이스의 위치 접근을 허용해주세요.\n현재 위치와 T동 까지의 거리만 측정되고 실제 위치는 저장되지 않습니다.')
+       
 
         getStudentsOpenedLectures()
             .then(lectureList => {

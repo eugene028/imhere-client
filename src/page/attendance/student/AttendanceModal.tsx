@@ -166,9 +166,9 @@ function AttendanceModal({isOpen, close, lecture}: AttendanceModalProps) {
                                 <ModalTitleRow><p>{lecture.lectureName}</p></ModalTitleRow>
                                 <AttendanceNumberArea>
                                     <AttendanceNumberInput type='number' className='input-attendance-number'
-                                                           name='attendance-number' placeholder='출석 번호를 입력하세요'
-                                                           value={attendanceNumber} onChange={handleValue}
-                                                           inputMode='numeric'/>
+                                                        name='attendance-number' placeholder='출석 번호를 입력하세요'
+                                                        value={attendanceNumber} onChange={handleValue}
+                                                        inputMode='numeric'/>
                                     <AttendanceButton
                                         onClick={() => requestCurrentLectureAttendance()}>출석하기</AttendanceButton>
                                 </AttendanceNumberArea>

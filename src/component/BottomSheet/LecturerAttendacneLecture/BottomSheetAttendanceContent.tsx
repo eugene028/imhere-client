@@ -15,5 +15,5 @@ export const BottomSheetAttendanceContent = () => {
 }
 
 const Wrapper = styled.div`
-    padding-left: 10px;
+    padding-left: 20px;
 `

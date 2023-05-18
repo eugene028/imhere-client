@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import LoadingSpinner from "@components/LoadingSpinner";
 import { BorderBox, FlexBox } from '@ui/layout';
-import { ListElement, Text } from '@ui/components';
+import { BottomSheet, ListElement, Text } from '@ui/components';
 import { media } from '@ui/theme';
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useResponsive } from '@lib/hooks/useResponsive';
-import AttendanceModal from "@page/attendance/student/AttendanceModal";
-
+import { BottomSheetSAttendanceHeader, BottomSheetSAttendanceContent} from "@components/BottomSheet";
 type StudentLecturesProp = Lecture[] | null
 
 export const StudentAttendance = ({lecturelist, load} : {
@@ -15,17 +14,25 @@ export const StudentAttendance = ({lecturelist, load} : {
 }) => {
     const { isPC } = useResponsive();
     const [currentLecture, setCurrentLecture] = useState<Lecture|null>(null);
-    const [isModalOpen, setModalOpen] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
     const onClickLecture = (lecture : any) => {
         setCurrentLecture(lecture);
-        setModalOpen(true);
-    }
+    };
+
+    const onClickToggleBottom = useCallback(() => {
+      setOpen(!open);
+    },[open]) 
+
     return (
         load ?
         lecturelist && lecturelist.length !== 0 ?
           <Wrapper>
-            <AttendanceModal isOpen={isModalOpen} close={setModalOpen}
-                                     lecture={currentLecture ? currentLecture : null}/>
+            {/* <AttendanceModal isOpen={isModalOpen} close={setModalOpen}
+                                     lecture={currentLecture ? currentLecture : null}/> */}
+            {open && (<BottomSheet setBottomOpen={onClickToggleBottom}>
+                <BottomSheetSAttendanceHeader header ={currentLecture?.lectureName}/>
+                <BottomSheetSAttendanceContent lecture = {currentLecture} setBottomOpen={onClickToggleBottom}/>
+            </BottomSheet>)}
             <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
               <FlexBox direction={'column'}>
                 <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>출석 체크 가능 강좌 목록</Text>
@@ -37,7 +44,9 @@ export const StudentAttendance = ({lecturelist, load} : {
                         key = {index} 
                         variant={isPC ? 'PC' : 'mobile'} 
                         elements = {lecture}
-                        onClick={() => onClickLecture(lecture)}/>
+                        onClick={() => {
+                          onClickLecture(lecture);
+                          onClickToggleBottom();}}/>
                     )
                   })}
                 </LectureContainer >

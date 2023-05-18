@@ -7,7 +7,7 @@ import { calcRem } from "@ui/theme/typo";
 import { Text } from "@ui/components";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-    value?: string;
+    value?: string | number;
     width?: number;
     color?: KeyOfColor;
     height?: number;

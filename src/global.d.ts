@@ -1,5 +1,5 @@
 type LectureState = 'OPEN' | 'CLOSED' | 'TERMINATED'
-type EnrollmentState = 'APPROVAL' | 'REJECTION'
+type EnrollmentState = 'APPROVAL' | 'REJECTION' | 'AWAIT'
 
 
 interface SignUpRequest {
@@ -26,7 +26,7 @@ interface AttendanceNumber {
 
 interface AttendanceRequest {
     // 출석 번호
-    attendanceNumber: number,
+    attendanceNumber: number | undefined,
     // 홍익대학교 T동과의 거리로 m 단위입니다.
     distance: string,
     // Geolocation API가 제공하는 거리 오차 정확도로 m 단위입니다.

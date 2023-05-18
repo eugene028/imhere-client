@@ -82,12 +82,14 @@ const ListWrapper = styled.div<{count: Number}>`
         div{
                 &:nth-child(1){
                     flex-grow: 1;
+                    max-width: 100px;
                 }
                 &:nth-child(2){
-                    flex-grow: 3;
+                    flex-grow: 2;
+                    max-width: 350px;
                 }
                 &:nth-child(3){
-                    flex-grow : 2;
+                    flex-grow : 1;
                 }
                 &:nth-child(4){
                     flex-grow: 2;

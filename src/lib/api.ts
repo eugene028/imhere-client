@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse } from "axios";
-import {getHeadersWithToken, removeToken} from "../util/AuthFunctions";
+import {getHeadersWithToken, removeToken} from "@util/AuthFunctions";
 
 const protocol = `https`;
 const host = `api.imhere.im`;
