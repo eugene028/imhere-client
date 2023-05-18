@@ -3,25 +3,25 @@ import styled from "styled-components";
 import { Text } from "@ui/components";
 import { FlexBox } from "@ui/layout";
 
-
 export interface StatusIconProps extends React.ComponentProps<'div'> {
     status: StatusType;
 }
 
 type Props = Partial<StatusIconProps>;
-type StatusType = 'open' | 'closed';
+type StatusType = LectureState;
 
 type StatusColor = {
     [key in StatusType] : KeyOfColor;
 }
 
 const STATUS_COLOR : StatusColor = {
-    open: 'main_blue',
-    closed : 'black_100'
+    'OPEN': 'main_blue',
+    'CLOSED': 'black_100',
+    'TERMINATED': 'main_red',
 }
 
 export const StatusIcon = ({
-    status='open',
+    status='OPEN',
 }: Props) => {
     console.log(STATUS_COLOR[status]);
     return (

@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import LoadingSpinner from "@components/LoadingSpinner";
 import { BorderBox, FlexBox } from '@ui/layout';
-import { ListElement, Text, SpecialButton } from '@ui/components';
+import { ListElement, Text, SpecialButton, BottomSheet } from '@ui/components';
 import { media } from '@ui/theme';
 import { useState } from "react";
 import { useResponsive } from '@lib/hooks/useResponsive';
-import LectureModalWithStudents from "@page/lecture/lecturer/LectureModalWithStudents";
 import { BsCheckCircleFill} from 'react-icons/bs';
 import { LectureStatus } from "@components/LectureStatus";
 import { useNavigate } from "react-router-dom";
 import * as ROUTES from "@lib/routes";
+import { useEffect, useCallback } from "react";
+import { BottomSheetAttendanceButton, BottomSheetAttendanceContent, BottomSheetAttendanceHeader } from "@components/BottomSheet";
 
 type LecturerLecturesProp = Lecture[] | null
 
@@ -21,11 +22,15 @@ export const LecturerLectures = ({lecturelist, title, load} : {
     const navigate = useNavigate();
     const { isPC } = useResponsive();
     const [currentLecture, setCurrentLecture] = useState<Lecture|null>(null);
-    const [isModalOpen, setModalOpen] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
     const onClickLecture = (lecture : any) => {
         setCurrentLecture(lecture);
-        setModalOpen(true);
     }
+
+    const onClickToggleBottom = useCallback(() => {
+      setOpen(!open);
+    },[open]) 
+
     const navigateAttendancePage = (lecture : any) => {
       if (!lecture) {
         return
@@ -36,36 +41,48 @@ export const LecturerLectures = ({lecturelist, title, load} : {
       
     }
 
+    useEffect(() => {
+      console.log("새로고침")
+    }, [open]);
+
+
     return (
         (load && lecturelist) ? (
           lecturelist !== null && lecturelist.length !== 0 ?
             <Wrapper>
-              <LectureModalWithStudents isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} />
+              {open && (<BottomSheet setBottomOpen={onClickToggleBottom}>
+                <BottomSheetAttendanceHeader header = {currentLecture?.lectureName}/>
+                <BottomSheetAttendanceContent/>
+                <BottomSheetAttendanceButton setBottomOpen={onClickToggleBottom} lecture = {currentLecture} />
+              </BottomSheet>)}
               <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
                 <FlexBox direction={'column'} fullWidth={true}>
                   <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>{title}</Text>
                   <FlexBox fullWidth = {true} gap = {20} style={{marginRight: '50px'}} >
                       {Object.values(lecturelist).map((lecture, index) => {
+                        console.log(lecture);
                         return (
                           <>
-                          <LectureContainer >
-                          <ListElement  
-                            count = {3} 
-                            key = {index} 
-                            variant={isPC ? 'PC' : 'mobile'} 
-                            elements = {lecture}
-                            onClick={() => onClickLecture(lecture)}/>
-                          </LectureContainer >
-                            <SpecialButton onClick={() => navigateAttendancePage(lecture)} >
-                            <FlexBox gap ={10}>
-                              <BsCheckCircleFill/>
-                              출석부 확인하기
-                            </FlexBox>
-                          </SpecialButton>
+                            <LectureContainer>
+                            <ListElement  
+                              count = {3} 
+                              key = {index} 
+                              variant={isPC ? 'PC' : 'mobile'} 
+                              elements = {lecture}
+                              onClick={() => {
+                                onClickLecture(lecture);
+                                onClickToggleBottom();}}/>
+                            </LectureContainer >
+                              <SpecialButton onClick={() => navigateAttendancePage(lecture)} >
+                              <FlexBox gap ={10}>
+                                <BsCheckCircleFill/>
+                                출석부 확인하기
+                              </FlexBox>
+                            </SpecialButton>
+                            <LectureStatus status={lecture?.lectureState}/>
                           </>
                         )
                       })}
-                      <LectureStatus/>
                     </FlexBox>
                 </FlexBox>
               </BorderBox>

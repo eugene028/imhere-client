@@ -1,4 +1,4 @@
-type LectureState = 'OPEN' | 'CLOSED'
+type LectureState = 'OPEN' | 'CLOSED' | 'TERMINATED'
 type EnrollmentState = 'APPROVAL' | 'REJECTION'
 
 
