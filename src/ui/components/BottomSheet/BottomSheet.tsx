@@ -1,28 +1,23 @@
 import styled from "styled-components";
-import { BottomSheetHeader } from "./BottomSheetHeader";
-import { BottomSheetContent } from "./BottomSheetContent";
-import { BottomSheetButton } from "./BottomSheetButton";
 import { motion } from 'framer-motion';
-import { useResponsive } from "@lib/hooks/useResponsive";
 import useBottomSheet from '@lib/hooks/useBottomSheet';
 import { media } from "@ui/theme";
 
+import React from "react";
+
 interface BottomSheetProps{
     setBottomOpen: () => void;
-    lecture: Lecture | null;
+    lecture?: Lecture | null;
+    children: React.ReactNode;
 }
 
-export const BottomSheet = ({lecture, setBottomOpen}: BottomSheetProps) => {
+export const BottomSheet = ({children, setBottomOpen} : BottomSheetProps) => {
     const { sheet , content} = useBottomSheet(setBottomOpen);
-    const { isPC } = useResponsive(); 
     return (
-    
         <BottomSheetWrapper ref = {sheet}>
             <Overlay>
                 <Wrapper ref ={content}>
-                    <BottomSheetHeader header = {lecture?.lectureName}/>
-                    <BottomSheetContent lecture = {lecture}/>
-                    <BottomSheetButton  setBottomOpen ={setBottomOpen}lecture = {lecture}/>
+                    {children}
                 </Wrapper>
             </Overlay>
         </BottomSheetWrapper>

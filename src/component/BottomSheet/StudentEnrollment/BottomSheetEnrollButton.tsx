@@ -1,14 +1,12 @@
-import { ButtonSet } from "../ButtonSet";
-import { Button } from "../Button";
+import { ButtonSet, Button } from "@ui/components";
 import { requestEnrollment } from "@lib/api";
-import { HTMLAttributes } from 'react';
 import styled from "styled-components";
 
 interface BottomSheetButtonProps {
     lecture: Lecture | null;
     setBottomOpen: () => void;
 }
-export const BottomSheetButton = ({lecture, setBottomOpen}: BottomSheetButtonProps) => {
+export const BottomSheetEnrollButton = ({lecture, setBottomOpen}: BottomSheetButtonProps) => {
 
     const requestCurrentLectureEnrollment = () => {
         if (!lecture) throw "lecture = null"
@@ -16,7 +14,7 @@ export const BottomSheetButton = ({lecture, setBottomOpen}: BottomSheetButtonPro
             .then(response => {
                 alert('수강신청 성공')
             })
-            .finally(); //모달창 닫기
+            .finally(() => {setBottomOpen()}); 
     }
     return (
         <Wrapper>

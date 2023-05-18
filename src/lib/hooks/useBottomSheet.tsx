@@ -6,7 +6,6 @@ export default function useBottomSheet(handler : () => void) {
     const content = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        console.log("zz");
         const listener = (e: any) => {
             if(!content.current || content.current.contains(e.target)){
                 return;

@@ -1,11 +1,9 @@
-import { FC } from "react"
 import styled from "styled-components";
 import { theme } from "@ui/theme";
-import { Text } from "../Text";
-import { Spacing } from "../Spacing";
-import { Padding } from "@ui/layout";
+import { Text, Spacing } from "@ui/components";
+import { Padding} from "@ui/layout";
 
-export const BottomSheetHeader =({header} : {header: string | undefined}) => {
+export const BottomSheetEnrollHeader =({header} : {header: string | undefined}) => {
     return (
         <Wrapper>
             <LoadBarWrapper>

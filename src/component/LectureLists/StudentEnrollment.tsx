@@ -4,9 +4,11 @@ import { BorderBox, FlexBox } from '@ui/layout';
 import { ListElement, Text } from '@ui/components';
 import { media } from '@ui/theme';
 import { useResponsive } from '@lib/hooks/useResponsive';
-import EnrollmentModal from "@page/enrollment/EnrollmentModal";
+
 import { useCallback, useState } from "react";
 import { BottomSheet } from "@ui/components";
+import { BottomSheetEnrollHeader, BottomSheetEnrollContent, BottomSheetEnrollButton } from "@components/BottomSheet";
+
 
 type StudentLecturesProp = Lecture[] | null
 
@@ -29,8 +31,12 @@ export const StudentsEnrollment = ({lecturelist, load} : {
         load ?
         lecturelist && lecturelist.length !== 0 ?
           <Wrapper>
-            {open && (<BottomSheet setBottomOpen={onClickToggleBottom} lecture={currentLecture? currentLecture : null}/>)}
-            {/* <EnrollmentModal isOpen={isModalOpen} close={setModalOpen} lecture={currentLecture ? currentLecture : null} /> */}
+            {open && (<BottomSheet 
+              setBottomOpen={onClickToggleBottom}>
+                <BottomSheetEnrollHeader header ={currentLecture?.lectureName}/>
+                <BottomSheetEnrollContent/>
+                <BottomSheetEnrollButton lecture = {currentLecture ? currentLecture : null} setBottomOpen={onClickToggleBottom}/>
+                </BottomSheet>)}
             <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
               <FlexBox direction={'column'}>
                 <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>개설 강의 목록</Text>

@@ -1,7 +1,7 @@
 
 import styled from "styled-components"
-import { Text } from "../Text"
-export const BottomSheetContent = ({lecture} : {lecture: Lecture|null}) => {
+import { Text } from "@ui/components";
+export const BottomSheetEnrollContent = () => {
 
 
     return (
