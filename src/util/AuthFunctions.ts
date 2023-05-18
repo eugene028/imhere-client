@@ -52,11 +52,11 @@ export const checkAndGetUserRole = (roles?: string[]): string | null => {
 
     const role = localStorage.getItem('role');
 
-    if (!role || !roles || !roles.includes(role)) {
-        removeToken();
-        alert('잘못된 접근입니다.');
-        return null;
-    }
+    // if (!role || !roles || !roles.includes(role)) {
+    //     removeToken();
+    //     alert('잘못된 접근입니다.');
+    //     return null;
+    // }
 
     return role;
 }

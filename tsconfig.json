@@ -17,9 +17,21 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/component/*"],
+      "@lib/*": ["src/lib/*"],
+      "@store/*": ["src/store/*"],
+      "@assets/*": ["src/assets/*"],
+      "@ui/*" : ["src/ui/*"],
+      "@page/*" : ["src/page/*"],
+      "@util/*": ["src/util/*"],
+    }
   },
+  
   "include": [
     "src"
-  ]
+  ],
+  "extends": "./tsconfig.extend.json",
 }

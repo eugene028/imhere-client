@@ -5,6 +5,8 @@
   "dependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.21.2",
     "@babel/plugin-transform-runtime": "^7.21.0",
+    "@craco/craco": "^7.1.0",
+    "@emotion/react": "^11.10.8",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -13,24 +15,29 @@
     "dotenv": "^16.0.3",
     "firebase": "^9.17.0",
     "firebaseui": "^6.0.2",
-    "framer-motion": "^10.6.0",
+    "framer-motion": "^10.12.12",
     "moment": "^2.29.4",
     "net": "^1.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
+    "react-responsive": "^9.0.2",
     "react-router-dom": "^6.9.0",
-    "react-scripts": "^2.1.3",
+    "react-scripts": "^5.0.1",
+    "react-spring-bottom-sheet": "^3.4.1",
+    "react-toastify": "^9.1.3",
     "sheetjs": "^2.0.0",
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
     "styled-components": "^5.3.5",
+    "styled-reset": "^4.4.6",
     "typescript": "^5.0.4",
     "web-vitals": "^2.1.4",
     "xlsx": "0.16.8"
   },
   "scripts": {
-    "start": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && craco start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider && craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -55,6 +62,7 @@
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/styled-components": "^5.1.26",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "craco-alias": "^3.0.1"
   }
 }

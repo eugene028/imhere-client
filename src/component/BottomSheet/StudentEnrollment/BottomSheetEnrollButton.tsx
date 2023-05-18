@@ -1,0 +1,37 @@
+import { ButtonSet, Button } from "@ui/components";
+import { requestEnrollment } from "@lib/api";
+import styled from "styled-components";
+
+interface BottomSheetButtonProps {
+    lecture: Lecture | null;
+    setBottomOpen: () => void;
+}
+export const BottomSheetEnrollButton = ({lecture, setBottomOpen}: BottomSheetButtonProps) => {
+
+    const requestCurrentLectureEnrollment = () => {
+        if (!lecture) throw "lecture = null"
+        requestEnrollment(lecture.lectureId)
+            .then(response => {
+                alert('수강신청 성공')
+            })
+            .finally(() => {setBottomOpen()}); 
+    }
+    return (
+        <Wrapper>
+            <ButtonSet variant={'horizontal'}>
+                <Button denial= {true} varient={'regular'} onClick = {() => setBottomOpen()}>취소하기</Button>
+                <Button varient={'regular'} onClick={() => requestCurrentLectureEnrollment()}>수강신청하기</Button>
+            </ButtonSet>
+        </Wrapper>
+        
+    )
+}
+
+const Wrapper = styled.div`
+    position: fixed;
+    right: 0;
+    top: 220px;
+    z-index: 2500;
+    width: 100%;
+    box-sizing: border-box;
+`
