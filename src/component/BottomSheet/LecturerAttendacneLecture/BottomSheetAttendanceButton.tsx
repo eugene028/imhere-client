@@ -36,13 +36,15 @@ export const BottomSheetAttendanceButton = ({lecture, setBottomOpen}: BottomShee
                                     requestLectureStateChange('CLOSED')
                                         .finally(() => {
                                                 //setLectureStateRequest(null);
-                                                setBottomOpen()})}}>강의 닫기</Button>
+                                                setBottomOpen();
+                                                window.location.reload();})}}>강의 닫기</Button>
                 <Button varient={'regular'} onClick={() => {
                                     //setLectureStateRequest('OPEN');
                                     requestLectureStateChange('OPEN')
                                         .finally(() => {
                                                 //setLectureStateRequest(null);
-                                                setBottomOpen()})}}>강의 열기</Button>
+                                                setBottomOpen();
+                                                window.location.reload();})}}>강의 열기</Button>
             </ButtonSet>
         </Wrapper>
         
