@@ -1,4 +1,4 @@
-import {  useState, useEffect, useCallback} from 'react';
+import {  useState, useEffect } from 'react';
 import {getStudentsEnrolledLectures} from "@lib/api";
 import * as ROUTES from "@lib/routes";
 import {useNavigate} from "react-router-dom";
@@ -7,7 +7,7 @@ import { FlexBox } from '@ui/layout';
 import { StudentsTags } from '@components/Tags';
 import styled from 'styled-components';
 import { media } from '@ui/theme';
-import { BottomSheet } from '@ui/components';
+
 
 export const StudentsLecturesPage = () => {
     const [lectures, setLectures] = useState<Lecture[] | null>(null);

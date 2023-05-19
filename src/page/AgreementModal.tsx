@@ -1,4 +1,4 @@
-import React, {type ReactNode, useEffect} from "react";
+import React, { type ReactNode } from "react";
 import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 

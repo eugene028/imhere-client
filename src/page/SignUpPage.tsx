@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import {generateVerificationNumber, signUpNewMember, verifyValidateNumber} from "../lib/api";
 import {useNavigate} from 'react-router-dom';
-import * as ROUTES from "../lib/routes";
+import * as ROUTES from "@lib/routes";
 import AgreementModal from "./AgreementModal";
-import {agreement1, agreement2} from "../util/agreement";
+import {agreement1, agreement2} from "@util/agreement";
 import { FlexBox, Padding } from "@ui/layout";
 import { Input, Text, Button, Spacing } from "@ui/components";
 import { theme } from "@ui/theme";
@@ -15,7 +15,6 @@ export const SignUpPage = () => {
     const [contents, setContents] = useState(agreement1);
     const [isInputValidate, setInputValidate] = useState(false);
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
-    const [isPasswordCheckHidden, setIsPasswordCheckHidden] = useState(true);
     const [signUpInputData, setSignUpInputData] = useState({
         univId: '',
         password: '',

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import * as ROUTES from "@lib/routes";
-import {requestSignIn} from "../lib/api";
+import { requestSignIn } from "@lib/api";
 import { setAccessToken } from "@util/AuthFunctions";
 import { Button, ButtonSet, Input, Text } from "@ui/components";
 import { theme } from "@ui/theme";

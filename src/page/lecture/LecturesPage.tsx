@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import LoadingSpinner from "../../component/LoadingSpinner";
 import {StudentsLecturesPage} from "./student/StudentsLecturesPage";
-import {checkAndGetUserRole} from "../../util/AuthFunctions";
-import * as ROUTES from "../../lib/routes";
+import {checkAndGetUserRole} from "@util/AuthFunctions";
+import * as ROUTES from "@lib/routes";
 import {useNavigate} from "react-router-dom";
 import {LecturerLecturesPage} from "./lecturer/LecturerLecturesPage";
 

@@ -36,7 +36,6 @@ const LectureRow = ({index, lecture, onClick}: LectureRowProps) => {
                 <div className="lecture-index">{index + 1}</div>
                 <div className="lecture-name">{lecture.lectureName || 'loading...'}</div>
                 <div className="lecturer-name">{lecture.lecturerName || 'loading...'} 강사</div>
-                {/*<div className="lecture-state">{lecture.lectureState}</div>*/}
             </Lecture>
         </LectureRowWrapper>
     );
