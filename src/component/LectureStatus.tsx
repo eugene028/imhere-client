@@ -1,7 +1,11 @@
 import { StatusIcon } from "@ui/index"
 import { FlexBox } from "@ui/layout"
 
-export const LectureStatus = ({status} : {status: LectureState}) => {
+interface LectureStatusProps {
+    status : LectureState;
+}
+
+export const LectureStatus = ({status} : LectureStatusProps) => {
 
     return (
         <FlexBox>

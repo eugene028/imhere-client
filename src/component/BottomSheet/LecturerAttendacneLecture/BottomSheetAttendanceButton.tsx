@@ -7,7 +7,10 @@ interface BottomSheetButtonProps {
     lecture: Lecture | null;
     setBottomOpen: () => void;
 }
-export const BottomSheetAttendanceButton = ({lecture, setBottomOpen}: BottomSheetButtonProps) => {
+export const BottomSheetAttendanceButton = ({
+    lecture, 
+    setBottomOpen,
+}: BottomSheetButtonProps) => {
     
     //const [lectureStateRequest, setLectureStateRequest] = useState<LectureState|null>(lecture ? lecture.lectureState : null);
     if (!lecture) return null;
@@ -32,17 +35,13 @@ export const BottomSheetAttendanceButton = ({lecture, setBottomOpen}: BottomShee
         <Wrapper>
             <ButtonSet variant={'horizontal'}>
                 <Button  denial= {true} varient={'regular'} onClick={() => {
-                                    //setLectureStateRequest('CLOSED');
                                     requestLectureStateChange('CLOSED')
                                         .finally(() => {
-                                                //setLectureStateRequest(null);
                                                 setBottomOpen();
                                                 window.location.reload();})}}>강의 닫기</Button>
                 <Button varient={'regular'} onClick={() => {
-                                    //setLectureStateRequest('OPEN');
                                     requestLectureStateChange('OPEN')
                                         .finally(() => {
-                                                //setLectureStateRequest(null);
                                                 setBottomOpen();
                                                 window.location.reload();})}}>강의 열기</Button>
             </ButtonSet>

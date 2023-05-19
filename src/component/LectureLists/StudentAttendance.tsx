@@ -3,7 +3,7 @@ import LoadingSpinner from "@components/LoadingSpinner";
 import { BorderBox, FlexBox } from '@ui/layout';
 import { BottomSheet, ListElement, Text } from '@ui/components';
 import { media } from '@ui/theme';
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useResponsive } from '@lib/hooks/useResponsive';
 import { BottomSheetSAttendanceHeader, BottomSheetSAttendanceContent} from "@components/BottomSheet";
 type StudentLecturesProp = Lecture[] | null
@@ -27,8 +27,6 @@ export const StudentAttendance = ({lecturelist, load} : {
         load ?
         lecturelist && lecturelist.length !== 0 ?
           <Wrapper>
-            {/* <AttendanceModal isOpen={isModalOpen} close={setModalOpen}
-                                     lecture={currentLecture ? currentLecture : null}/> */}
             {open && (<BottomSheet setBottomOpen={onClickToggleBottom}>
                 <BottomSheetSAttendanceHeader header ={currentLecture?.lectureName}/>
                 <BottomSheetSAttendanceContent lecture = {currentLecture} setBottomOpen={onClickToggleBottom}/>

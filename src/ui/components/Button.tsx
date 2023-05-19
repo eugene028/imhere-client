@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 import { ButtonHTMLAttributes } from "react";
-import { KeyOfTypo, theme } from "../theme";
+import { KeyOfTypo  } from "../theme";
 import styled from "styled-components";
 import { Text } from "./Text";
 

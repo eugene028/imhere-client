@@ -26,7 +26,6 @@ export const LecturerLectures = ({lecturelist, title, load} : {
     const onClickLecture = (lecture : any) => {
         setCurrentLecture(lecture);
     }
-
     const onClickToggleBottom = useCallback(() => {
       setOpen(!open);
     },[open]) 
@@ -37,8 +36,7 @@ export const LecturerLectures = ({lecturelist, title, load} : {
       }
       else{
         navigate(ROUTES.ATTENDANCE, { state : { lectureId : lecture.lectureId, lectureName : lecture.lectureName } });
-      }
-      
+      } 
     }
 
     useEffect(() => {
@@ -53,14 +51,13 @@ export const LecturerLectures = ({lecturelist, title, load} : {
               {open && (<BottomSheet setBottomOpen={onClickToggleBottom}>
                 <BottomSheetAttendanceHeader header = {currentLecture?.lectureName}/>
                 <BottomSheetAttendanceContent/>
-                <BottomSheetAttendanceButton setBottomOpen={onClickToggleBottom} lecture = {currentLecture} />
+                <BottomSheetAttendanceButton  setBottomOpen={onClickToggleBottom} lecture = {currentLecture} />
               </BottomSheet>)}
               <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
                 <FlexBox direction={'column'} fullWidth={true}>
                   <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>{title}</Text>
                   <FlexBox fullWidth = {true} gap = {20} style={{marginRight: '50px'}} >
                       {Object.values(lecturelist).map((lecture, index) => {
-                        console.log(lecture);
                         return (
                           <>
                             <LectureContainer>

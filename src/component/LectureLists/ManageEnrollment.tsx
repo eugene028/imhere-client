@@ -4,7 +4,6 @@ import { BorderBox, FlexBox, Padding } from '@ui/layout';
 import { ListElement, SpecialButton, Text } from '@ui/components';
 import { media } from '@ui/theme';
 import { useResponsive } from '@lib/hooks/useResponsive';
-import StudentEnrollmentStateRow from "@page/enrollment/manageEnrollment/StudentEnrollmentStateRow";
 import { useCallback, useState } from "react";
 import { BottomSheet } from "@ui/components";
 import { BottomSheetLEnrollHeader, BottomSheetLEnrollContent, BottomSheetLEnrollButton } from "@components/BottomSheet";
@@ -48,22 +47,12 @@ export const ManageEnrollment = ({lectureId, enroll, load, category} : {
   lectureId: number;
 }) => {
     const { isPC } = useResponsive();
-    const [currentLecture, setCurrentLecture] = useState<Lecture | null>(null);
     const [open, setOpen] = useState<boolean>(false);
     const [currentStudent, setCurrentStudent] = useState<StudentInfo| null>(null);
     const [enrolltype, setEnrollType] = useState<ManageEnrollVariant>('approve');
-    const requestMap = new Map();
-    const onClickEnrollment = (lecture : any) => {
-      setCurrentLecture(lecture);
-    }
-
     const onClickToggleBottom = useCallback(() => {
       setOpen(!open);
     },[open]);
-
-    const setStateChangeRequest = (studentId: number, enrollmentState: EnrollmentState): void => {
-        requestMap.set(studentId, enrollmentState);
-    }
 
     enroll?.studentInfos.sort(
         function(a, b): number{
