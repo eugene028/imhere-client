@@ -1,7 +1,6 @@
-import React, {useEffect} from "react";
 import {Outlet, BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import * as ROUTES from "@lib/routes";
-import { LoginPage } from "@page/LoginPage";
+import { LoginPage } from './page';
 import { SignUpPage } from "@page/SignUpPage";
 import { MainPage } from "@page/MainPage";
 import { LecturesPage } from "@page/lecture";
