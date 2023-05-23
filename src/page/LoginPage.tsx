@@ -91,6 +91,8 @@ export const LoginPage = () => {
 const DomainSelect = styled.select`
   background-color: ${theme.palette.background_200};
   border: 1px solid transparent;
+  color: ${theme.palette.main_black};
+  border-radius: 0;
 `
 const DomainOption = styled.option`
   background-color: ${theme.palette.background_200};

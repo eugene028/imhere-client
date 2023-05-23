@@ -56,15 +56,33 @@ const Wrapper = styled(motion.div)`
     background-color: white;
     border-top-left-radius: 24px;
     border-top-right-radius: 24px;
-    @keyframes bottomsheet {
-        from {
-            transform: translateY(100%);
+    @-webkit-keyframes moving {
+        0% {
+            -webkit-transform: translateY(100%);
         }
-        to {
-            transform: translateY(100%-300px);
+        100% {
+            -webkit-transform: translateY(100%-300px);
         }
     }
-    animation: bottomsheet 800ms;
+    @keyframes moving {
+        0% {
+            -webkit-transform: translateY(100%);
+        }
+        100% {
+            -webkit-transform: translateY(100%-300px);
+        }
+    }
+    -webkit-animation: moving 800ms ease;
+    animation: moving 800ms ease;
+    animation-name: moving;
+    animation-duration: 800ms;
+    animation-timing-function: ease;
+    
+    -webkit-transform: translateY(calc(100% - 300px));
+    -ms-transform: translateY(calc(100% - 300px));
+    -moz-transform: translateY(calc(100% - 300px));
+    -o-transform: translateY(calc(100% - 300px));
+    
     transform: translateY(
         calc(100% - 300px)
     );
