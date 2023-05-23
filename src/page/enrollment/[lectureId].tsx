@@ -21,7 +21,6 @@ export const LectureEnrollmentDetail = () => {
     const setcategory = useCallback((setcate : EnrollmentState) => {
         setCategory(setcate);
     },[category]);
-    console.log(category);
     useEffect(() => {
         if (lectureId) {
             getLectureEnrollmentInfo(lectureId)

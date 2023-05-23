@@ -23,7 +23,6 @@ const STATUS_COLOR : StatusColor = {
 export const StatusIcon = ({
     status='OPEN',
 }: Props) => {
-    console.log(STATUS_COLOR[status]);
     return (
         <FlexBox direction={'column'} gap={1}>
             <Text typo={'Text_15'} color={STATUS_COLOR[status]}>{status}</Text>

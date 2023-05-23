@@ -12,10 +12,8 @@ export const BottomSheetAttendanceButton = ({
     setBottomOpen,
 }: BottomSheetButtonProps) => {
     
-    //const [lectureStateRequest, setLectureStateRequest] = useState<LectureState|null>(lecture ? lecture.lectureState : null);
     if (!lecture) return null;
     console.log(lecture.lectureState);
-    //lecture State 변경하는 함수 
     const requestLectureStateChange = async (lectureStateRequest : LectureState) => {
         
         if (lectureStateRequest && lectureStateRequest !== lecture?.lectureState) {

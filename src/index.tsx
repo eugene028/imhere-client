@@ -11,11 +11,3 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <App/>
   </ThemeProvider>,
 )
-
-// ReactDOM.render(
-//   <ThemeProvider theme= {theme}>
-//     <GlobalStyle/>
-//     <App/>
-//   </ThemeProvider>,
-//   document.getElementById('root')
-// );
