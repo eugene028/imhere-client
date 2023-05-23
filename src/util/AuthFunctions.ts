@@ -51,12 +51,6 @@ export const checkAndGetUserRole = (roles?: string[]): string | null => {
 
     const role = localStorage.getItem('role');
 
-    // if (!role || !roles || !roles.includes(role)) {
-    //     removeToken();
-    //     alert('잘못된 접근입니다.');
-    //     return null;
-    // }
-
     return role;
 }
 
@@ -92,10 +86,6 @@ const parseToken = (token: string) : { univId: any, role: any, expirationTime: n
     const univId = parseResult.sub;
     const role = parseResult.role;
     const expirationTime = new Date(parseResult.exp * 1000).getTime();
-
-    // console.log("univId : " + univId);
-    // console.log("role : " + role);
-    // console.log("expirationTime : " + expirationTime);
     return {univId, role, expirationTime};
 };
 

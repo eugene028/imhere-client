@@ -7,8 +7,7 @@ export const BackButton = () => {
     return (
         <Wrapper>
             <AiOutlineArrowLeft size={'1.5rem'} onClick = {() => navigate(-1)}/>
-        </Wrapper>
-        
+        </Wrapper> 
     )
 }
 
