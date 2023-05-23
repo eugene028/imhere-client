@@ -31,7 +31,7 @@ export const EnrollRejectedList = ({enroll, setEnrollType, setCurrentStudent, on
                                 setCurrentStudent(student);
                                 onClickToggleHandler();
                             }}
-                            >수강 수락</SpecialButton>
+                            >신청수락</SpecialButton>
                     </Padding>
                 </FlexBox>
             )
