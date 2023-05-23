@@ -40,7 +40,6 @@ export const LecturerLectures = ({lecturelist, title, load} : {
     }
 
     useEffect(() => {
-      console.log("새로고침")
     }, [open]);
 
 
@@ -59,7 +58,7 @@ export const LecturerLectures = ({lecturelist, title, load} : {
                   <FlexBox fullWidth = {true} gap = {20} style={{marginRight: '50px'}} >
                       {Object.values(lecturelist).map((lecture, index) => {
                         return (
-                          <>
+                          <div key={index} style ={{width: '100%'}}>
                             <LectureContainer>
                             <ListElement  
                               count = {3} 
@@ -77,7 +76,7 @@ export const LecturerLectures = ({lecturelist, title, load} : {
                               </FlexBox>
                             </SpecialButton>
                             <LectureStatus status={lecture?.lectureState}/>
-                          </>
+                          </div>
                         )
                       })}
                     </FlexBox>

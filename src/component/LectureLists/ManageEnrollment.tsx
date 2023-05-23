@@ -67,8 +67,6 @@ export const ManageEnrollment = ({lectureId, enroll, load, category} : {
             return 0
         }
     )
-    console.log(enroll?.studentInfos);
-
     return (
         load ?
         enroll && enroll?.studentInfos.length !== 0 ?
@@ -87,7 +85,7 @@ export const ManageEnrollment = ({lectureId, enroll, load, category} : {
                     <>
                         {Object.values(enroll.studentInfos).filter(student => student.enrollmentState === 'APPROVAL').map((student, index) => {
                             return (
-                                <FlexBox direction="row" gap = {20} justify="center" align="baseline" style={{marginBottom: '10px'}}>
+                                <FlexBox key ={index} direction="row" gap = {20} justify="center" align="baseline" style={{marginBottom: '10px'}}>
                                     <ListElement  count = {4} 
                                     key = {index} 
                                     variant={isPC ? 'PC' : 'mobile'} 
