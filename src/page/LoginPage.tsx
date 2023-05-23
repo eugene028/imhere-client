@@ -62,8 +62,8 @@ export const LoginPage = () => {
                       placeholder='도메인 선택' 
                       value={userData.domain}
                       onChange={handleValue}>
-                        <option><Text typo ={'Text_15'} color ={'black_200'}>@gmail.com</Text></option>
-                        <option><Text typo ={'Text_15'} color ={'black_200'}>@g.hongik.ac.kr</Text></option>
+                        <DomainOption value ="@gmail.com">@gmail.com</DomainOption>
+                        <DomainOption value ="@g.hongik.ac.kr">@g.hongik.ac.kr</DomainOption>
                     </DomainSelect>
                 </EmailArea>
                   <Input color={'background_200'} 
@@ -89,6 +89,10 @@ export const LoginPage = () => {
 
 
 const DomainSelect = styled.select`
+  background-color: ${theme.palette.background_200};
+  border: 1px solid transparent;
+`
+const DomainOption = styled.option`
   background-color: ${theme.palette.background_200};
   border: 1px solid transparent;
 `

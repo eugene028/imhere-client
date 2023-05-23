@@ -7,31 +7,31 @@ export const typo = {
         font-family: 'Pretendard';
         font-size: ${calcRem(40)};
         line-height: 150%;
-        font-weight: 800;
+        font-weight: 700;
     `,
     Header_35 : css`
         font-family: 'Pretendard';
         font-size: ${calcRem(35)};
         line-height: 150%;
-        font-weight: 800;
+        font-weight: 700;
     `,
     Header_30 : css`
         font-family: 'Pretendard';
         font-size: ${calcRem(30)};
         line-height: 150%;
-        font-weight: 800;
+        font-weight: 700;
     `,
     Header_25 : css`
         font-family: 'Pretendard';
         font-size: ${calcRem(25)};
         line-height: 150%;
-        font-weight: 800;
+        font-weight: 700;
     `,
     Header_20 : css`
         font-family: 'Pretendard';
         font-size: ${calcRem(20)};
         line-height: 150%;
-        font-weight: 800;
+        font-weight: 700;
     `,
     Text_SB_30 : css`
         font-family: 'Pretendard';
