@@ -7,8 +7,9 @@ import { useResponsive } from '@lib/hooks/useResponsive';
 import { useCallback, useState } from "react";
 import { BottomSheet } from "@ui/components";
 import { BottomSheetLEnrollHeader, BottomSheetLEnrollContent, BottomSheetLEnrollButton } from "@components/BottomSheet";
+import { EnrolledList, EnrollRejectedList, EnrollWaitingList } from "..";
 
-type ManageEnrollVariant = 
+export type ManageEnrollVariant = 
 | 'approve'
 | 'reject'
 | 'delete';
@@ -82,63 +83,22 @@ export const ManageEnrollment = ({lectureId, enroll, load, category} : {
                 <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>{enroll.lectureName}</Text>
                 <LectureContainer >
                     {category === 'APPROVAL' ? (
-                    <>
-                        {Object.values(enroll.studentInfos).filter(student => student.enrollmentState === 'APPROVAL').map((student, index) => {
-                            return (
-                                <FlexBox key ={index} direction="row" gap = {20} justify="center" align="baseline" style={{marginBottom: '10px'}}>
-                                    <ListElement  count = {4} 
-                                    key = {index} 
-                                    variant={isPC ? 'PC' : 'mobile'} 
-                                    elements = {student}
-                                    style={{marginBottom: '20px'}}/>
-                                    <Padding size ={[0, 50]}>
-                                        <SpecialButton 
-                                            variant="delete" 
-                                            style={{height:'38px'}}
-                                            onClick ={() =>{
-                                                setEnrollType('delete');
-                                                setCurrentStudent(student);
-                                                onClickToggleBottom();
-                                            }}
-                                            >수강생 제거 </SpecialButton>
-                                    </Padding>
-                                </FlexBox>
-                            )
-                          })} 
-                     </>):
-                    (
-                        <>
-                        {Object.values(enroll.studentInfos).filter(student => student.enrollmentState === 'AWAIT').map((student, index) => {
-                            return (
-                                <FlexBox direction="row" gap = {20} justify="center" align="baseline" style={{marginBottom: '10px'}}>
-                                    <ListElement  count = {4} 
-                                    key = {index} 
-                                    variant={isPC ? 'PC' : 'mobile'} 
-                                    elements = {student}
-                                    style={{marginBottom: '20px'}}/>
-                                    <Padding size ={[0, 30]}>
-                                        <FlexBox gap ={10}>
-                                            <SpecialButton variant="inform" 
-                                                style={{height:'38px'}}
-                                                onClick ={() =>{
-                                                    setEnrollType('approve');
-                                                    setCurrentStudent(student);
-                                                    onClickToggleBottom();
-                                                }}
-                                                >신청수락 </SpecialButton>
-                                            <SpecialButton variant="delete" 
-                                            style={{height:'38px'}}
-                                            onClick ={() =>{
-                                                setEnrollType('reject');
-                                                setCurrentStudent(student);
-                                                onClickToggleBottom();
-                                            }}>신청거절 </SpecialButton>
-                                        </FlexBox>
-                                   </Padding>
-                                </FlexBox>
-                            )
-                          })} 
-                    </>  
+                        <EnrolledList enroll={enroll} 
+                            setCurrentStudent={setCurrentStudent}
+                            setEnrollType={setEnrollType}
+                            onClickToggleHandler={onClickToggleBottom}/>)
+                    :(
+                        category === 'AWAIT' ? 
+                        <EnrollWaitingList enroll={enroll} 
+                            setCurrentStudent={setCurrentStudent}
+                            setEnrollType={setEnrollType}
+                            onClickToggleHandler={onClickToggleBottom}/>
+                        : <>
+                            <EnrollRejectedList enroll={enroll} 
+                            setCurrentStudent={setCurrentStudent}
+                            setEnrollType={setEnrollType}
+                            onClickToggleHandler={onClickToggleBottom} />
+                        </>
                     )}
                 </LectureContainer >
               </FlexBox>
