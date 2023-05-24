@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import {generateVerificationNumber, signUpNewMember, verifyValidateNumber} from "../lib/api";
 import {useNavigate} from 'react-router-dom';
@@ -6,13 +6,15 @@ import * as ROUTES from "@lib/routes";
 import AgreementModal from "./AgreementModal";
 import {agreement1, agreement2} from "@util/agreement";
 import { FlexBox, Padding } from "@ui/layout";
-import { Input, Text, Button, Spacing } from "@ui/components";
+import { Input, Text, Button, Spacing, BottomSheet } from "@ui/components";
 import { theme } from "@ui/theme";
+import { BottomSheetAgreementContent, BottomSheetAgreementHeader } from '@components/BottomSheet/Agreement';
 
 
 export const SignUpPage = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [contents, setContents] = useState(agreement1);
+    const [open, setOpen] = useState<boolean>(false);
     const [isInputValidate, setInputValidate] = useState(false);
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const [signUpInputData, setSignUpInputData] = useState({
@@ -26,6 +28,10 @@ export const SignUpPage = () => {
         checkBox2: false,
     })
     const navigate = useNavigate();
+
+    const onClickToggleBottom = useCallback(() => {
+        setOpen(!open);
+      },[open]) 
 
     useEffect(() => {
         alert('모든 비밀번호는 단방향 암호화를 통해 암호화 되어 저장됩니다.\n비밀번호는 영문자와 숫자를 조합하여 8~20자 이내로 입력해주세요.')
@@ -129,7 +135,10 @@ export const SignUpPage = () => {
             {
                 !isInputValidate ?
                     <FlexBox direction="column" align="unset" style ={{minWidth: '60vw'}}>
-                        <AgreementModal isOpen={isModalOpen} close={setModalOpen} contents={contents}/>
+                        {open && (<BottomSheet setBottomOpen={onClickToggleBottom}>
+                            <BottomSheetAgreementHeader/>
+                            <BottomSheetAgreementContent contents={contents} setBottomOpen={onClickToggleBottom}/>
+                        </BottomSheet>)}
                         <EmailArea>
                             <Input color={'background_200'} 
                                 innershadow={false} height = {35}
@@ -171,7 +180,7 @@ export const SignUpPage = () => {
                                 <Text typo ='Text_10'>이용 약관을 충분히 읽어 보았으며 이에 동의합니다. </Text>
                                 <FlexBox>
                                     <ReadButton onClick={() => {
-                                        setModalOpen(true)
+                                        setOpen(true)
                                         setContents(agreement1);
                                     }}> 이용약관</ReadButton>
                                     <input type="checkbox" name='checkBox1' checked={signUpInputData.checkBox1}
@@ -182,7 +191,7 @@ export const SignUpPage = () => {
                                 <Text typo ='Text_10'>개인정보수집/이용 동의 약관을 충분히 읽었으며 동의합니다. </Text>
                                 <FlexBox>
                                     <ReadButton onClick={() => {
-                                        setModalOpen(true)
+                                        setOpen(true)
                                         setContents(agreement2)
                                     }}> 개인정보약관</ReadButton>
                                     <input type="checkbox" name='checkBox2' checked={signUpInputData.checkBox2}
@@ -216,7 +225,7 @@ const EmailArea = styled.div`
 `
 
 const DomainSelect = styled.select`
-    background-color: ${theme.palette.background_100};
+    background-color: ${theme.palette.background_200};
     border: 1px solid transparent;
 `
 
