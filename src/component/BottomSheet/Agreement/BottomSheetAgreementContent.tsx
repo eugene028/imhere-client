@@ -10,9 +10,9 @@ interface BottomSheetAgreementProps {
 }
 export const BottomSheetAgreementContent = ({contents, setBottomOpen} : BottomSheetAgreementProps) => {
     return (
-        <FlexBox>
+        <FlexBox direction="column" align="stretch" justify="flex-start">
             <Wrapper>
-                <Text typo ={'Text_20'}>{contents}</Text>
+               {contents}
             </Wrapper>
             <BtnWrapper>
                 <Button varient={'regular'} onClick = {() => setBottomOpen()}>확인 완료</Button>  
@@ -24,6 +24,8 @@ export const BottomSheetAgreementContent = ({contents, setBottomOpen} : BottomSh
 
 const Wrapper = styled.div`
     padding-left: 20px;
+    overflow-y: scroll;
+    height: 80%;
 `
 
 const BtnWrapper = styled.div`
