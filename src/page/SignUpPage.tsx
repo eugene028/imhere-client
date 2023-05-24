@@ -131,7 +131,7 @@ export const SignUpPage = () => {
                     <FlexBox direction="column" align="unset" style ={{minWidth: '60vw'}}>
                         <AgreementModal isOpen={isModalOpen} close={setModalOpen} contents={contents}/>
                         <EmailArea>
-                            <Input color={'background_100'} 
+                            <Input color={'background_200'} 
                                 innershadow={false} height = {35}
                                 placeholder="이메일" value={signUpInputData.univId} onChange={handleValue}
                                 name = 'univId' big={false}
@@ -141,7 +141,7 @@ export const SignUpPage = () => {
                                 <option><Text typo ={'Text_15'} color ={'black_200'}>@gmail.com</Text></option>
                             </DomainSelect>
                         </EmailArea>
-                        <Input color={'background_100'} 
+                        <Input color={'background_200'} 
                             type={isPasswordHidden ? 'password' : 'text'} innershadow={false} 
                             height = {35} placeholder="비밀번호"
                             value={signUpInputData.password} onChange={handleValue}
@@ -151,7 +151,7 @@ export const SignUpPage = () => {
                                         </ViewButton>}
                             />
                         <Spacing size={2}/>
-                        <Input color={'background_100'} 
+                        <Input color={'background_200'} 
                             type={isPasswordHidden ? 'password' : 'text'} innershadow={false} 
                             height = {35} placeholder="비밀번호 확인"
                             value={signUpInputData.passwordCheck} onChange={handleValue}
@@ -161,7 +161,7 @@ export const SignUpPage = () => {
                                         </ViewButton>}
                             />
                         <Spacing size={2}/>
-                        <Input color={'background_100'} 
+                        <Input color={'background_200'} 
                                 innershadow={false} height = {35}
                                 placeholder="이름" value={signUpInputData.name} onChange={handleValue}
                                 name = 'name' big={false}
@@ -194,7 +194,7 @@ export const SignUpPage = () => {
                     </FlexBox>
                     :
                     <FlexBox direction="column" align="unset" style ={{minWidth: '60vw'}}>
-                        <Input color={'background_100'} 
+                        <Input color={'background_200'} 
                                 innershadow={false} height = {35}
                                 placeholder='메일로 온 인증 코드를 입력하세요' value={signUpInputData.validateCode} 
                                 onChange={handleValue} name='validateCode' big={false}
