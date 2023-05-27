@@ -12,7 +12,7 @@ export const BottomSheetEnrollButton = ({lecture, setBottomOpen}: BottomSheetBut
         if (!lecture) throw "lecture = null"
         requestEnrollment(lecture.lectureId)
             .then(response => {
-                alert('수강신청 성공')
+                alert('수강신청이 완료되었습니다. 관리자의 승인이 완료되면 수강이 가능합니다.')
             })
             .finally(() => {setBottomOpen()}); 
     }
