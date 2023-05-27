@@ -8,7 +8,7 @@ import {agreement1, agreement2} from "@util/agreement";
 import { FlexBox, Padding } from "@ui/layout";
 import { Input, Text, Button, Spacing, BottomSheet } from "@ui/components";
 import { theme } from "@ui/theme";
-import { BottomSheetAgreementContent, BottomSheetAgreementHeader } from '@components/BottomSheet/Agreement';
+import { BottomSheetAgreementButton, BottomSheetAgreementContent, BottomSheetAgreementHeader } from '@components/BottomSheet/Agreement';
 
 
 export const SignUpPage = () => {
@@ -138,6 +138,7 @@ export const SignUpPage = () => {
                         {open && (<BottomSheet setBottomOpen={onClickToggleBottom}>
                             <BottomSheetAgreementHeader/>
                             <BottomSheetAgreementContent contents={contents} setBottomOpen={onClickToggleBottom}/>
+                            <BottomSheetAgreementButton setBottomOpen={onClickToggleBottom}/>
                         </BottomSheet>)}
                         <EmailArea>
                             <Input color={'background_200'} 
