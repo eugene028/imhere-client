@@ -2,12 +2,7 @@ name: Build & Deploy Imhere
 on:
   push:
     branches: [deploy]
-<<<<<<< HEAD
 
-=======
-    tags:
-      - Imhere-v*.*.*
->>>>>>> develop
 jobs:
   build:
     runs-on: ubuntu-latest
