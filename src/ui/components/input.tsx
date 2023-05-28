@@ -29,6 +29,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
  * @param big : pc버전 모바일 버전
  */
 
+//,,
 export const Input = forwardRef<HTMLInputElement, InputProps>(
     ({ value, width, height, innershadow=true, color = 'white', styles, big = false, ...props }: InputProps, ref) => {
     
