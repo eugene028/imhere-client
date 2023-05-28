@@ -3,7 +3,7 @@ export * from './Button';
 export * from './Tag';
 export * from './ButtonSet';
 export * from './StatusIcon';
-export * from './Input';
+export * from './InputBox';
 export * from './SpecialButton';
 export * from './Spacing';
 export * from './ListElement';
