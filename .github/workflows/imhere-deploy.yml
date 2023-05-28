@@ -6,21 +6,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout source code
         uses: actions/checkout@master
       
-      - name: Get Version
-        run: echo "##[set-output name=version;]$(echo '${{ github.event.head_commit.message }}' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')"
-        id: extract_version_name   
-            
-      - name: Release 생성 
-        uses: actions/create-release@v1
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with: 
-          tag_name: ${{ steps.extract_version_name.outputs.version }} 
-          release_name: ${{ steps.extract_version_name.outputs.version }} 
+      - name: Get version
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.sha }} # required for better experience using pre-releases
+          fetch-depth: '0'
+
+      - name: Create Release
+        uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+          WITH_V: true
+          PRERELEASE: true 
 
       - name: Install Dependencies
         run : yarn
