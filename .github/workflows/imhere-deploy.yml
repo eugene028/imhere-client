@@ -11,6 +11,18 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@master
       
+      - name: Get Version
+        run: echo "##[set-output name=version;]$(echo '${{ github.event.head_commit.message }}' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')"
+        id: extract_version_name   
+            
+      - name: Release 생성 
+        uses: actions/create-release@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with: 
+          tag_name: ${{ steps.extract_version_name.outputs.version }} 
+          release_name: ${{ steps.extract_version_name.outputs.version }} 
+
       - name: Install Dependencies
         run : yarn
       
