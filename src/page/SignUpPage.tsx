@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {generateVerificationNumber, signUpNewMember, verifyValidateNumber} from "../lib/api";
 import {useNavigate} from 'react-router-dom';
 import * as ROUTES from "@lib/routes";
-import AgreementModal from "./AgreementModal";
 import {agreement1, agreement2} from "@util/agreement";
 import { FlexBox, Padding } from "@ui/layout";
 import { Input, Text, Button, Spacing, BottomSheet } from "@ui/components";
@@ -12,7 +11,6 @@ import { BottomSheetAgreementButton, BottomSheetAgreementContent, BottomSheetAgr
 
 
 export const SignUpPage = () => {
-    const [isModalOpen, setModalOpen] = useState(false);
     const [contents, setContents] = useState(agreement1);
     const [open, setOpen] = useState<boolean>(false);
     const [isInputValidate, setInputValidate] = useState(false);
