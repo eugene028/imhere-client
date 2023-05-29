@@ -21,7 +21,6 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          owner: "current repo owner"
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
