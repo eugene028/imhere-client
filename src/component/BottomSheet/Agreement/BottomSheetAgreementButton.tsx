@@ -1,5 +1,4 @@
-import { ButtonSet, Button } from "@ui/components";
-import { requestEnrollment } from "@lib/api";
+import { Button } from "@ui/components";
 import styled from "styled-components";
 
 interface BottomSheetButtonProps {
