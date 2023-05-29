@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import LoadingSpinner from "@components/LoadingSpinner";
-import { BorderBox, FlexBox, Padding } from '@ui/layout';
-import { ListElement, SpecialButton, Text } from '@ui/components';
+import { BorderBox, FlexBox } from '@ui/layout';
+import { Text } from '@ui/components';
 import { media } from '@ui/theme';
 import { useResponsive } from '@lib/hooks/useResponsive';
 import { useCallback, useState } from "react";
