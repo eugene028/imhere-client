@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import { KeyOfColor, theme } from '..';
 import styled from 'styled-components';
 
 interface SpacingProps {
