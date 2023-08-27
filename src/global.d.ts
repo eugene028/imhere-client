@@ -34,6 +34,9 @@ interface AttendanceRequest {
     // 밀리 세컨즈 출석 시각 js Date 객체의 getTime으로 얻어낸 값
     milliseconds: number
 }
+interface LectureInfo {
+    lectureInfos: Lecture[]
+}
 
 interface Lecture {
     lectureId: number,

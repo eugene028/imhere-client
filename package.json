@@ -36,7 +36,7 @@
     "xlsx": "0.16.8"
   },
   "scripts": {
-    "start": "export NODE_OPTIONS=--openssl-legacy-provider && craco start",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider && craco start",
     "build": "NODE_OPTIONS=--openssl-legacy-provider && craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

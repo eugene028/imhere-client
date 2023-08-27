@@ -2,7 +2,7 @@ import axios, { type AxiosResponse } from "axios";
 import {getHeadersWithToken, removeToken} from "@util/AuthFunctions";
 
 const protocol = `https`;
-const host = `api.imhere.im`;
+const host = `dev-api.imhere.im`;
 const statusString = `?status=`;
 
 // member
@@ -123,11 +123,11 @@ export const getAllLectures = async (): Promise<Lecture[]|null> => {
         })
 }
 
-export const getStudentsEnrolledLectures = async (): Promise<Lecture[] | null> => {
+export const getStudentsEnrolledLectures = async (): Promise<LectureInfo| null> => {
     const headers = getHeadersWithToken() || undefined;
     const status = statusString + "enrolled";
 
-    return await axios.get<Lecture[]>(
+    return await axios.get<LectureInfo>(
         `${protocol}://${host}/api/lecture` + status, {headers})
         .then(response => {
             if (response && response.data) {
