@@ -107,10 +107,10 @@ export const createLecture = async (lectureName: string): Promise<void | AxiosRe
 }
 
 
-export const getAllLectures = async (): Promise<Lecture[]|null> => {
+export const getAllLectures = async (): Promise<LectureInfo|null> => {
     const headers = getHeadersWithToken() || undefined;
 
-    return await axios.get<Lecture[]>(`${protocol}://${host}/api/lecture`, {headers})
+    return await axios.get<LectureInfo>(`${protocol}://${host}/api/lecture`, {headers})
         .then(response => {
             if (response && response.data) {
                 return response.data
@@ -141,11 +141,11 @@ export const getStudentsEnrolledLectures = async (): Promise<LectureInfo| null> 
         })
 }
 
-export const getLecturersOwnedLectures = async (): Promise<Lecture[] | null> => {
+export const getLecturersOwnedLectures = async (): Promise<LectureInfo | null> => {
     const headers = getHeadersWithToken() || undefined;
     const status = statusString + "owned";
 
-    return await axios.get<Lecture[]>(`${protocol}://${host}/api/lecture` + status, {headers})
+    return await axios.get<LectureInfo>(`${protocol}://${host}/api/lecture` + status, {headers})
         .then(response => {
             if (response && response.data) {
                 return response.data
@@ -159,11 +159,11 @@ export const getLecturersOwnedLectures = async (): Promise<Lecture[] | null> => 
         })
 }
 
-export const getStudentsOpenedLectures = async (): Promise<Lecture[] | null> => {
+export const getStudentsOpenedLectures = async (): Promise<LectureInfo | null> => {
     const headers = getHeadersWithToken()  || undefined;
     const status = statusString + "opened";
 
-    return await axios.get<Lecture[]>(`${protocol}://${host}/api/lecture` + status, {headers})
+    return await axios.get<LectureInfo>(`${protocol}://${host}/api/lecture` + status, {headers})
         .then(response => {
             if (response && response.data) {
                 return response.data

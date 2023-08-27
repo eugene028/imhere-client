@@ -23,9 +23,9 @@ export const AttendancePage = () => {
         role ?
             role === 'ROLE_STUDENT'
                 ?
-                <OpenLecturesPage/>
+                    <OpenLecturesPage/>
                 :
-                <LecturerAttendancePage/>
+                 <LecturerAttendancePage/>
             :
             <LoadingSpinner/>
     );
