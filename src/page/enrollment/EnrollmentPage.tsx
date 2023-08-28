@@ -10,7 +10,7 @@ import { media } from '@ui/theme';
 
 export const EnrollmentPage = () => {
     const [loading, setLoading] = useState(false);
-    const [lectures, setLectures] = useState<Lecture[] | null>(null);
+    const [lectures, setLectures] = useState<LectureInfo | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {

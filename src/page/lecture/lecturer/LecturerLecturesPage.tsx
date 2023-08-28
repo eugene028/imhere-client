@@ -8,7 +8,7 @@ import { FlexBox } from '@ui/layout';
 import { LecturerLectures } from '@components/LectureLists';
 
 export const LecturerLecturesPage = () => {
-    const [lectures, setLectures] = useState<Lecture[]|null>(null);
+    const [lectures, setLectures] = useState<LectureInfo|null>(null);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 

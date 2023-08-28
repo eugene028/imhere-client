@@ -9,7 +9,7 @@ import { LecturerEnrollment } from '@components/LectureLists/LecturerEnrollment'
 import { getLecturersOwnedLectures } from '@lib/api';
 
 export const EnrollmentManagePage = () => {
-    const [lectures, setLectures] = useState<Lecture[] | null>(null);
+    const [lectures, setLectures] = useState<LectureInfo | null>(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 

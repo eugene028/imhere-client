@@ -12,7 +12,7 @@ import * as ROUTES from "@lib/routes";
 import { useEffect, useCallback } from "react";
 import { BottomSheetAttendanceButton, BottomSheetAttendanceContent, BottomSheetAttendanceHeader } from "@components/BottomSheet";
 
-type LecturerLecturesProp = Lecture[] | null
+type LecturerLecturesProp = LectureInfo | null
 
 export const LecturerLectures = ({lecturelist, title, load} : {
   lecturelist : LecturerLecturesProp;
@@ -45,7 +45,7 @@ export const LecturerLectures = ({lecturelist, title, load} : {
 
     return (
         (load && lecturelist) ? (
-          lecturelist !== null && lecturelist.length !== 0 ?
+          lecturelist !== null && lecturelist.lectureInfos.length !== 0 ?
             <Wrapper>
               {open && (<BottomSheet setBottomOpen={onClickToggleBottom}>
                 <BottomSheetAttendanceHeader header = {currentLecture?.lectureName}/>
@@ -55,10 +55,10 @@ export const LecturerLectures = ({lecturelist, title, load} : {
               <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
                 <FlexBox direction={'column'} fullWidth={true}>
                   <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>{title}</Text>
-                  <FlexBox fullWidth = {true} gap = {20} style={{marginRight: '50px'}} >
-                      {Object.values(lecturelist).map((lecture, index) => {
+                  <FlexBox direction={'column'} fullWidth = {true} gap = {20} style={{marginRight: '50px'}} >
+                      {lecturelist.lectureInfos.map((lecture, index) => {
                         return (
-                         <>
+                         <FlexBox key={index} fullWidth = {true} gap={20}>
                             <LectureContainer key = {index}>
                             <ListElement  
                               count = {3} 
@@ -76,7 +76,7 @@ export const LecturerLectures = ({lecturelist, title, load} : {
                               </FlexBox>
                             </SpecialButton>
                             <LectureStatus status={lecture?.lectureState}/>
-                        </>
+                        </FlexBox>
                         )
                       })}
                     </FlexBox>

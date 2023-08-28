@@ -64,6 +64,15 @@ const ListWrapper = styled.div<{count: Number}>`
     display: flex;
     flex-direction: row;
     width: 100%;
+    min-height : 50px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    :hover {
+        background-color: lightgrey;
+        cursor: pointer;
+    }
     ${({count}) => (count === 3 ? css`
         div{
             &:nth-child(1){
