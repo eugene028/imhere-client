@@ -22,7 +22,8 @@ export const generateVerificationNumber = async (email: string): Promise<boolean
 export const verifyValidateNumber = async (email: string, verificationCode: string): Promise<boolean> => {
     return await axios.get<boolean>(`${protocol}://${host}/member/verification/${email}/${verificationCode}`)
         .then(response => {
-            if (response && response.data && response.data === true) {
+            console.log(response)
+            if (response && response.status === 200) {
                 return true;
             }
             return false;
