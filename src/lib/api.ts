@@ -112,6 +112,7 @@ export const getAllLectures = async (): Promise<LectureInfo|null> => {
     const headers = getHeadersWithToken() || undefined;
 
     return await axios.get<LectureInfo>(`${protocol}://${host}/api/lecture`, {headers})
+
         .then(response => {
             if (response && response.data) {
                 return response.data
