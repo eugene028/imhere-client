@@ -9,7 +9,7 @@ import { FlexBox } from '@ui/layout';
 import { StudentAttendance } from '@components/LectureLists';
 
 export const OpenLecturesPage = () => {
-    const [lectures, setLectures] = useState<Lecture[]>([]);
+    const [lectures, setLectures] = useState<LectureInfo>({lectureInfos:[]});
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export const OpenLecturesPage = () => {
         }
         
         alert('출석 이전에 미리 인터넷과 디바이스의 위치 접근을 허용해주세요.\n현재 위치와 T동 까지의 거리만 측정되고 실제 위치는 저장되지 않습니다.')
-       
+
 
         getStudentsOpenedLectures()
             .then(lectureList => {

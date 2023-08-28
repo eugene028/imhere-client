@@ -6,7 +6,7 @@ import { media } from '@ui/theme';
 import { useState, useCallback } from "react";
 import { useResponsive } from '@lib/hooks/useResponsive';
 import { BottomSheetSAttendanceHeader, BottomSheetSAttendanceContent} from "@components/BottomSheet";
-type StudentLecturesProp = Lecture[] | null
+type StudentLecturesProp = LectureInfo | null
 
 export const StudentAttendance = ({lecturelist, load} : {
   lecturelist : StudentLecturesProp;
@@ -25,7 +25,7 @@ export const StudentAttendance = ({lecturelist, load} : {
 
     return (
         load ?
-        lecturelist && lecturelist.length !== 0 ?
+        lecturelist && lecturelist.lectureInfos.length !== 0 ?
           <Wrapper>
             {open && (<BottomSheet setBottomOpen={onClickToggleBottom}>
                 <BottomSheetSAttendanceHeader header ={currentLecture?.lectureName}/>
@@ -35,7 +35,7 @@ export const StudentAttendance = ({lecturelist, load} : {
               <FlexBox direction={'column'}>
                 <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>출석 체크 가능 강좌 목록</Text>
                 <LectureContainer >
-                  {Object.values(lecturelist).map((lecture, index) => {
+                  {lecturelist.lectureInfos.map((lecture, index) => {
                     return (
                       <ListElement  
                         count = {3} 
@@ -68,8 +68,11 @@ const LectureContainer = styled.div`
   width: 100%;
   height : 60px;
   border-radius: 5px;
+  max-height: 50vh;
+  gap: 8px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   user-select: none;
   overflow-y: scroll; 

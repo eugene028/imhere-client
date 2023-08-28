@@ -10,7 +10,7 @@ import { BottomSheet } from "@ui/components";
 import { BottomSheetEnrollHeader, BottomSheetEnrollContent, BottomSheetEnrollButton } from "@components/BottomSheet";
 
 
-type StudentLecturesProp = Lecture[] | null
+type StudentLecturesProp = LectureInfo | null
 
 export const StudentsEnrollment = ({lecturelist, load} : {
   lecturelist : StudentLecturesProp;
@@ -29,7 +29,7 @@ export const StudentsEnrollment = ({lecturelist, load} : {
 
     return (
         load ?
-        lecturelist && lecturelist.length !== 0 ?
+        lecturelist && lecturelist.lectureInfos.length !== 0 ?
           <Wrapper>
             {open && (<BottomSheet 
               setBottomOpen={onClickToggleBottom}>
@@ -41,16 +41,16 @@ export const StudentsEnrollment = ({lecturelist, load} : {
               <FlexBox direction={'column'}>
                 <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>개설 강의 목록</Text>
                 <LectureContainer >
-                  {Object.values(lecturelist).map((lecture, index) => {
+                  {lecturelist.lectureInfos.map((lecture, index) => {
                     return (
                       <ListElement  count = {3} 
-                      key = {index} 
-                      variant={isPC ? 'PC' : 'mobile'} 
-                      elements = {lecture}
-                      onClick={() => {
-                        onClickEnrollment(lecture);
-                        onClickToggleBottom();
-                      }}/>
+                        key = {index} 
+                        variant={isPC ? 'PC' : 'mobile'} 
+                        elements = {lecture}
+                        onClick={() => {
+                          onClickEnrollment(lecture);
+                          onClickToggleBottom();
+                        }}/>
                     )
                   })}
                 </LectureContainer >
@@ -74,8 +74,10 @@ const LectureContainer = styled.div`
   width: 100%;
   height : 60px;
   border-radius: 5px;
+  max-height: 50vh;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   user-select: none;
   overflow-y: scroll; 

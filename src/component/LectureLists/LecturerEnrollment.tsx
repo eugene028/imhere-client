@@ -7,7 +7,7 @@ import { useResponsive } from '@lib/hooks/useResponsive';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-type LecturerLecturesProp = Lecture[] | null
+type LecturerLecturesProp = LectureInfo | null
 
 export const LecturerEnrollment = ({lecturelist, load} : {
   lecturelist : LecturerLecturesProp;
@@ -23,21 +23,21 @@ export const LecturerEnrollment = ({lecturelist, load} : {
     }
     return (
         load ?
-        lecturelist && lecturelist.length !== 0 ?
+        lecturelist && lecturelist.lectureInfos.length !== 0 ?
           <Wrapper>
             <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
               <FlexBox direction={'column'}>
-                <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>강사 개설 강의 목록</Text>
+                <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}> 강의 목록</Text>
                 <LectureContainer >
-                  {Object.values(lecturelist).map((lecture, index) => {
+                  {lecturelist.lectureInfos.map((lecture, index) => {
                     return (
                       <ListElement  count = {3} 
-                      key = {index} 
-                      variant={isPC ? 'PC' : 'mobile'} 
-                      elements = {lecture}
-                      onClick={() => {
-                        onClickEnrollment(lecture);
-                        navigate(`/enrollment/manage/${lecture.lectureId}`, {state: {lectureId : lecture.lectureId}})
+                        key = {index} 
+                        variant={isPC ? 'PC' : 'mobile'} 
+                        elements = {lecture}
+                        onClick={() => {
+                          onClickEnrollment(lecture);
+                          navigate(`/enrollment/manage/${lecture.lectureId}`, {state: {lectureId : lecture.lectureId}})
                       }}/>
                     )
                   })}
@@ -60,13 +60,16 @@ const Wrapper = styled.div`
 `
 const LectureContainer = styled.div`
   width: 100%;
-  height : 60px;
   border-radius: 5px;
+  max-height: 50vh;
   display: flex;
+  gap: 8px;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   user-select: none;
   overflow-y: scroll; 
+  padding: 10px;
 
   &::-webkit-scrollbar {
     width: 0px;
@@ -85,10 +88,5 @@ const LectureContainer = styled.div`
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #999;
-  }
-
-  :hover {
-    background-color: lightgrey;
-    cursor: pointer;
   }
 `

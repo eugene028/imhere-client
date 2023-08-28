@@ -5,7 +5,8 @@ import { ListElement, Text } from '@ui/components';
 import { media } from '@ui/theme';
 import { useResponsive } from '@lib/hooks/useResponsive';
 
-type StudentLecturesProp = Lecture[] | null
+
+type StudentLecturesProp = LectureInfo | null
 
 export const StudentsLectures = ({lecturelist, title, load, onClick} : {
   lecturelist : StudentLecturesProp;
@@ -14,17 +15,20 @@ export const StudentsLectures = ({lecturelist, title, load, onClick} : {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }) => {
     const { isPC } = useResponsive();
+    if(lecturelist){
+      console.log(lecturelist.lectureInfos)
+    }
     return (
         load ?
-        lecturelist && lecturelist.length !== 0 ?
+        lecturelist && lecturelist.lectureInfos.length !== 0 ?
           <Wrapper onClick = {onClick}>
             <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
               <FlexBox direction={'column'}>
                 <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>{title}</Text>
                 <LectureContainer >
-                  {Object.values(lecturelist).map((lecture, index) => {
+                  {lecturelist.lectureInfos.map((lecture, index) => {
                     return (
-                      <ListElement  count = {3} key = {index} variant={isPC ? 'PC' : 'mobile'} elements = {lecture}/>
+                      <ListElement count = {3} key = {index} variant={isPC ? 'PC' : 'mobile'} elements = {lecture}/>
                     )
                   })}
                 </LectureContainer >
@@ -46,13 +50,16 @@ const Wrapper = styled.div`
 `
 const LectureContainer = styled.div`
   width: 100%;
-  height : 60px;
   border-radius: 5px;
+  max-height: 50vh;
   display: flex;
+  gap: 8px;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   user-select: none;
   overflow-y: scroll; 
+  padding: 10px;
 
   &::-webkit-scrollbar {
     width: 0px;
@@ -71,10 +78,5 @@ const LectureContainer = styled.div`
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #999;
-  }
-
-  :hover {
-    background-color: lightgrey;
-    cursor: pointer;
   }
 `
