@@ -2,7 +2,7 @@ import axios, { type AxiosResponse } from "axios";
 import {getHeadersWithToken, removeToken} from "@util/AuthFunctions";
 
 const protocol = `https`;
-const host = `api.imhere.im`;
+const host = `dev-api.imhere.im`;
 const statusString = `?status=`;
 
 // member
@@ -79,7 +79,6 @@ export const requestSignIn = async (univId: string, password: string): Promise<s
 
 export const logout = async (): Promise<AxiosResponse | undefined> => {
     const headers = getHeadersWithToken();
-
     if (!headers) {
         return;
     }
