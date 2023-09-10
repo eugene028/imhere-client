@@ -64,7 +64,7 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
                     alert('출석 성공');
                     setBottomOpen();
                 } else {
-                    alert('출석 가능 시간이 만료되었습니다. 멘토님께 문의하세요!');
+                    alert('출석 실패! 출석번호를 확인해주세요.');
                 }
             });
     }
