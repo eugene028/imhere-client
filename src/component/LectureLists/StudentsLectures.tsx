@@ -15,6 +15,9 @@ export const StudentsLectures = ({lecturelist, title, load, onClick} : {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }) => {
     const { isPC } = useResponsive();
+    if(lecturelist){
+      console.log(lecturelist.lectureInfos)
+    }
     return (
         load ?
         lecturelist && lecturelist.lectureInfos.length !== 0 ?

@@ -26,6 +26,7 @@ export const LectureEnrollmentDetail = () => {
             getLectureEnrollmentInfo(lectureId)
                 .then(response => {
                     if (response) {
+                        console.log(response);
                         setEnrollment(response);
                     } else {
                         alert('에러 발생! 관리자에게 문의하세요');
