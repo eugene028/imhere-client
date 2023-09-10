@@ -21,6 +21,20 @@ export const LecturerEnrollment = ({lecturelist, load} : {
       setCurrentLecture(lecture);
       setModalOpen(true);
     }
+
+    lecturelist?.lectureInfos.sort(
+      function(a, b): number{
+          if(a.lectureId > b.lectureId)
+              return 1
+          if (a.lectureId === b.lectureId){
+              return 0
+          }
+          if(a.lectureId< b.lectureId) {
+              return -1
+          }
+          return 0
+      }
+  )
     return (
         load ?
         lecturelist && lecturelist.lectureInfos.length !== 0 ?

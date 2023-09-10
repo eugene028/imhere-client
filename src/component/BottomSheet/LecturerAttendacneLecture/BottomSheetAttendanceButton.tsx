@@ -1,5 +1,4 @@
 import { ButtonSet, Button } from "@ui/components";
-import { useState } from "react";
 import styled from "styled-components";
 import { changeLectureState } from "@lib/api";
 
@@ -35,12 +34,12 @@ export const BottomSheetAttendanceButton = ({
                                     requestLectureStateChange('CLOSED')
                                         .finally(() => {
                                                 setBottomOpen();
-                                                window.location.reload();})}}>강의 닫기</Button>
+                                                })}}>강의 닫기</Button>
                 <Button varient={'regular'} onClick={() => {
                                     requestLectureStateChange('OPEN')
                                         .finally(() => {
                                                 setBottomOpen();
-                                                window.location.reload();})}}>강의 열기</Button>
+                                                })}}>강의 열기</Button>
             </ButtonSet>
         </Wrapper>
         
