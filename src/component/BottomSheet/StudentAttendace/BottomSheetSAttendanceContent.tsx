@@ -5,13 +5,14 @@ import { calculateDistance } from "@util/DistanceCalculator";
 import { requestAttendance } from "@lib/api";
 import { Input } from "@ui/components";
 import { theme } from "@ui/theme";
+import { getSeoulDateNow } from "@util/getSeoulTime";
 
 interface BottomSheetButtonProps {
     lecture: Lecture | null;
     setBottomOpen: () => void;
 }
 export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSheetButtonProps) => {
-    const [attendanceNumber, setAttendanceNumber] = useState<number>();
+    const [attendanceNumber, setAttendanceNumber] = useState<number | string>('');
     const [accuracy, setAccuracy] = useState(-1);
     const [distance, setDistance] = useState(-1);
     
@@ -30,6 +31,9 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
 
     useEffect(() => {
         getDistance();
+        if(attendanceNumber){
+            setAttendanceNumber('')
+        }
     }, []);
     
 
@@ -37,7 +41,7 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
     const requestCurrentLectureAttendance = () => {
         if (!lecture) throw "lecture = null"
 
-        if (attendanceNumber && isNaN(attendanceNumber)) {
+        if (typeof attendanceNumber !== 'number') {
             alert('출석 번호가 숫자가 아닙니다.')
             return;
         }
@@ -52,7 +56,7 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
             attendanceNumber: attendanceNumber,
             distance: String(distance),
             accuracy: String(accuracy),
-            milliseconds: (new Date()).getTime()
+            milliseconds: (getSeoulDateNow()).getTime()
         }
 
         requestAttendance(lecture.lectureId, payload)

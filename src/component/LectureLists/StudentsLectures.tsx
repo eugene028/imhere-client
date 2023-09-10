@@ -36,7 +36,7 @@ export const StudentsLectures = ({lecturelist, title, load, onClick} : {
             </BorderBox>
             </Wrapper>
             :
-                 <Text typo = {'Text_SB_20'}>수강중인 강의가 없습니다.</Text>
+              <Text typo = {'Text_SB_20'}>수강중인 강의가 없습니다.</Text>
             :
             <LoadingSpinner/>
     );
@@ -44,7 +44,7 @@ export const StudentsLectures = ({lecturelist, title, load, onClick} : {
 
 const Wrapper = styled.div`
   width: 990px;
-   ${media.mobile} {
+  ${media.mobile} {
         width: 90vw;
     }
 `

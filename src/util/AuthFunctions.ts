@@ -1,13 +1,3 @@
-
-// export const getAccessToken = () => {
-//     const token = localStorage.getItem('accessToken');
-//     if (!token || !token.expirationTime || token.expirationTime > new Date()) {
-//         localStorage.removeItem('accessToken');
-//         return null;
-//     }
-//     return token;
-// }
-
 const checkTokenExpirationTime = (): boolean => {
     const expirationTime = Number(localStorage.getItem('expirationTime'));
     if (!expirationTime || new Date(expirationTime) < new Date()) {

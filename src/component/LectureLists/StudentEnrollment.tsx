@@ -72,7 +72,6 @@ const Wrapper = styled.div`
 `
 const LectureContainer = styled.div`
   width: 100%;
-  height : 60px;
   border-radius: 5px;
   max-height: 50vh;
   display: flex;
@@ -99,10 +98,5 @@ const LectureContainer = styled.div`
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #999;
-  }
-
-  :hover {
-    background-color: lightgrey;
-    cursor: pointer;
   }
 `

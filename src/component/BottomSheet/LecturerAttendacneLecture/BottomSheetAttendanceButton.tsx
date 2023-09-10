@@ -13,7 +13,6 @@ export const BottomSheetAttendanceButton = ({
 }: BottomSheetButtonProps) => {
     
     if (!lecture) return null;
-    console.log(lecture.lectureState);
     const requestLectureStateChange = async (lectureStateRequest : LectureState) => {
         
         if (lectureStateRequest && lectureStateRequest !== lecture?.lectureState) {

@@ -22,7 +22,6 @@ export const generateVerificationNumber = async (email: string): Promise<boolean
 export const verifyValidateNumber = async (email: string, verificationCode: string): Promise<boolean> => {
     return await axios.get<boolean>(`${protocol}://${host}/member/verification/${email}/${verificationCode}`)
         .then(response => {
-            console.log(response)
             if (response && response.status === 200) {
                 return true;
             }
@@ -79,7 +78,6 @@ export const requestSignIn = async (univId: string, password: string): Promise<s
 
 export const logout = async (): Promise<AxiosResponse | undefined> => {
     const headers = getHeadersWithToken();
-
     if (!headers) {
         return;
     }
