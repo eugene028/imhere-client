@@ -8,6 +8,7 @@ import {getTodayAttendance} from "@lib/api";
 import {StudentAttendanceInfoRow} from  "@page/attendance";
 import {DescriptionRow} from "@page/attendance";
 import {convertJsonToXlsx} from "@util/xlsxConverter";
+import { getSeoulDateNow } from "@util/getSeoulTime";
 
 interface Time {
     year: number,
@@ -101,7 +102,7 @@ export const LecturerAttendancePage = () => {
         if (!checkUserHasRole(['ROLE_ADMIN', 'ROLE_LECTURER'])) {
             navigate(ROUTES.LOGIN);
         }
-        const today = new Date();
+        const today = getSeoulDateNow();
         const timeToday = ({
             year: today.getFullYear(),
             month: today.getMonth() + 1,
@@ -133,7 +134,6 @@ export const LecturerAttendancePage = () => {
             getTodayAttendance(lectureId, milliseconds)
                 .then(response => {
                     if (response && response.attendanceInfos) {
-                        console.log(response.attendanceInfos)
                         setStudentInfos(response.attendanceInfos);
                     }
                 })
@@ -154,22 +154,22 @@ export const LecturerAttendancePage = () => {
                         <TimeSetArea>
                             <YearSelect id='yearSelected' name='year' value={time.year} onChange={handleValue}>
                                 {
-                                    yearList.map(value => {
-                                        return (<option>{value}</option>)
+                                    yearList.map((value,index) => {
+                                        return (<option key={index}>{value}</option>)
                                     })
                                 }
                             </YearSelect>
                             <MonthSelect id='monthSelected' name='month' value={time.month} onChange={handleValue}>
                                 {
-                                    monthList.map(value => {
-                                        return (<option>{value}</option>)
+                                    monthList.map((value,index)=> {
+                                        return (<option key={index}>{value}</option>)
                                     })
                                 }
                             </MonthSelect>
                             <DaySelect id='daySelected' name='day' value={time.day} onChange={handleValue}>
                                 {
-                                    dayList.map(value => {
-                                        return (<option>{value}</option>)
+                                    dayList.map((value,index) => {
+                                        return (<option key={index}>{value}</option>)
                                     })
                                 }
                             </DaySelect>
@@ -184,7 +184,7 @@ export const LecturerAttendancePage = () => {
                             <DescriptionRow/>
                             {studentInfos && Object.values(studentInfos).map((student, index) => {
                                 return (
-                                    <StudentAttendanceInfoRow index={index} student={student}/>
+                                    <StudentAttendanceInfoRow key={index} index={index} student={student}/>
                                 )
                             })}
                         </StudentsArea>

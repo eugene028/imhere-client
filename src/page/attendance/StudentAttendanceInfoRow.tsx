@@ -23,12 +23,13 @@ const StudentRowWrapper = styled.div`
   border-radius: 10px;
 `
 
-interface StudentAttendanceInfoRow {
+interface StudentAttendanceInfoRowProps {
   index: number
   student: AttendanceInfo
 }
 
-export const StudentAttendanceInfoRow = ({index, student}: StudentAttendanceInfoRow) => {
+
+export const StudentAttendanceInfoRow = ({index, student}: StudentAttendanceInfoRowProps) => {
     const {name, univId, timestamp, distance, accuracy} = student;
     const date = new Date(timestamp);
     const dateString = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
