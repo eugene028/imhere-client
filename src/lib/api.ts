@@ -2,7 +2,7 @@ import axios, { type AxiosResponse } from "axios";
 import {getHeadersWithToken, removeToken} from "@util/AuthFunctions";
 
 const protocol = `https`;
-const host = `dev-api.imhere.im`;
+const host = `api.imhere.im`;
 const statusString = `?status=`;
 
 // member
