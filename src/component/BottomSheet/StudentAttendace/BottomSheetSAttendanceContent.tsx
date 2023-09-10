@@ -34,10 +34,8 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
         if(!attendanceNumber){
             setAttendanceNumber('')
         }
-    },[]);
-
-
-
+    }, []);
+    
     const requestCurrentLectureAttendance = () => {
         if (!lecture) throw "lecture = null"
 
