@@ -31,11 +31,11 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
 
     useEffect(() => {
         getDistance();
-        if(attendanceNumber){
+        if(!attendanceNumber){
             setAttendanceNumber('')
         }
-    }, []);
-    
+    },[]);
+
 
 
     const requestCurrentLectureAttendance = () => {
@@ -45,6 +45,7 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
             alert('출석 번호가 숫자가 아닙니다.')
             return;
         }
+        console.log(distance)
 
         if (distance === -1) {
             alert('좌표 정보를 가져오는데 문제가 발생했습니다.\n 좌표 정보를 다시 수집하겠습니다. 다시 출석해주세요');
@@ -65,7 +66,7 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
                     alert('출석 성공');
                     setBottomOpen();
                 } else {
-                    alert('출석 실패');
+                    alert('출석 가능 시간이 만료되었습니다. 멘토님께 문의하세요!');
                 }
             });
     }
@@ -91,10 +92,10 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
                 value={attendanceNumber} placeholder="출석번호를 입력해주세요!"/>
         </Wrapper>
         <ButtonWrapper>
-                <Button varient={'regular'} 
+            {distance === -1 ? (<div>위치 정보 불러오는 중.. </div>): (<Button varient={'regular'} 
                     fullWidth ={false}
                     style={{width: '350px'}}
-                    onClick={() => {requestCurrentLectureAttendance(); setBottomOpen();}}>출석 체크하기</Button>
+                    onClick={() => {requestCurrentLectureAttendance(); setBottomOpen();}}>출석 체크하기</Button>)}
         </ButtonWrapper>
         </>
         
