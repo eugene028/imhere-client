@@ -3,13 +3,14 @@ import LoadingSpinner from "@components/LoadingSpinner";
 import { BorderBox, FlexBox } from '@ui/layout';
 import { ListElement, Text, SpecialButton, BottomSheet } from '@ui/components';
 import { media } from '@ui/theme';
+import { getLecturersOwnedLectures } from "@lib/api";
 import { useState } from "react";
 import { useResponsive } from '@lib/hooks/useResponsive';
 import { BsCheckCircleFill} from 'react-icons/bs';
 import { LectureStatus } from "@components/LectureStatus";
 import { useNavigate } from "react-router-dom";
 import * as ROUTES from "@lib/routes";
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { BottomSheetAttendanceButton, BottomSheetAttendanceContent, BottomSheetAttendanceHeader } from "@components/BottomSheet";
 
 type LecturerLecturesProp = LectureInfo | null
@@ -19,6 +20,7 @@ export const LecturerLectures = ({lecturelist, title, load} : {
   load : Boolean;
   title: String;
 }) => {
+  const [lectures, setLectures] = useState<LectureInfo|null>(lecturelist);
     const navigate = useNavigate();
     const { isPC } = useResponsive();
     const [currentLecture, setCurrentLecture] = useState<Lecture|null>(null);
@@ -26,9 +28,9 @@ export const LecturerLectures = ({lecturelist, title, load} : {
     const onClickLecture = (lecture : any) => {
         setCurrentLecture(lecture);
     }
-    const onClickToggleBottom = useCallback(() => {
+    const onClickToggleBottom = () => {
       setOpen(!open);
-    },[open]) 
+    }
 
     const navigateAttendancePage = (lecture : any) => {
       if (!lecture) {
@@ -40,8 +42,31 @@ export const LecturerLectures = ({lecturelist, title, load} : {
     }
 
     useEffect(() => {
+      getLecturersOwnedLectures()
+            .then(lectureList => {
+                if (lectureList) {
+                    setLectures(lectureList);
+                } else {
+                    alert('에러 발생! 관리자에게 문의하세요');
+                    navigate(ROUTES.MAIN_PAGE);
+                }
+            })
     }, [open]);
 
+
+    lectures?.lectureInfos.sort(
+      function(a, b): number{
+          if(a.lectureId > b.lectureId)
+              return 1
+          if (a.lectureId === b.lectureId){
+              return 0
+          }
+          if(a.lectureId< b.lectureId) {
+              return -1
+          }
+          return 0
+      }
+  )
 
     return (
         (load && lecturelist) ? (
@@ -56,9 +81,9 @@ export const LecturerLectures = ({lecturelist, title, load} : {
                 <FlexBox direction={'column'} fullWidth={true}>
                   <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>{title}</Text>
                   <FlexBox direction={'column'} fullWidth = {true} gap = {20} style={{marginRight: '50px'}} >
-                      {lecturelist.lectureInfos.map((lecture, index) => {
+                      {lectures?.lectureInfos.map((lecture, index) => {
                         return (
-                         <FlexBox key={index} fullWidth = {true} gap={20}>
+                        <FlexBox key={index} fullWidth = {true} gap={20}>
                             <LectureContainer key = {index}>
                             <ListElement  
                               count = {3} 
@@ -84,16 +109,16 @@ export const LecturerLectures = ({lecturelist, title, load} : {
               </BorderBox>
               </Wrapper>
             :
-                 <Text typo = {'Text_SB_20'}>강의중인 강의가 없습니다.</Text>
+              <Text typo = {'Text_SB_20'}>강의중인 강의가 없습니다.</Text>
             )
-                 :
+            :
             <LoadingSpinner/>
     );
 }
 
 const Wrapper = styled.div`
   width: 990px;
-   ${media.mobile} {
+  ${media.mobile} {
         width: 90vw;
     }
 `
