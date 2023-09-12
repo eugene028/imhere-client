@@ -14,7 +14,7 @@ export const LoginPage = () => {
     const [userData, setUserData] = useState({
         univId: '',
         password: '',
-        domain: '',
+        domain: '@gmail.com',
     })
 
     const navigate = useNavigate();
@@ -29,13 +29,14 @@ export const LoginPage = () => {
     }
 
     const signIn = () => {
-        const {univId, password} = userData;
+        const {univId, password, domain} = userData;
         if (!univId || !password) {
             alert('모든 칸을 채워 주세요')
             return null;
         }
+        const userEmail = univId + domain;
 
-        requestSignIn(univId, password)
+        requestSignIn(userEmail, password)
             .then(response => {
                 if (response) {
                     setAccessToken(response);
@@ -56,7 +57,7 @@ export const LoginPage = () => {
                       value={userData.univId} onChange={handleValue}
                       name = 'univId'
                       big={false}
-                     />
+                    />
                     <DomainSelect className='select-domain' 
                       name='domain' 
                       placeholder='도메인 선택' 
