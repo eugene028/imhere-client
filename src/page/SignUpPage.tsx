@@ -98,7 +98,7 @@ export const SignUpPage = () => {
                 .then(response => {
                     if (response) {
                         setLoading(false)
-                        setToast({ comment: '이메일로 온 가입 인증 번호를 10분 안에 입력하세요', type: 'info' });
+                        setToast({ comment: `${email}로 전송된 인증 번호를 10분 안에 입력하세요`, type: 'info' });
                         setInputValidate(true);
                     } else {
                         setLoading(false)

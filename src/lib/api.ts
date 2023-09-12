@@ -131,6 +131,7 @@ export const requestSignIn = async (univId: string, password: string): Promise<s
             }
             return null;
         }).catch(error => {
+            handleApiError(error)
             setToast({ comment: "올바른 id와 비밀번호를 입력해주세요", type: 'error' });
         });
 }

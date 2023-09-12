@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import {useLocation, useNavigate} from 'react-router-dom';
 import * as ROUTES from "@lib/routes";
+import { theme } from "@ui/theme";
 import {checkUserHasRole} from "@util/AuthFunctions";
 import LoadingSpinner from "../../component/LoadingSpinner";
 import {getTodayAttendance} from "@lib/api";
+import { Text } from "@ui/index";
 import {StudentAttendanceInfoRow} from  "@page/attendance";
 import {DescriptionRow} from "@page/attendance";
 import {convertJsonToXlsx} from "@util/xlsxConverter";
@@ -78,9 +80,21 @@ const StudentsArea = styled.div`
   overflow-y: auto;
 `
 
-const YearSelect = styled.select``
-const MonthSelect = styled.select``
-const DaySelect = styled.select``
+const YearSelect = styled.select`
+    background-color: ${theme.palette.background_200};
+    border: 1px solid transparent;
+    padding: 5px;
+`
+const MonthSelect = styled.select`
+    background-color: ${theme.palette.background_200};
+    border: 1px solid transparent;
+    padding: 5px;
+`
+const DaySelect = styled.select`
+    background-color: ${theme.palette.background_200};
+    border: 1px solid transparent;
+    padding: 5px;
+`
 
 export const LecturerAttendancePage = () => {
     const [loading, setLoading] = useState(false);
@@ -174,10 +188,10 @@ export const LecturerAttendancePage = () => {
                                 }
                             </DaySelect>
                             <button type='button' onClick={() => requestGetAttendance(time)}>
-                                search
+                                <Text typo='Text_15'>search</Text>
                             </button>
                             <button type='button' onClick={() => requestConvertJsonToXlsx()}>
-                                download
+                                <Text typo='Text_15'>download</Text>
                             </button>
                         </TimeSetArea>
                         <StudentsArea>
