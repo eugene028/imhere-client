@@ -1,4 +1,5 @@
 import axios, { type AxiosResponse } from "axios";
+import handleApiError from "@lib/hooks/useApiError";
 import {getHeadersWithToken, removeToken} from "@util/AuthFunctions";
 
 const protocol = `https`;
@@ -7,20 +8,27 @@ const statusString = `?status=`;
 
 // member
 export const generateVerificationNumber = async (email: string): Promise<boolean> => {
-    return await axios.post<string>(`${protocol}://${host}/member/verification/${email}`)
+    return await axios.post<string>(`${protocol}://${host}/member/verification?type=sign-up`, {
+        email: email
+    })
         .then(response => {
             if (response && response.status === 200) {
                 return true;
             }
             return false;
         }).catch(error => {
-            console.error('generateVerificationNumber error : ' + error)
+            handleApiError(error)
             return false;
         });
 }
 
 export const verifyValidateNumber = async (email: string, verificationCode: string): Promise<boolean> => {
-    return await axios.get<boolean>(`${protocol}://${host}/member/verification/${email}/${verificationCode}`)
+    return await axios.get<boolean>(`${protocol}://${host}/member/verification`,
+        {params:{
+            email: email,
+            verificationCode: verificationCode
+        }},
+        )
         .then(response => {
             if (response && response.status === 200) {
                 return true;

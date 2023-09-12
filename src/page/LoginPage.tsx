@@ -83,6 +83,7 @@ export const LoginPage = () => {
                       <Button varient={'mini'} fullWidth = {true} onClick ={signUp}>회원가입</Button>
                       <Button varient="mini" fullWidth = {true} onClick ={signIn}>로그인</Button>
                     </ButtonSet>
+                    <Text typo={'Text_10'} color='black_200' style={{cursor:'pointer', textDecoration:'underline'}}onClick={()=>{navigate(ROUTES.FIND_PASSWORD);}}>비밀번호를 잊어버렸나요?</Text>
               </FlexBox>
         </>
     )

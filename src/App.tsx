@@ -10,6 +10,8 @@ import { LectureCreatePage } from "@page/lecture/lecturer/LectureCreatePage";
 import { LogoutButton } from "@page/LogoutButton";
 import { LectureEnrollmentDetail } from '@page/enrollment/[lectureId]';
 import { AttendancePage} from '@page/attendance/AttendancePage';
+import FindPassword from '@page/FindPassword';
+import NoAuthLayout from '@ui/layout/NoAuthLayout';
 function App () {
 
 const Layout = () => {
@@ -24,10 +26,12 @@ const Layout = () => {
         <div className="App">
             <Router>
                 <Routes>
-                    {/*No Auth*/}
-                    <Route path={ROUTES.LOGIN} element={<LoginPage /> }/>
-                    <Route path={ROUTES.SIGN_UP} element={<SignUpPage />}/>
-
+                    <Route path = "/" element = {<NoAuthLayout/>}>
+                        {/*No Auth*/}
+                        <Route path={ROUTES.LOGIN} element={<LoginPage /> }/>
+                        <Route path={ROUTES.SIGN_UP} element={<SignUpPage />}/>
+                        <Route path={ROUTES.FIND_PASSWORD} element={<FindPassword/>}/>
+                    </Route>
                     {/*Need Auth*/}
                     <Route path = "/" element = {<Layout/>}>
                         <Route path={ROUTES.MAIN_PAGE} element={ <MainPage /> }/>

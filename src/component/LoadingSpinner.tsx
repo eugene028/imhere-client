@@ -11,16 +11,19 @@ const spin = keyframes`
 `;
 
 const LoaderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  height: 100%;
+  width : 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  position : absolute;
+  box-sizing: border-box;
+  padding-top: 30px;
 `;
 
 const Loader = styled.div`
   border: 8px solid rgba(0, 0, 0, 0.3);
   border-top-color: lightblue;
   border-radius: 50%;
+  margin: 0 auto;
   width: 81px;
   height: 81px;
   animation: ${spin} 1s ease-in-out infinite;

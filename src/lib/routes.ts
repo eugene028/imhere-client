@@ -1,6 +1,7 @@
 export const LOGIN = "/";
 export const MAIN_PAGE = "/main";
 
+export const FIND_PASSWORD = "/find-password"
 export const SIGN_UP = "/signup";
 // export const EMAIL_VALIDATE_PAGE = "/email-validate";
 
