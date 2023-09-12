@@ -16,7 +16,8 @@ const LoaderWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   position : absolute;
   box-sizing: border-box;
-  padding-top: 30px;
+  display: flex;
+  align-items: center;
 `;
 
 const Loader = styled.div`

@@ -63,6 +63,7 @@ const Wrapper = styled.div`
    ${media.mobile} {
         width: 90vw;
     }
+  position: relative;
 `
 const LectureContainer = styled.div`
   width: 100%;

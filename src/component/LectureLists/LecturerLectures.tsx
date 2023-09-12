@@ -80,7 +80,7 @@ export const LecturerLectures = ({lecturelist, title, load} : {
               <BorderBox fullWidth={true} padding={[10, 10]} className='border'>
                 <FlexBox direction={'column'} fullWidth={true}>
                   <Text typo = {isPC ? 'Header_30': 'Header_25'} style ={{margin: '25px'}}>{title}</Text>
-                  <FlexBox direction={'column'} fullWidth = {true} gap = {20} style={{marginRight: '50px'}} >
+                  <LecturesWrapper>
                       {lectures?.lectureInfos.map((lecture, index) => {
                         return (
                         <FlexBox key={index} fullWidth = {true} gap={20}>
@@ -104,7 +104,7 @@ export const LecturerLectures = ({lecturelist, title, load} : {
                         </FlexBox>
                         )
                       })}
-                    </FlexBox>
+                    </LecturesWrapper>
                 </FlexBox>
               </BorderBox>
               </Wrapper>
@@ -122,6 +122,37 @@ const Wrapper = styled.div`
         width: 90vw;
     }
 `
+const LecturesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 20;
+  padding-right: 40px;
+  height: 50vh;
+  overflow-y: scroll;
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+  }
+`
+
 const LectureContainer = styled.div`
   width: 100%;
   height : 60px;

@@ -55,7 +55,7 @@ export const SignUpPage = () => {
         const {univId, password, passwordCheck, name, checkBox1, checkBox2} = signUpInputData;
         const nameRegex = /^[가-힣]{2,4}$/;
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,20}$/;
-        const univIdRegex = /^[a-zA-Z0-9]+$/;
+        const univIdRegex = /^[a-zA-Z0-9.]+$/;
 
         if (!univIdRegex.test(univId)) {
             setToast({ comment: '이메일 형식이 올바르지 않습니다.', type: 'warning' });

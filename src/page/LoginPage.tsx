@@ -7,9 +7,11 @@ import { setAccessToken } from "@util/AuthFunctions";
 import { Button, ButtonSet, Input, Text } from "@ui/components";
 import { theme } from "@ui/theme";
 import { FlexBox} from "@ui/layout";
+import useToastify from "@lib/hooks/useToastify";
 
 
 export const LoginPage = () => {
+    const { setToast } = useToastify()
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const [userData, setUserData] = useState({
         univId: '',
@@ -31,7 +33,7 @@ export const LoginPage = () => {
     const signIn = () => {
         const {univId, password, domain} = userData;
         if (!univId || !password) {
-            alert('모든 칸을 채워 주세요')
+          setToast({ comment: "모든 칸을 채워주세요.", type: 'warning' });
             return null;
         }
         const userEmail = univId + domain;

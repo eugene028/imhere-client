@@ -1,12 +1,17 @@
 import { LogoutButton } from "@page/LogoutButton"
 import { Outlet } from "react-router-dom"
 import styled from "styled-components"
+import useToastify from "@lib/hooks/useToastify"
 const AuthLayout = () => {
+  const { Toast } = useToastify();
   return (
+    <>
+      <LogoutButton/>
       <Wrapper>
-          <LogoutButton/>
           <Outlet/>
+          <Toast/>
       </Wrapper>
+    </>
   )
 }
 

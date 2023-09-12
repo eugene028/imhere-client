@@ -32,8 +32,9 @@ const handleApiError = (axiosError: AxiosError) => {
   const errorResponse = axiosError.response?.data as CustomErrorResponse;
   const errorSort = filterErrorCode(errorResponse)
   const { errorCode } = errorResponse
+  console.log(axiosError)
   if(errorSort === ""){
-    alert("관리자에게 문의하세요")
+    setToast({ comment: "GDSC 운영진에게 문의하세요", type: 'error' });
     return
   }
   if (ErrorSort.includes(errorSort)) {
@@ -58,7 +59,7 @@ const handleApiError = (axiosError: AxiosError) => {
         break;
     }
   } else {
-      alert('예상치 못한 서버 오류가 발생했어요. 오류가 반복되면 종료 후 다시 실행해주세요.')
+    setToast({ comment: '예상치 못한 서버 오류가 발생했어요. 오류가 반복되면 종료 후 다시 실행해주세요.', type: 'error' });
     }
 }
 
