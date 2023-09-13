@@ -1,6 +1,7 @@
 import { ButtonSet, Button } from "@ui/components";
 import styled from "styled-components";
 import { changeLectureState } from "@lib/api";
+import useToastify from "@lib/hooks/useToastify";
 
 interface BottomSheetButtonProps {
     lecture: Lecture | null;
@@ -10,7 +11,7 @@ export const BottomSheetAttendanceButton = ({
     lecture, 
     setBottomOpen,
 }: BottomSheetButtonProps) => {
-    
+    const { setToast } = useToastify()
     if (!lecture) return null;
     const requestLectureStateChange = async (lectureStateRequest : LectureState) => {
         
@@ -18,12 +19,11 @@ export const BottomSheetAttendanceButton = ({
             await changeLectureState(lecture?.lectureId, lectureStateRequest)
                 .then(response => {
                     if (response) {
-                        alert('강의 출석 번호는 ' + response + '입니다! 잊지 마세요!!\n' +
-                            '출석 번호는 5분간 유효합니다!');
+                        setToast({comment: `강의 출석 번호는 ${response}입니다! 출석은 10분간 유효합니다.`, type:'info'})
                     }
                 })
                 .catch(error => {
-                    alert('에러가 발생했습니다 관리자에게 문의하세요 ' + error);
+                    setToast({comment: '에러 발생! 관리자에게 문의해주세요.', type:'error'})
                 })
         }
     }

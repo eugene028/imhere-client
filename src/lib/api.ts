@@ -1,20 +1,54 @@
 import axios, { type AxiosResponse } from "axios";
+import handleApiError from "@util/handleApiError";
 import {getHeadersWithToken, removeToken} from "@util/AuthFunctions";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+type ToastType = 'info' | 'success' | 'warning' | 'error';
 const protocol = `https`;
-const host = `api.imhere.im`;
+const host = process.env.REACT_APP_BASE_URL
 const statusString = `?status=`;
+
+const setToast = ({
+    type = 'error',
+    comment,
+    ...props
+  }: {
+    type?: ToastType;
+    comment: string;
+  }) => {
+    toast(comment, {
+      type: type, 
+      ...props });
+  };
 
 // member
 export const generateVerificationNumber = async (email: string): Promise<boolean> => {
-    return await axios.post<string>(`${protocol}://${host}/member/verification/${email}`)
+    return await axios.post<string>(`${protocol}://${host}/member/verification?type=sign-up`, {
+        email: email
+    })
         .then(response => {
             if (response && response.status === 200) {
                 return true;
             }
             return false;
         }).catch(error => {
-            console.error('generateVerificationNumber error : ' + error)
+            handleApiError(error)
+            return false;
+        });
+}
+
+export const generateVerificationNumberPassWord = async (email: string): Promise<boolean> => {
+    return await axios.post<string>(`${protocol}://${host}/member/verification?type=password-change`, {
+        email: email
+    })
+        .then(response => {
+            if (response && response.status === 200) {
+                return true;
+            }
+            return false;
+        }).catch(error => {
+            handleApiError(error)
             return false;
         });
 }
@@ -27,30 +61,49 @@ export const verifyValidateNumber = async (email: string, verificationCode: stri
             }
             return false;
         }).catch(error => {
-            console.error('generateVerificationNumber error : ' + error)
+            handleApiError(error)
             return false;
         });
 }
 
-export const signUpNewMember = async (univId: string, name: string, password: string): Promise<boolean> => {
+export const signUpNewMember = async (email: string, name: string, password: string): Promise<boolean> => {
     const payload = {
-        "univId": `${univId}`,
+        "univId": `${email}`,
         "name": `${name}`,
         "password": `${password}`
     }
-
     const headers = {
         'Content-Type': 'application/json'
     }
-
     return await axios.post<string>(`${protocol}://${host}/member/new`, payload, {headers: headers})
+        .then(response => {
+            if (response && response.status === 200) {
+                return true;
+            } return false
+        }).catch(error => {
+            handleApiError(error)
+            return false;
+        });
+}
+
+export const changePassword = async (email: string, verificationCode: string, newPassword: string, confirmationPassword: string): Promise<boolean> => {
+    const payload = {
+        email: email,
+        verificationCode: verificationCode,
+        newPassword: newPassword,
+        confirmationPassword: confirmationPassword
+    }
+    const headers = {
+        'Content-Type': 'application/json'
+    }
+    return await axios.post<string>(`${protocol}://${host}/member/password`, payload, {headers: headers})
         .then(response => {
             if (response && response.status === 200) {
                 return true;
             }
             return false;
         }).catch(error => {
-            console.error('signUpNewMember error : ' + error)
+            handleApiError(error)
             return false;
         });
 }
@@ -72,7 +125,8 @@ export const requestSignIn = async (univId: string, password: string): Promise<s
             }
             return null;
         }).catch(error => {
-            alert('올바른 id와 비밀번호를 입력해주세요')
+            //handleApiError(error)
+            setToast({ comment: "올바른 id와 비밀번호를 입력해주세요", type: 'error' });
         });
 }
 
@@ -85,7 +139,7 @@ export const logout = async (): Promise<AxiosResponse | undefined> => {
     return axios.post(`${protocol}://${host}/logout`, {}, {headers})
         .finally(() => {
             removeToken();
-            alert('로그아웃 완료')
+            setToast({ comment: "로그아웃 완료", type: 'success' });
         });
 }
 

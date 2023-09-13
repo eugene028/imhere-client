@@ -1,38 +1,27 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import {generateVerificationNumber, signUpNewMember, verifyValidateNumber} from "../lib/api";
+import {changePassword, generateVerificationNumberPassWord, verifyValidateNumber} from "../lib/api";
 import {useNavigate} from 'react-router-dom';
 import useToastify from "@lib/hooks/useToastify";
 import * as ROUTES from "@lib/routes";
-import {agreement1, agreement2} from "@util/agreement";
 import { FlexBox, Padding } from "@ui/layout";
-import { Input, Text, Button, Spacing, BottomSheet } from "@ui/components";
+import { Input, Text, Button, Spacing  } from "@ui/components";
 import { theme } from "@ui/theme";
-import { BottomSheetAgreementButton, BottomSheetAgreementContent, BottomSheetAgreementHeader } from '@components/BottomSheet/Agreement';
 import LoadingSpinner from "@components/LoadingSpinner";
 
-export const SignUpPage = () => {
-    const [contents, setContents] = useState(agreement1);
+export const FindPassword = () => {
     const [loading, setLoading] = useState(false)
-    const [open, setOpen] = useState<boolean>(false);
     const [isInputValidate, setInputValidate] = useState(false);
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
-    const [signUpInputData, setSignUpInputData] = useState({
+    const [passwordData, setPasswordInputData] = useState({
         univId: '',
         password: '',
         passwordCheck: '',
-        name: '',
         validateCode: '',
         domain: '@gmail.com',
-        checkBox1: false,
-        checkBox2: false,
     })
     const navigate = useNavigate();
     const { setToast } = useToastify();
-
-    const onClickToggleBottom = useCallback(() => {
-        setOpen(!open);
-      },[open]) 
 
     useEffect(() => {
         setToast({ comment: '비밀번호는 영문자와 숫자를 조합하여 8~20자 이내로 입력해주세요.', type: 'info' });
@@ -40,22 +29,13 @@ export const SignUpPage = () => {
 
     const handleValue: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement> = (event) => {
         const {value, name} = event.target;
-        setSignUpInputData({...signUpInputData, [name]: value});
+        setPasswordInputData({...passwordData, [name]: value});
     }
 
-    const handleCheckbox1Change: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setSignUpInputData({...signUpInputData, 'checkBox1': e.target.checked});
-    };
-
-    const handleCheckbox2Change: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setSignUpInputData({...signUpInputData, 'checkBox2': e.target.checked});
-    };
-
     const validateUserData = () => {
-        const {univId, password, passwordCheck, name, checkBox1, checkBox2} = signUpInputData;
-        const nameRegex = /^[가-힣]{2,4}$/;
+        const {univId, password, passwordCheck } = passwordData;
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,20}$/;
-        const univIdRegex = /^[a-zA-Z0-9]+$/;
+        const univIdRegex = /^[a-zA-Z0-9.]+$/;
 
         if (!univIdRegex.test(univId)) {
             setToast({ comment: '이메일 형식이 올바르지 않습니다.', type: 'warning' });
@@ -71,34 +51,19 @@ export const SignUpPage = () => {
             setToast({ comment: '비밀번호 확인이 일치하지 않아요.', type: 'warning' });
             return false;
         }
-
-        if (!nameRegex.test(name)) {
-            setToast({ comment: '2~4글자의 한글 실명을 입력해주세요.', type: 'warning' });
-            return false;
-        }
-
-        if (!checkBox1) {
-            setToast({ comment: '이용 약관을 읽고 동의해주세요', type: 'warning' });
-            return false;
-        }
-
-        if (!checkBox2) {
-            setToast({ comment: '개인정보수집/이용 동의 약관을 읽고 동의해주세요', type: 'warning' });
-            return false;
-        }
         return true;
     };
 
     const handleInputDataButton = () => {
         if (validateUserData()) {
-            const {univId, domain} = signUpInputData;
+            const {univId, domain} = passwordData;
             const email = univId + domain;
             setLoading(true)
-            generateVerificationNumber(email)
+            generateVerificationNumberPassWord(email)
                 .then(response => {
                     if (response) {
                         setLoading(false)
-                        setToast({ comment: `${email}로 전송된 인증 번호를 10분 안에 입력하세요`, type: 'info' });
+                        setToast({ comment: '이메일로 온 인증 번호를 10분 안에 입력하세요', type: 'info' });
                         setInputValidate(true);
                     } else {
                         setLoading(false)
@@ -108,15 +73,14 @@ export const SignUpPage = () => {
     };
 
     const handleSignUpButton = () => {
-        const {univId, domain, name, password, validateCode} = signUpInputData;
+        const {univId, domain, password, validateCode, passwordCheck} = passwordData;
         const email = univId + domain;
         verifyValidateNumber(email, validateCode)
             .then(response => {
                 if (response === true) {
-                    // univID로 들어감에 유의
-                    signUpNewMember(email, name, password)
+                    changePassword(email, validateCode, password, passwordCheck)
                         .then(() => {
-                            setToast({ comment: '회원가입 해주셔서 감사합니다! 로그인 해주세요', type: 'success' });
+                            setToast({ comment: '비밀번호가 변경되었습니다! 로그인 해주세요', type: 'success' });
                             navigate(ROUTES.LOGIN);
                         })
                         .catch(() => {
@@ -136,26 +100,21 @@ export const SignUpPage = () => {
       {
         !isInputValidate ? (
           <FlexBox direction="column" align="unset" style ={{minWidth: '60vw'}}>
-              {open && (<BottomSheet setBottomOpen={onClickToggleBottom}>
-                  <BottomSheetAgreementHeader/>
-                  <BottomSheetAgreementContent contents={contents} setBottomOpen={onClickToggleBottom}/>
-                  <BottomSheetAgreementButton setBottomOpen={onClickToggleBottom}/>
-              </BottomSheet>)}
               <EmailArea>
                   <Input color={'background_200'} 
                       innershadow={false} height = {35}
-                      placeholder="이메일" value={signUpInputData.univId} onChange={handleValue}
+                      placeholder="이메일" value={passwordData.univId} onChange={handleValue}
                       name = 'univId' big={false}
                   />
                   <DomainSelect className='select-domain' name='domain' placeholder='도메인 선택'
-                      value={signUpInputData.domain} onChange={handleValue}>
+                      value={passwordData.domain} onChange={handleValue}>
                       <option><Text typo ={'Text_15'} color ={'black_200'}>@gmail.com</Text></option>
                   </DomainSelect>
               </EmailArea>
               <Input color={'background_200'} 
                   type={isPasswordHidden ? 'password' : 'text'} innershadow={false} 
-                  height = {35} placeholder="비밀번호"
-                  value={signUpInputData.password} onChange={handleValue}
+                  height = {35} placeholder="새 비밀번호 입력"
+                  value={passwordData.password} onChange={handleValue}
                   name='password' big={false}
                   rightImage = { <ViewButton onClick={() => setIsPasswordHidden(prevState => !prevState)}>
                               {isPasswordHidden ? '👁️' : '🔒'}
@@ -164,54 +123,25 @@ export const SignUpPage = () => {
               <Spacing size={2}/>
               <Input color={'background_200'} 
                   type={isPasswordHidden ? 'password' : 'text'} innershadow={false} 
-                  height = {35} placeholder="비밀번호 확인"
-                  value={signUpInputData.passwordCheck} onChange={handleValue}
+                  height = {35} placeholder="새 비밀번호 확인"
+                  value={passwordData.passwordCheck} onChange={handleValue}
                   name='passwordCheck' big={false}
                   rightImage = { <ViewButton onClick={() => setIsPasswordHidden(prevState => !prevState)}>
                               {isPasswordHidden ? '👁️' : '🔒'}
                               </ViewButton>}
                   />
-              <Spacing size={2}/>
-              <Input color={'background_200'} 
-                      innershadow={false} height = {35}
-                      placeholder="이름" value={signUpInputData.name} onChange={handleValue}
-                      name = 'name' big={false}
-              />
-              <Padding size={[10, 0]}>
-                  <FlexBox justify="space-between">
-                      <Text typo ='Text_10'>이용 약관을 충분히 읽어 보았으며 이에 동의합니다. </Text>
-                      <FlexBox>
-                          <ReadButton onClick={() => {
-                              setOpen(true)
-                              setContents(agreement1);
-                          }}> 이용약관</ReadButton>
-                          <input type="checkbox" name='checkBox1' checked={signUpInputData.checkBox1}
-                                  onChange={handleCheckbox1Change}/>
-                      </FlexBox>
-                  </FlexBox>
-                  <FlexBox justify="space-between" align="center">
-                      <Text typo ='Text_10'>개인정보수집/이용 동의 약관을 충분히 읽었으며 동의합니다. </Text>
-                      <FlexBox>
-                          <ReadButton onClick={() => {
-                              setOpen(true)
-                              setContents(agreement2)
-                          }}> 개인정보약관</ReadButton>
-                          <input type="checkbox" name='checkBox2' checked={signUpInputData.checkBox2}
-                                  onChange={handleCheckbox2Change}/>
-                      </FlexBox>
-                  </FlexBox>
-              </Padding>
+              <Spacing size={10}/>
               <Button  onClick={handleInputDataButton}> 이메일 인증 </Button>
           </FlexBox> )
           : (
           <FlexBox direction="column" align="unset" style ={{minWidth: '60vw'}}>
               <Input color={'background_200'} 
                       innershadow={false} height = {35}
-                      placeholder='메일로 온 인증 코드를 입력하세요' value={signUpInputData.validateCode} 
+                      placeholder='메일로 온 인증 코드를 입력하세요' value={passwordData.validateCode} 
                       onChange={handleValue} name='validateCode' big={false}
                   />
                   <Padding size={[10, 0]}>
-                      <Button  onClick={handleSignUpButton}> 회원가입 </Button>
+                      <Button  onClick={handleSignUpButton}> 비밀번호 변경하기 </Button>
                   </Padding>
           </FlexBox>
           )
@@ -246,13 +176,3 @@ const ViewButton = styled.button`
   display: flex;
   align-items: center;
 `;
-
-
-const ReadButton = styled.button`
-  font-size: 8px;
-  background-color: transparent;
-  padding: 5px;
-  margin-right: 10px;
-  color: ${theme.palette.main_blue};
-  text-decoration: underline;
-`

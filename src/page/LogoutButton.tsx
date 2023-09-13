@@ -25,17 +25,14 @@ export function LogoutButton({ children }: LogoutButtonProps) {
     };
 
     return (
-        <div>
-            <NavBar>
-                <FlexBox >
-                    {params === 'main'?  null : <BackButton/>}
-                    <LogoutBox onClick={() => clickLogoutButton()}>             
-                        <Text typo ={'Header_25'}>Logout</Text>
-                    </LogoutBox>
-                </FlexBox>
-            </NavBar>
-            <main>{children}</main>
-        </div>
+        <NavBar>
+            <FlexBox >
+                {params === 'main'?  null : <BackButton/>}
+                <LogoutBox onClick={() => clickLogoutButton()}>             
+                    <Text typo ={'Header_25'}>Logout</Text>
+                </LogoutBox>
+            </FlexBox>
+        </NavBar>
     );
 }
 
