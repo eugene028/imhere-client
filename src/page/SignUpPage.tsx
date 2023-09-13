@@ -55,7 +55,7 @@ export const SignUpPage = () => {
         const {univId, password, passwordCheck, name, checkBox1, checkBox2} = signUpInputData;
         const nameRegex = /^[가-힣]{2,4}$/;
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,20}$/;
-        const univIdRegex = /^[a-zA-Z0-9.]+$/;
+        const univIdRegex = /^[a-zA-Z0-9]+$/;
 
         if (!univIdRegex.test(univId)) {
             setToast({ comment: '이메일 형식이 올바르지 않습니다.', type: 'warning' });
@@ -114,16 +114,14 @@ export const SignUpPage = () => {
             .then(response => {
                 if (response === true) {
                     // univID로 들어감에 유의
-                    signUpNewMember(univId, name, password)
+                    signUpNewMember(email, name, password)
                         .then(() => {
-                            setToast({ comment: '회원가입 해주셔서 감사합니다. 로그인 해주세요', type: 'info' });
+                            setToast({ comment: '회원가입 해주셔서 감사합니다! 로그인 해주세요', type: 'success' });
                             navigate(ROUTES.LOGIN);
                         })
                         .catch(() => {
                             setToast({ comment: '에러 발생! 관리자에게 문의해주세요.', type: 'error' });
                         })
-                } else {
-                    setToast({ comment: '인증 번호가 달라요', type: 'error' });
                 }
             })
             .catch(() => {

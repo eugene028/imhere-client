@@ -80,14 +80,12 @@ export const FindPassword = () => {
                 if (response === true) {
                     changePassword(email, validateCode, password, passwordCheck)
                         .then(() => {
-                            setToast({ comment: '비밀번호가 변경되었습니다. 로그인 해주세요', type: 'info' });
+                            setToast({ comment: '비밀번호가 변경되었습니다! 로그인 해주세요', type: 'success' });
                             navigate(ROUTES.LOGIN);
                         })
                         .catch(() => {
                             setToast({ comment: '에러 발생! 관리자에게 문의해주세요.', type: 'error' });
                         })
-                } else {
-                    setToast({ comment: '인증 번호가 달라요', type: 'error' });
                 }
             })
             .catch(() => {

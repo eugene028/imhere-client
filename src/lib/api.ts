@@ -54,12 +54,7 @@ export const generateVerificationNumberPassWord = async (email: string): Promise
 }
 
 export const verifyValidateNumber = async (email: string, verificationCode: string): Promise<boolean> => {
-    return await axios.get<boolean>(`${protocol}://${host}/member/verification`,
-        {params:{
-            email: email,
-            verificationCode: verificationCode
-        }},
-        )
+    return await axios.get<boolean>(`${protocol}://${host}/member/verification/${email}/${verificationCode}`)
         .then(response => {
             if (response && response.status === 200) {
                 return true;
@@ -71,9 +66,9 @@ export const verifyValidateNumber = async (email: string, verificationCode: stri
         });
 }
 
-export const signUpNewMember = async (univId: string, name: string, password: string): Promise<boolean> => {
+export const signUpNewMember = async (email: string, name: string, password: string): Promise<boolean> => {
     const payload = {
-        "univId": `${univId}`,
+        "univId": `${email}`,
         "name": `${name}`,
         "password": `${password}`
     }
@@ -84,8 +79,7 @@ export const signUpNewMember = async (univId: string, name: string, password: st
         .then(response => {
             if (response && response.status === 200) {
                 return true;
-            }
-            return false;
+            } return false
         }).catch(error => {
             handleApiError(error)
             return false;
@@ -131,7 +125,7 @@ export const requestSignIn = async (univId: string, password: string): Promise<s
             }
             return null;
         }).catch(error => {
-            handleApiError(error)
+            //handleApiError(error)
             setToast({ comment: "올바른 id와 비밀번호를 입력해주세요", type: 'error' });
         });
 }
