@@ -10,26 +10,31 @@ import { LectureCreatePage } from "@page/lecture/lecturer/LectureCreatePage";
 import { LogoutButton } from "@page/LogoutButton";
 import { LectureEnrollmentDetail } from '@page/enrollment/[lectureId]';
 import { AttendancePage} from '@page/attendance/AttendancePage';
+import { FindPassword } from '@page/FindPassword';
+import NoAuthLayout from '@ui/layout/NoAuthLayout';
+import AuthLayout from '@ui/layout/AuthLayout';
 function App () {
 
-const Layout = () => {
-    return (
-        <>
-            <LogoutButton/>
-            <Outlet/>
-        </>
-    )
-}
+// const Layout = () => {
+//     return (
+//         <>
+//             <LogoutButton/>
+//             <Outlet/>
+//         </>
+//     )
+// }
     return (
         <div className="App">
             <Router>
                 <Routes>
-                    {/*No Auth*/}
-                    <Route path={ROUTES.LOGIN} element={<LoginPage /> }/>
-                    <Route path={ROUTES.SIGN_UP} element={<SignUpPage />}/>
-
+                    <Route path = "/" element = {<NoAuthLayout/>}>
+                        {/*No Auth*/}
+                        <Route path={ROUTES.LOGIN} element={<LoginPage /> }/>
+                        <Route path={ROUTES.SIGN_UP} element={<SignUpPage />}/>
+                        <Route path={ROUTES.FIND_PASSWORD} element={<FindPassword/>}/>
+                    </Route>
                     {/*Need Auth*/}
-                    <Route path = "/" element = {<Layout/>}>
+                    <Route path = "/" element = {<AuthLayout/>}>
                         <Route path={ROUTES.MAIN_PAGE} element={ <MainPage /> }/>
                         <Route path={ROUTES.LECTURES} element={<LecturesPage />}/>
                         <Route path={ROUTES.LECTURE_CREATE} element={ <LectureCreatePage />}/>

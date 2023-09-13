@@ -5,16 +5,18 @@ import {checkUserHasRole} from "@util/AuthFunctions";
 import * as ROUTES from "@lib/routes";
 import {createLecture} from "@lib/api";
 import { Input, Button, Spacing } from "@ui/components";
+import useToastify from "@lib/hooks/useToastify";
 
 export const LectureCreatePage = () => {
     const [lectureName, setLectureName] = useState('');
     const navigate = useNavigate();
+    const { setToast } = useToastify()
 
     useEffect(() => {
         if (!checkUserHasRole(['ROLE_ADMIN', 'ROLE_LECTURER'])) {
             navigate(ROUTES.LOGIN);
         } else {
-            alert('신중하게 만들어주세요!');
+            setToast({comment:'강의 삭제가 불가능하므로 신중히 만들어주세요!', type:'warning'})
         }
     }, []);
 
@@ -27,11 +29,11 @@ export const LectureCreatePage = () => {
         if (lectureName) {
             createLecture(lectureName)
                 .then(response => {
-                    alert('강의 생성이 완료되었습니다.');
-                    navigate(ROUTES.MAIN_PAGE);
+                    setToast({comment:`강의가 생성되었습니다.`, type:'success'})
+                    navigate(ROUTES.LECTURES);
                 })
                 .catch(error => {
-                    alert('에러 발생! 관리자에게 문의하세요')
+                    setToast({comment:'에러 발생! 관리자에게 문의하세요', type:'error'})
                     navigate(ROUTES.MAIN_PAGE);
                 })
 

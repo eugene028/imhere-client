@@ -7,14 +7,16 @@ import { setAccessToken } from "@util/AuthFunctions";
 import { Button, ButtonSet, Input, Text } from "@ui/components";
 import { theme } from "@ui/theme";
 import { FlexBox} from "@ui/layout";
+import useToastify from "@lib/hooks/useToastify";
 
 
 export const LoginPage = () => {
+    const { setToast } = useToastify()
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const [userData, setUserData] = useState({
         univId: '',
         password: '',
-        domain: '',
+        domain: '@gmail.com',
     })
 
     const navigate = useNavigate();
@@ -29,13 +31,14 @@ export const LoginPage = () => {
     }
 
     const signIn = () => {
-        const {univId, password} = userData;
+        const {univId, password, domain} = userData;
         if (!univId || !password) {
-            alert('모든 칸을 채워 주세요')
+          setToast({ comment: "모든 칸을 채워주세요.", type: 'warning' });
             return null;
         }
+        const userEmail = univId + domain;
 
-        requestSignIn(univId, password)
+        requestSignIn(userEmail, password)
             .then(response => {
                 if (response) {
                     setAccessToken(response);
@@ -56,7 +59,7 @@ export const LoginPage = () => {
                       value={userData.univId} onChange={handleValue}
                       name = 'univId'
                       big={false}
-                     />
+                    />
                     <DomainSelect className='select-domain' 
                       name='domain' 
                       placeholder='도메인 선택' 
@@ -82,6 +85,7 @@ export const LoginPage = () => {
                       <Button varient={'mini'} fullWidth = {true} onClick ={signUp}>회원가입</Button>
                       <Button varient="mini" fullWidth = {true} onClick ={signIn}>로그인</Button>
                     </ButtonSet>
+                    <Text typo={'Text_10'} color='black_200' style={{cursor:'pointer', textDecoration:'underline'}}onClick={()=>{navigate(ROUTES.FIND_PASSWORD);}}>비밀번호를 잊어버렸나요?</Text>
               </FlexBox>
         </>
     )

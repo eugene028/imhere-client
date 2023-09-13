@@ -6,6 +6,7 @@ import { requestAttendance } from "@lib/api";
 import { Input } from "@ui/components";
 import { theme } from "@ui/theme";
 import { getSeoulDateNow } from "@util/getSeoulTime";
+import useToastify from "@lib/hooks/useToastify";
 
 interface BottomSheetButtonProps {
     lecture: Lecture | null;
@@ -15,7 +16,7 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
     const [attendanceNumber, setAttendanceNumber] = useState<number | string>('');
     const [accuracy, setAccuracy] = useState(-1);
     const [distance, setDistance] = useState(-1);
-    
+    const { setToast } = useToastify()
     const getDistance = () => {
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -24,7 +25,7 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
                 setDistance(calculateDistance(latitude, longitude));
             },
             error => {
-                alert('위치 정보를 가져오는데 에러가 발생했습니다.')
+                setToast({comment:'위치 정보를 가져오지 못했습니다. 위치 허용을 켜주세요.', type:'error'})
             }
         );
     }
@@ -40,13 +41,13 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
         if (!lecture) throw "lecture = null"
 
         if (typeof attendanceNumber !== 'number') {
-            alert('출석 번호가 숫자가 아닙니다.')
+            setToast({comment:'출석번호는 숫자만 입력 가능합니다.', type:'warning'})
             return;
         }
         console.log(distance)
 
         if (distance === -1) {
-            alert('좌표 정보를 가져오는데 문제가 발생했습니다.\n 좌표 정보를 다시 수집하겠습니다. 다시 출석해주세요');
+            setToast({comment:'위치 정보를 가져오지 못했습니다.', type:'error'})
             getDistance();
             return;
         }
@@ -61,10 +62,10 @@ export const BottomSheetSAttendanceContent = ({lecture, setBottomOpen}: BottomSh
         requestAttendance(lecture.lectureId, payload)
             .then(response => {
                 if (response) {
-                    alert('출석 성공');
+                    setToast({comment:'출석 성공!', type:'success'})
                     setBottomOpen();
                 } else {
-                    alert('출석 실패! 출석번호를 확인해주세요.');
+                    setToast({comment:'출석 실패! 출석번호를 확인해주세요.', type:'error'})
                 }
             });
     }

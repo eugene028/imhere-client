@@ -2,11 +2,13 @@ import { FlexBox } from "@ui/layout"
 import { Tag } from "@ui/components";
 import { useResponsive } from "@lib/hooks/useResponsive";
 import { Spacing } from "@ui/components";
+import useToastify from "@lib/hooks/useToastify";
 
 export const StudentsTags = () => {
+    const { setToast } = useToastify()
     const { isPC } = useResponsive();
     const onClickNonSelected = () => {
-        alert("해당 기능은 아직 개발중입니다.")
+        setToast({comment : '해당 기능은 아직 개발중입니다.', type:'info'})
     }
     return (
         <>

@@ -7,8 +7,10 @@ import {checkUserHasRole} from "@util/AuthFunctions";
 import { media } from '@ui/theme';
 import { FlexBox } from '@ui/layout';
 import { StudentAttendance } from '@components/LectureLists';
+import useToastify from '@lib/hooks/useToastify';
 
 export const OpenLecturesPage = () => {
+    const { setToast } = useToastify();
     const [lectures, setLectures] = useState<LectureInfo>({lectureInfos:[]});
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -18,10 +20,7 @@ export const OpenLecturesPage = () => {
             navigate(ROUTES.LOGIN);
             return;
         }
-        
-        alert('출석 이전에 미리 인터넷과 디바이스의 위치 접근을 허용해주세요.\n현재 위치와 T동 까지의 거리만 측정되고 실제 위치는 저장되지 않습니다.')
-
-
+        setToast({comment: '출석 전 디바이스 위치 접근을 허용해주세요. 현재 위치와 T동까지의 거리가 측정됩니다.', type:'info'})
         getStudentsOpenedLectures()
             .then(lectureList => {
                 if (lectureList) {
@@ -32,7 +31,7 @@ export const OpenLecturesPage = () => {
                         return prevLectures;
                     });
                 } else {
-                    alert('에러 발생! 관리자에게 문의하세요');
+                    setToast({comment: '에러 발생! 관리자에게 문의하세요.', type:'error'})
                     navigate(ROUTES.MAIN_PAGE);
                 }
                 setLoading(true);
