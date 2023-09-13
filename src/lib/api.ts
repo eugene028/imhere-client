@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 type ToastType = 'info' | 'success' | 'warning' | 'error';
 const protocol = `https`;
-const host = process.env.REACT_APP_BASE_URL
+const host = 'api.imhere.im'
 const statusString = `?status=`;
 
 const setToast = ({
